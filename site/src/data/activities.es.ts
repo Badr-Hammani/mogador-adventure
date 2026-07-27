@@ -118,7 +118,7 @@ export const ES: ActivityContent = {
       },
     ],
     imageAlt:
-      "Clase de surf en la playa atlántica de Essaouira con monitor y alumnos en la espuma",
+      "La playa atlántica de Essaouira al amanecer, donde se dan nuestras clases de surf",
   },
 
   camel: {

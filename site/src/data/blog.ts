@@ -42,7 +42,7 @@ export const POSTS: Post[] = [
     id: "best-time-to-ride-dunes",
     date: "2026-06-12",
     relatedActivity: "quad",
-    photo: "quad-sunset-silhouette-dune-essaouira.jpg",
+    photo: "quad-sunset-silhouette-dune-essaouira-wide.jpg",
     copy: {
       en: {
         slug: "best-time-of-day-to-ride-the-dunes-essaouira",
@@ -149,7 +149,7 @@ export const POSTS: Post[] = [
     id: "quad-price-guide",
     date: "2026-06-02",
     relatedActivity: "quad",
-    photo: "quad-fleet-beach-essaouira.jpg",
+    photo: "quad-fleet-beach-essaouira-wide.jpg",
     copy: {
       en: {
         slug: "quad-biking-essaouira-price-guide",
@@ -377,7 +377,7 @@ export const POSTS: Post[] = [
     id: "essaouira-swell-beginners",
     date: "2026-05-08",
     relatedActivity: "surf",
-    photo: "atlantic-beach-sunrise-essaouira.jpg",
+    photo: "atlantic-beach-sunrise-essaouira-wide.jpg",
     copy: {
       en: {
         slug: "beginners-guide-to-essaouira-swell",

@@ -132,7 +132,7 @@ export const FR: ActivityContent = {
       },
     ],
     imageAlt:
-      "Cours de surf sur la plage atlantique d'Essaouira avec moniteur et élèves dans la mousse",
+      "La plage atlantique d'Essaouira aux premières lueurs, là où se déroulent nos cours de surf",
   },
 
   camel: {

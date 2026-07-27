@@ -122,7 +122,7 @@ export const EN: ActivityContent = {
       },
     ],
     imageAlt:
-      "Surf lesson on the Atlantic beach at Essaouira with an instructor and students in the whitewater",
+      "The Atlantic beach at Essaouira at first light, where our surf lessons run",
   },
 
   camel: {

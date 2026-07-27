@@ -34,12 +34,12 @@ export interface QuadVariantCopy {
  * one generic quad shot six times.
  */
 export const QUAD_VARIANT_PHOTOS: Record<QuadVariantKey, string> = {
-  prices: "quad-fleet-beach-essaouira.jpg",
-  sunset: "quad-sunset-silhouette-dune-essaouira.jpg",
-  oneHour: "quad-single-dune-ride-essaouira.jpg",
-  twoHours: "quad-argan-forest-track-essaouira.jpg",
-  halfDay: "quad-far-dunes-essaouira.jpg",
-  diabat: "quad-diabat-borj-el-baroud-essaouira.jpg",
+  prices: "quad-fleet-beach-essaouira-wide.jpg",
+  sunset: "quad-sunset-silhouette-dune-essaouira-wide.jpg",
+  oneHour: "quad-single-dune-ride-essaouira-wide.jpg",
+  twoHours: "quad-argan-forest-track-essaouira-wide.jpg",
+  halfDay: "quad-far-dunes-essaouira-wide.jpg",
+  diabat: "quad-diabat-borj-el-baroud-essaouira-wide.jpg",
 };
 
 const EN: Record<QuadVariantKey, QuadVariantCopy> = {

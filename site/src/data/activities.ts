@@ -42,30 +42,35 @@ export const ACTIVITY_META: Record<ActivityKey, ActivityMeta> = {
   quad: {
     key: "quad",
     icon: "quad",
-    photo: "quad-convoy-dunes-essaouira.jpg",
+    photo: "quad-convoy-dunes-essaouira-wide.jpg",
     order: 1,
     related: ["camel", "horse", "surf"],
   },
-  // No surf, cooking or yoga photos supplied yet — these render the branded
-  // placeholder panel with the shot brief as its label.
+  /*
+   * Surf has no photo of an actual lesson. Rather than leave a placeholder or
+   * invent one, this is a real photograph of the Essaouira beach where the
+   * lessons run — the location, honestly captioned as the location. The alt
+   * text in the activity copy describes the beach, not a lesson, and must stay
+   * that way until a real surf photo exists.
+   */
   surf: {
     key: "surf",
     icon: "surf",
-    photo: null,
+    photo: "atlantic-beach-sunrise-essaouira-wide.jpg",
     order: 2,
     related: ["yoga", "quad", "horse"],
   },
   camel: {
     key: "camel",
     icon: "camel",
-    photo: "camel-train-beach-essaouira.jpg",
+    photo: "camel-train-beach-essaouira-wide.jpg",
     order: 3,
     related: ["quad", "horse", "yoga"],
   },
   horse: {
     key: "horse",
     icon: "horse",
-    photo: "horseback-riding-beach-essaouira.jpg",
+    photo: "horseback-riding-beach-essaouira-wide.jpg",
     order: 4,
     related: ["camel", "quad", "surf"],
   },

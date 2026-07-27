@@ -118,7 +118,7 @@ export const DE: ActivityContent = {
       },
     ],
     imageAlt:
-      "Surfkurs am Atlantikstrand von Essaouira mit Lehrer und Schülern im Weißwasser",
+      "Der Atlantikstrand von Essaouira im ersten Licht, wo unsere Surfkurse stattfinden",
   },
 
   camel: {
