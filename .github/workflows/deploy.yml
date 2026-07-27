@@ -37,6 +37,11 @@ jobs:
       - name: Configure Pages
         id: pages
         uses: actions/configure-pages@v5
+        with:
+          # Turns Pages on and sets the source to GitHub Actions if it isn't
+          # already. Without this the step fails outright on a repo where Pages
+          # has never been enabled, and the build never even starts.
+          enablement: true
 
       # `base_path` is the sub-path GitHub serves the site from — empty for a
       # user/organisation site or a custom domain, "/<repo>" for a project site.
