@@ -3,6 +3,7 @@ import { LANGS, LANG_META, t, type Lang } from "../lib/i18n";
 import { pathFor, pageExistsIn, type PageKey } from "../lib/routes";
 import { SITE, waLink } from "../lib/site";
 import Icon from "./Icon.astro";
+import Flag from "./Flag.astro";
 
 interface Props {
   lang: Lang;
@@ -73,21 +74,44 @@ const wa = waLink(
       }
     </nav>
 
-    <label class="lang-switch">
-      <span class="visually-hidden">{s.lang_label}</span>
-      <select data-lang-switch>
+    {/*
+      A <details> dropdown rather than a <select>: <option> can't contain an
+      SVG flag, and flag emoji don't render on Windows. <details> gives us the
+      open/close behaviour natively — keyboard accessible and working with
+      JavaScript disabled — and each language is a real link, so the switcher
+      is crawlable and middle-click/open-in-new-tab behave normally.
+    */}
+    <details class="lang-switch" data-lang-switch>
+      <summary aria-label={s.lang_label}>
+        <Flag code={lang} size={18} />
+        <span class="lang-code">{lang.toUpperCase()}</span>
+        <span class="lang-chevron" aria-hidden="true">
+          <Icon name="chevron" size={14} stroke={2.4} />
+        </span>
+      </summary>
+      <ul class="lang-menu">
         {
           LANGS.map((code) => {
             const target = altMap.get(code);
-            return target ? (
-              <option value={target} selected={code === lang}>
-                {LANG_META[code].name}
-              </option>
-            ) : null;
+            if (!target) return null;
+            return (
+              <li>
+                <a
+                  href={target}
+                  hreflang={LANG_META[code].htmlLang}
+                  lang={LANG_META[code].htmlLang}
+                  class:list={["lang-option", { current: code === lang }]}
+                  aria-current={code === lang ? "true" : undefined}
+                >
+                  <Flag code={code} size={18} />
+                  <span>{LANG_META[code].name}</span>
+                </a>
+              </li>
+            );
           })
         }
-      </select>
-    </label>
+      </ul>
+    </details>
 
     {
       current !== "book" && (
@@ -171,15 +195,75 @@ const wa = waLink(
     color: var(--accent-dark);
   }
 
-  .lang-switch select {
-    font-family: var(--font-body);
+  .lang-switch {
+    position: relative;
+    flex-shrink: 0;
+  }
+
+  .lang-switch summary {
+    display: flex;
+    align-items: center;
+    gap: 7px;
     font-size: 13px;
+    font-weight: 600;
     border: 1px solid var(--border);
     border-radius: var(--r-pill);
-    padding: 6px 12px;
+    padding: 5px 10px;
     background: var(--surface);
     color: var(--text);
     cursor: pointer;
+    list-style: none;
+    user-select: none;
+  }
+  .lang-switch summary::-webkit-details-marker {
+    display: none;
+  }
+  .lang-switch summary:hover {
+    background: #e2d2b6;
+  }
+
+  .lang-chevron {
+    display: flex;
+    color: var(--accent-dark);
+    transition: transform 0.15s ease;
+  }
+  .lang-switch[open] .lang-chevron {
+    transform: rotate(180deg);
+  }
+
+  .lang-menu {
+    position: absolute;
+    inset-inline-end: 0;
+    top: calc(100% + 6px);
+    z-index: 60;
+    min-width: 168px;
+    background: var(--surface-elevated);
+    border: 1px solid var(--border);
+    border-radius: var(--r-tile);
+    box-shadow: var(--shadow-panel);
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .lang-option {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    font-size: 14px;
+    padding: 8px 10px;
+    border-radius: 10px;
+    white-space: nowrap;
+  }
+  .lang-option:hover {
+    background: var(--accent-tint);
+    color: var(--accent-dark);
+  }
+  .lang-option.current {
+    font-weight: 700;
+    color: var(--accent-dark);
+    background: var(--accent-tint);
   }
 
   .header-cta {
@@ -279,13 +363,21 @@ const wa = waLink(
     }
   });
 
-  // Language switcher: a real navigation to the equivalent localised URL.
-  // Deliberately NOT localStorage + reload — search engines have neither, and
-  // that pattern is why the prototype's four non-English locales were invisible.
-  document
-    .querySelector<HTMLSelectElement>("[data-lang-switch]")
-    ?.addEventListener("change", (event) => {
-      const target = (event.target as HTMLSelectElement).value;
-      if (target) window.location.href = target;
-    });
+  // Language switcher. Each entry is a plain link to the equivalent localised
+  // URL — deliberately NOT localStorage + reload, which is why the prototype's
+  // four non-English locales would have been invisible to search engines.
+  // <details> handles open/close itself; this only adds dismissal.
+  const langSwitch = document.querySelector<HTMLDetailsElement>("[data-lang-switch]");
+
+  document.addEventListener("click", (event) => {
+    if (!langSwitch?.open) return;
+    if (!langSwitch.contains(event.target as Node)) langSwitch.open = false;
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && langSwitch?.open) {
+      langSwitch.open = false;
+      langSwitch.querySelector("summary")?.focus();
+    }
+  });
 </script>

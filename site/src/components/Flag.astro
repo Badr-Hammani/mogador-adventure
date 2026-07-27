@@ -1,0 +1,127 @@
+---
+/**
+ * Inline SVG flags for the language switcher.
+ *
+ * SVG rather than images: vector stays crisp at every size and on every DPI
+ * (sharper than any raster "HD" asset), costs no extra request, and can't 404.
+ * Flag emoji were the obvious alternative but Windows has no flag glyphs — it
+ * renders 🇫🇷 as the letters "FR" in boxes — so they're unusable here.
+ *
+ * Arabic uses the Moroccan flag rather than the usual Saudi one: this is a
+ * Moroccan business and its Arabic-speaking visitors are overwhelmingly local.
+ */
+import type { Lang } from "../lib/i18n";
+
+interface Props {
+  code: Lang;
+  size?: number;
+  class?: string;
+}
+
+const { code, size = 20, class: className = "" } = Astro.props;
+
+const titles: Record<Lang, string> = {
+  en: "English",
+  fr: "Français",
+  es: "Español",
+  de: "Deutsch",
+  ar: "العربية",
+};
+---
+
+<svg
+  class={`flag ${className}`}
+  width={size}
+  height={size}
+  viewBox="0 0 60 60"
+  role="img"
+  aria-label={titles[code]}
+  preserveAspectRatio="xMidYMid slice"
+>
+  {/*
+    Circular masking is done in CSS (.flag { clip-path: circle(50%) }) rather
+    than with an SVG <clipPath>. The current language's flag renders twice on
+    every page — once in the button, once in the menu — and an id-based
+    clipPath would duplicate that id, which is invalid HTML.
+  */}
+  <g>
+    {
+      code === "en" && (
+        <>
+          <rect width="60" height="60" fill="#012169" />
+          {/* White saltire */}
+          <path d="M-8,-8 L68,68 M68,-8 L-8,68" stroke="#fff" stroke-width="12" />
+          {/* Red saltire, thinner, over the white */}
+          <path d="M-8,-8 L68,68 M68,-8 L-8,68" stroke="#C8102E" stroke-width="5" />
+          {/* White cross */}
+          <path d="M30,-8 V68 M-8,30 H68" stroke="#fff" stroke-width="18" />
+          {/* Red cross */}
+          <path d="M30,-8 V68 M-8,30 H68" stroke="#C8102E" stroke-width="11" />
+        </>
+      )
+    }
+
+    {
+      code === "fr" && (
+        <>
+          <rect width="20" height="60" fill="#002395" />
+          <rect x="20" width="20" height="60" fill="#fff" />
+          <rect x="40" width="20" height="60" fill="#ED2939" />
+        </>
+      )
+    }
+
+    {
+      code === "es" && (
+        <>
+          <rect width="60" height="60" fill="#AA151B" />
+          <rect y="15" width="60" height="30" fill="#F1BF00" />
+        </>
+      )
+    }
+
+    {
+      code === "de" && (
+        <>
+          <rect width="60" height="20" fill="#000" />
+          <rect y="20" width="60" height="20" fill="#DD0000" />
+          <rect y="40" width="60" height="20" fill="#FFCE00" />
+        </>
+      )
+    }
+
+    {
+      code === "ar" && (
+        <>
+          <rect width="60" height="60" fill="#C1272D" />
+          {/* Interlaced pentagram of the Moroccan flag */}
+          <path
+            d="M30 18 L35.3 34.3 L21.4 24.2 L38.6 24.2 L24.7 34.3 Z"
+            fill="none"
+            stroke="#006233"
+            stroke-width="2.2"
+            stroke-linejoin="round"
+          />
+        </>
+      )
+    }
+  </g>
+
+  <circle
+    cx="30"
+    cy="30"
+    r="29"
+    fill="none"
+    stroke="rgba(32,30,29,0.22)"
+    stroke-width="2"
+  />
+</svg>
+
+<style>
+  .flag {
+    display: block;
+    flex-shrink: 0;
+    border-radius: 50%;
+    clip-path: circle(50%);
+  }
+</style>
