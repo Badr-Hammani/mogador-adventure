@@ -6,6 +6,7 @@ import { activityCopy, ACTIVITY_META } from "../data/activities";
 import { fromPrice } from "../data/pricing";
 import { money } from "../lib/site";
 import Photo from "../components/Photo.astro";
+import { variant } from "../lib/photos";
 import CTABand from "../components/CTABand.astro";
 import Icon from "../components/Icon.astro";
 
@@ -42,7 +43,7 @@ const relatedLabel: Record<Lang, string> = {
 
   <div class="container">
     <Photo
-      src={post.photo}
+      src={variant(post.photo, "wide")}
       alt={copy.title}
       ratio="16-10"
       icon={meta.icon}

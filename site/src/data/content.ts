@@ -542,6 +542,32 @@ export const GALLERY: GallerySlot[] = [
 ];
 
 
+/**
+ * Photos that lead the gallery, and therefore also fill the six-tile teaser on
+ * the home page.
+ *
+ * Ordering is deliberate: these are the frames with people and strong subjects.
+ * Several of the client's photos are beautiful but sky-dominant (hazy Atlantic
+ * horizons, sunset silhouettes) and read as near-empty at thumbnail size — fine
+ * further down the grid, wrong as the first thing a visitor sees.
+ */
+const GALLERY_LEAD = [
+  "quad-convoy-dunes-essaouira.jpg",
+  "group-quad-tour-beach-essaouira.jpg",
+  "quad-rider-joy-beach-essaouira.jpg",
+  "quads-lined-up-turquoise-beach-essaouira.jpg",
+  "camel-train-beach-essaouira.jpg",
+  "horses-and-quad-trail-essaouira.jpg",
+];
+
+export const ORDERED_GALLERY: GallerySlot[] = [...GALLERY].sort((a, b) => {
+  const rank = (s: GallerySlot) => {
+    const i = s.photo ? GALLERY_LEAD.indexOf(s.photo) : -1;
+    return i === -1 ? Number.MAX_SAFE_INTEGER : i;
+  };
+  return rank(a) - rank(b);
+});
+
 export function localised<T extends Partial<Record<Lang, string>>>(
   field: T,
   lang: Lang,

@@ -4,6 +4,7 @@ import { pathFor } from "../lib/routes";
 import { postsFor, formatDate } from "../data/blog";
 import PageHeader from "../components/PageHeader.astro";
 import Photo from "../components/Photo.astro";
+import { variant } from "../lib/photos";
 import { ACTIVITY_META } from "../data/activities";
 
 interface Props {
@@ -34,7 +35,7 @@ const posts = postsFor(lang).sort(
         <article class="post-card">
           <a href={href} class="post-media" tabindex="-1" aria-hidden="true">
             <Photo
-              src={post.photo}
+              src={variant(post.photo, "wide")}
               alt={copy.title}
               ratio="16-10"
               icon={ACTIVITY_META[post.relatedActivity].icon}

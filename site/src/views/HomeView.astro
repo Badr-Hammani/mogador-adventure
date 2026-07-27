@@ -9,7 +9,8 @@ import {
   packageCopy,
 } from "../data/packages";
 import { PACKAGE_PRICING } from "../data/pricing";
-import { GALLERY, TESTIMONIALS, testimonialText, localised } from "../data/content";
+import { ORDERED_GALLERY, TESTIMONIALS, testimonialText, localised } from "../data/content";
+import { variant } from "../lib/photos";
 import ActivityCard from "../components/ActivityCard.astro";
 import CTABand from "../components/CTABand.astro";
 import Photo from "../components/Photo.astro";
@@ -31,7 +32,7 @@ const heroMessages: Record<Lang, string> = {
   ar: "مرحباً Mogador Adventures! أودّ حجز مغامرة.",
 };
 
-const galleryTeaser = GALLERY.slice(0, 6);
+const galleryTeaser = ORDERED_GALLERY.slice(0, 6);
 const showPackages = pageExistsIn("packages", lang);
 const packages = showPackages ? ORDERED_PACKAGES.slice(0, 3) : [];
 ---
@@ -139,7 +140,7 @@ const packages = showPackages ? ORDERED_PACKAGES.slice(0, 3) : [];
 <section class="container section-sm">
   <div class="grid grid-two">
     <Photo
-      src="quad-couple-dunes-essaouira.jpg"
+      src={variant("quad-couple-dunes-essaouira.jpg", "wide")}
       alt={s.about_title}
       ratio="4-3"
       icon="quad"
@@ -171,7 +172,7 @@ const packages = showPackages ? ORDERED_PACKAGES.slice(0, 3) : [];
       {
         galleryTeaser.map((slot) => (
           <Photo
-            src={slot.photo}
+            src={variant(slot.photo, "sq")}
             alt={localised(slot.label, lang)}
             ratio="1-1"
             shape="tile"

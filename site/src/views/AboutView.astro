@@ -3,6 +3,7 @@ import { t, type Lang } from "../lib/i18n";
 import { ABOUT_STORY, TEAM, localised } from "../data/content";
 import { DEFAULT_LANG } from "../lib/i18n";
 import Photo from "../components/Photo.astro";
+import { variant } from "../lib/photos";
 import CTABand from "../components/CTABand.astro";
 import TrustBar from "../components/TrustBar.astro";
 
@@ -83,7 +84,7 @@ const landscapes: { photo: string | null; alt: Record<Lang, string> }[] = [
   {
     landscapes.map((item) => (
       <Photo
-        src={item.photo}
+        src={variant(item.photo, "wide")}
         alt={item.alt[lang] ?? item.alt.en}
         ratio="4-3"
         icon="camel"
@@ -102,7 +103,7 @@ const landscapes: { photo: string | null; alt: Record<Lang, string> }[] = [
           <article class="team-card">
             <div class="team-photo">
               <Photo
-                src={member.photo}
+                src={variant(member.photo, "sq")}
                 alt={`${member.name} — ${localised(member.role, lang)}`}
                 ratio="1-1"
                 shape="tile"

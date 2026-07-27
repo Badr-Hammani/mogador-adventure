@@ -57,8 +57,20 @@
   --font-display: "Caprasimo", Georgia, serif;
   --font-body: "Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
 
-  /* The washed photo treatment from the handoff. */
-  --photo-filter: saturate(0.6) contrast(0.85) brightness(1.1) opacity(0.94);
+  /*
+   * Photo treatment.
+   *
+   * The handoff specified a heavy wash:
+   *   saturate(.6) contrast(.85) brightness(1.1) opacity(.94)
+   * That was designed against punchy stock imagery. Applied to the client's
+   * actual photos — phone shots with hazy Atlantic skies — it bleached the
+   * gallery tiles into near-blank gradients; the subjects were there but
+   * invisible.
+   *
+   * This keeps a hint of the warm, slightly-muted brand feel while letting the
+   * photographs actually read. Deliberate deviation from the spec.
+   */
+  --photo-filter: saturate(0.94) contrast(1.03) brightness(1.0);
 }
 
 /* Arabic reads better a touch larger at the same nominal size. */
@@ -464,6 +476,17 @@ button {
   overflow: hidden;
   filter: var(--photo-filter);
   background: var(--surface);
+}
+
+/*
+ * Without this, a tile image renders at its natural height inside the
+ * aspect-ratio box and gets clipped from the top — which is why the gallery
+ * showed nothing but sky. .photo-frame had the rule; .photo-tile did not.
+ */
+.photo-tile img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 /*
