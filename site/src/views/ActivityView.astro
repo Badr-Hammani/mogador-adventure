@@ -1,0 +1,322 @@
+---
+import { t, type Lang } from "../lib/i18n";
+import {
+  pathFor,
+  pageExistsIn,
+  type ActivityKey,
+} from "../lib/routes";
+import { waLink, money } from "../lib/site";
+import { activityCopy, ACTIVITY_META } from "../data/activities";
+import { PRICING, fromPrice } from "../data/pricing";
+import { QUAD_VARIANT_ORDER, quadVariantCopy } from "../data/quad-variants";
+import Photo from "../components/Photo.astro";
+import PriceTable from "../components/PriceTable.astro";
+import Accordion from "../components/Accordion.astro";
+import CTABand from "../components/CTABand.astro";
+import TrustBar from "../components/TrustBar.astro";
+import ActivityCard from "../components/ActivityCard.astro";
+import Icon from "../components/Icon.astro";
+
+interface Props {
+  activity: ActivityKey;
+  lang: Lang;
+}
+
+const { activity, lang } = Astro.props;
+const s = t(lang);
+const copy = activityCopy(activity, lang);
+const meta = ACTIVITY_META[activity];
+const options = PRICING[activity] ?? [];
+const price = fromPrice(activity);
+
+const prefixes: Record<Lang, string> = {
+  en: "Hi Mogador Adventures! I'd like to book",
+  fr: "Bonjour Mogador Adventures ! Je souhaite réserver",
+  es: "¡Hola Mogador Adventures! Me gustaría reservar",
+  de: "Hallo Mogador Adventures! Ich möchte gern buchen",
+  ar: "مرحباً Mogador Adventures! أودّ حجز",
+};
+const bookMessage = `${prefixes[lang]}: ${copy.name}.`;
+
+/* The quad silo nav only renders where those sub-pages exist. */
+const showSilo = activity === "quad" && pageExistsIn("quadVariant", lang);
+---
+
+<article>
+  <header class="container activity-head">
+    <span class="icon-badge">
+      <Icon name={meta.icon} size={24} />
+    </span>
+    <h1 class="h1-page">{copy.h1}</h1>
+    <p class="lead activity-intro">{copy.intro}</p>
+
+    <div class="tag-row activity-tags">
+      {copy.tags.map((tag) => <span class="tag">{tag}</span>)}
+    </div>
+
+    <div class="activity-actions">
+      <a
+        href={waLink(bookMessage)}
+        target="_blank"
+        rel="noopener"
+        class="btn btn-primary"
+        data-context={`activity-hero-${activity}`}
+      >
+        {s.cta_book}
+      </a>
+      {
+        price > 0 && (
+          <span class="head-price">
+            {s.from_price}
+            <strong>{money(price)}</strong>
+            <small>{s.per_person}</small>
+          </span>
+        )
+      }
+    </div>
+  </header>
+
+  <div class="container">
+    <Photo
+      src={meta.photo}
+      alt={copy.imageAlt}
+      ratio="16-10"
+      icon={meta.icon}
+      eager
+      widths={[600, 1000, 1400]}
+      sizes="(max-width: 1180px) 100vw, 1130px"
+    />
+  </div>
+
+  <div class="container activity-body">
+    <div class="body-col">
+      {copy.body.map((para) => <p class="body-text">{para}</p>)}
+
+      {
+        showSilo && (
+          <nav class="silo" aria-label={copy.name}>
+            {QUAD_VARIANT_ORDER.map((variant) => (
+              <a
+                href={pathFor("quadVariant", lang, { variant })}
+                class="silo-chip"
+              >
+                {quadVariantCopy(variant, lang).label}
+                <span class="arrow-glyph">→</span>
+              </a>
+            ))}
+          </nav>
+        )
+      }
+
+      <div class="detail-grid">
+        <section class="detail-card">
+          <h2 class="h3">{s.whats_included}</h2>
+          <ul class="check-list">
+            {
+              copy.included.map((item) => (
+                <li>
+                  <Icon name="check" size={15} stroke={2.6} />
+                  <span>{item}</span>
+                </li>
+              ))
+            }
+          </ul>
+        </section>
+
+        <section class="detail-card">
+          <h2 class="h3">{s.what_to_bring}</h2>
+          <ul class="check-list">
+            {
+              copy.bring.map((item) => (
+                <li>
+                  <Icon name="check" size={15} stroke={2.6} />
+                  <span>{item}</span>
+                </li>
+              ))
+            }
+          </ul>
+        </section>
+      </div>
+
+      <section class="meeting">
+        <h2 class="h3">{s.meeting_point}</h2>
+        <p class="body-text">{s.meeting_point_body}</p>
+      </section>
+    </div>
+
+    <aside class="price-col">
+      {
+        options.length > 0 && (
+          <PriceTable lang={lang} options={options} activityName={copy.name} />
+        )
+      }
+      <div class="trust-card">
+        <TrustBar lang={lang} compact />
+      </div>
+    </aside>
+  </div>
+
+  <section class="container section-sm">
+    <h2 class="h2-sm faq-title">{s.activity_faq_title}</h2>
+    <Accordion items={copy.faqs} />
+  </section>
+
+  <section class="band-surface section-sm">
+    <div class="container">
+      <h2 class="h2-sm related-title">{s.related_title}</h2>
+      <div class="grid grid-cards">
+        {meta.related.map((key) => <ActivityCard activity={key} lang={lang} />)}
+      </div>
+    </div>
+  </section>
+</article>
+
+<CTABand lang={lang} context={copy.name} />
+
+<style>
+  .activity-head {
+    padding-block: var(--s6) var(--s5);
+  }
+
+  .activity-head .icon-badge {
+    margin-block-end: var(--s3);
+  }
+
+  .activity-intro {
+    margin-block-start: var(--s3);
+    max-width: 64ch;
+  }
+
+  .activity-tags {
+    margin-block-start: var(--s4);
+  }
+
+  .activity-actions {
+    display: flex;
+    align-items: center;
+    gap: var(--s4);
+    flex-wrap: wrap;
+    margin-block-start: var(--s5);
+  }
+
+  .head-price {
+    font-size: 13px;
+    opacity: 0.75;
+    display: inline-flex;
+    align-items: baseline;
+    gap: 6px;
+  }
+  .head-price strong {
+    font-family: var(--font-display);
+    font-size: 24px;
+    color: var(--accent-dark);
+    opacity: 1;
+  }
+  .head-price small {
+    font-size: 11px;
+  }
+
+  .activity-body {
+    display: grid;
+    grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+    gap: var(--s7);
+    align-items: start;
+    padding-block: var(--s7);
+  }
+
+  .price-col {
+    position: sticky;
+    top: 90px;
+    display: flex;
+    flex-direction: column;
+    gap: var(--s4);
+  }
+
+  .trust-card {
+    background: var(--surface);
+    border-radius: var(--r-card);
+    padding: var(--s4);
+  }
+
+  .silo {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s2);
+    margin-block: var(--s6);
+    padding-block: var(--s5);
+    border-block: 1px solid var(--border-light);
+  }
+
+  .silo-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--accent-tint);
+    color: var(--accent-dark);
+    font-size: 13px;
+    font-weight: 600;
+    padding: 9px var(--s3);
+    border-radius: var(--r-pill);
+    transition: background-color 0.15s ease;
+  }
+  .silo-chip:hover {
+    background: #ffe4d4;
+  }
+
+  .detail-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: var(--s4);
+    margin-block-start: var(--s6);
+  }
+
+  .detail-card {
+    background: var(--surface);
+    border-radius: var(--r-card);
+    padding: var(--s4);
+  }
+  .detail-card .h3 {
+    margin-block-end: var(--s3);
+  }
+
+  .check-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s2);
+  }
+  .check-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--s1);
+    font-size: 14px;
+    line-height: 1.55;
+    opacity: 0.85;
+  }
+  .check-list :global(svg) {
+    color: var(--accent-dark);
+    flex-shrink: 0;
+    margin-block-start: 3px;
+  }
+
+  .meeting {
+    margin-block-start: var(--s6);
+  }
+  .meeting .h3 {
+    margin-block-end: var(--s2);
+  }
+
+  .faq-title,
+  .related-title {
+    margin-block-end: var(--s5);
+  }
+
+  @media (max-width: 900px) {
+    .activity-body {
+      grid-template-columns: 1fr;
+      gap: var(--s6);
+    }
+    .price-col {
+      position: static;
+    }
+  }
+</style>

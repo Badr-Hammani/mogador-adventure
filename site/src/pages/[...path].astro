@@ -1,0 +1,356 @@
+---
+/**
+ * The single router for the whole site.
+ *
+ * Every page in every language is generated from `allPages()`, which also
+ * feeds the sitemap — so URLs, hreflang and the sitemap can never drift apart.
+ */
+import type { GetStaticPaths } from "astro";
+import { t, type Lang } from "../lib/i18n";
+import { pathFor, type PageKey, type PathParams } from "../lib/routes";
+import { allPages, toRouteParam } from "../lib/pages-index";
+import { SITE } from "../lib/site";
+import { photoUrl } from "../lib/photos";
+import {
+  breadcrumbSchema,
+  faqSchema,
+  productSchema,
+  touristTripSchema,
+  articleSchema,
+} from "../lib/schema";
+import { PRICING, PACKAGE_PRICING, isoDuration } from "../data/pricing";
+import { activityCopy, ACTIVITY_META } from "../data/activities";
+import { quadVariantCopy } from "../data/quad-variants";
+import { packageCopy, PACKAGE_META } from "../data/packages";
+import { GENERAL_FAQ, faqText } from "../data/content";
+import { discoverCopy, legalCopy, type LegalKey } from "../data/pages";
+import { POSTS } from "../data/blog";
+
+import Base from "../layouts/Base.astro";
+import Breadcrumbs from "../components/Breadcrumbs.astro";
+
+import HomeView from "../views/HomeView.astro";
+import ActivitiesHubView from "../views/ActivitiesHubView.astro";
+import ActivityView from "../views/ActivityView.astro";
+import QuadVariantView from "../views/QuadVariantView.astro";
+import PackagesView from "../views/PackagesView.astro";
+import PackageView from "../views/PackageView.astro";
+import AboutView from "../views/AboutView.astro";
+import GalleryView from "../views/GalleryView.astro";
+import FaqView from "../views/FaqView.astro";
+import BookView from "../views/BookView.astro";
+import BlogHubView from "../views/BlogHubView.astro";
+import BlogPostView from "../views/BlogPostView.astro";
+import DiscoverView from "../views/DiscoverView.astro";
+import ReviewsView from "../views/ReviewsView.astro";
+import LegalView from "../views/LegalView.astro";
+
+export const getStaticPaths = (() => {
+  return allPages().map((entry) => ({
+    params: { path: toRouteParam(entry.path) },
+    props: {
+      key: entry.key,
+      lang: entry.lang,
+      params: entry.params,
+      path: entry.path,
+      alternates: entry.alternates,
+    },
+  }));
+}) satisfies GetStaticPaths;
+
+interface RouteProps {
+  key: PageKey;
+  lang: Lang;
+  params: PathParams;
+  path: string;
+  alternates: { lang: Lang; path: string }[];
+}
+
+const { key, lang, params, path, alternates } = Astro.props as RouteProps;
+const s = t(lang);
+const site = Astro.site ?? new URL(SITE.domain);
+const absolute = (p: string) => new URL(p, site).toString();
+const canonical = absolute(path);
+
+/* ------------------------------------------------------------------ */
+/* Per-page metadata, breadcrumbs and schema                           */
+/* ------------------------------------------------------------------ */
+
+let title = SITE.name;
+let description = s.hero_sub;
+let ogImage = photoUrl("mogador_hero.jpg", site);
+let ogType: "website" | "article" = "website";
+const schemaNodes: (Record<string, unknown> | null | undefined)[] = [];
+let crumbs: { name: string; href?: string }[] = [];
+let simpleFooter = false;
+
+const homeCrumb = { name: s.breadcrumb_home, href: pathFor("home", lang) };
+
+switch (key) {
+  case "home": {
+    title = `${SITE.name} — ${s.hero_title}`;
+    description = s.hero_sub;
+    break;
+  }
+
+  case "activities": {
+    title = `${s.activities_title} | ${SITE.name}`;
+    description = s.activities_intro;
+    crumbs = [homeCrumb, { name: s.nav_activities }];
+    break;
+  }
+
+  case "activity": {
+    const activity = params.activity!;
+    const copy = activityCopy(activity, lang);
+    const meta = ACTIVITY_META[activity];
+    title = copy.metaTitle;
+    description = copy.metaDescription;
+    ogImage = photoUrl(meta.photo, site) ?? ogImage;
+    crumbs = [
+      homeCrumb,
+      { name: s.nav_activities, href: pathFor("activities", lang) },
+      { name: copy.name },
+    ];
+    schemaNodes.push(
+      productSchema({
+        name: copy.h1,
+        description: copy.metaDescription,
+        url: canonical,
+        image: ogImage,
+        lang,
+        offers: (PRICING[activity] ?? []).map((option) => ({
+          name: `${copy.name} — ${option.label[lang]}`,
+          price: option.price,
+          duration: isoDuration(option.durationMin),
+          url: canonical,
+        })),
+      }),
+      faqSchema(copy.faqs),
+    );
+    break;
+  }
+
+  case "quadVariant": {
+    const variant = params.variant!;
+    const copy = quadVariantCopy(variant, lang);
+    const quad = activityCopy("quad", lang);
+    title = copy.metaTitle;
+    description = copy.metaDescription;
+    ogImage = photoUrl("mogador_group_quad.jpg", site) ?? ogImage;
+    crumbs = [
+      homeCrumb,
+      { name: s.nav_activities, href: pathFor("activities", lang) },
+      { name: quad.name, href: pathFor("activity", lang, { activity: "quad" }) },
+      { name: copy.label },
+    ];
+    const priced = copy.priceKey
+      ? (PRICING.quad ?? []).filter((o) => o.key === copy.priceKey)
+      : (PRICING.quad ?? []);
+    schemaNodes.push(
+      productSchema({
+        name: copy.h1,
+        description: copy.metaDescription,
+        url: canonical,
+        image: ogImage,
+        lang,
+        offers: priced.map((option) => ({
+          name: `${quad.name} — ${option.label[lang]}`,
+          price: option.price,
+          duration: isoDuration(option.durationMin),
+          url: canonical,
+        })),
+      }),
+    );
+    break;
+  }
+
+  case "packages": {
+    title = `${s.packages_title} | ${SITE.name}`;
+    description = s.packages_intro;
+    crumbs = [homeCrumb, { name: s.nav_packages }];
+    break;
+  }
+
+  case "package": {
+    const pkg = params.pkg!;
+    const copy = packageCopy(pkg, lang);
+    const price = PACKAGE_PRICING[pkg];
+    title = copy.metaTitle;
+    description = copy.metaDescription;
+    ogImage =
+      photoUrl(ACTIVITY_META[PACKAGE_META[pkg].activities[0]].photo, site) ??
+      ogImage;
+    crumbs = [
+      homeCrumb,
+      { name: s.nav_packages, href: pathFor("packages", lang) },
+      { name: copy.name },
+    ];
+    schemaNodes.push(
+      touristTripSchema({
+        name: copy.h1,
+        description: copy.metaDescription,
+        url: canonical,
+        price: price.price,
+        lang,
+      }),
+    );
+    break;
+  }
+
+  case "essaouiraActivities": {
+    const copy = discoverCopy(lang);
+    title = copy.metaTitle;
+    description = copy.metaDescription;
+    crumbs = [homeCrumb, { name: copy.h1 }];
+    break;
+  }
+
+  case "about": {
+    title = `${s.about_title} | ${SITE.name}`;
+    description = s.about_body.slice(0, 155);
+    ogImage = photoUrl("mogador_couple_quad.jpg", site) ?? ogImage;
+    crumbs = [homeCrumb, { name: s.nav_about }];
+    break;
+  }
+
+  case "gallery": {
+    title = `${s.gallery_title} | ${SITE.name}`;
+    description = s.gallery_page_sub;
+    crumbs = [homeCrumb, { name: s.nav_gallery }];
+    break;
+  }
+
+  case "faq": {
+    title = `${s.faq_title} | ${SITE.name}`;
+    description = s.faq_sub;
+    crumbs = [homeCrumb, { name: s.nav_faq }];
+    schemaNodes.push(
+      faqSchema(GENERAL_FAQ.map((entry) => faqText(entry, lang))),
+    );
+    break;
+  }
+
+  case "book": {
+    title = `${s.contact_title} | ${SITE.name}`;
+    description = s.contact_sub;
+    simpleFooter = true;
+    crumbs = [homeCrumb, { name: s.nav_contact }];
+    break;
+  }
+
+  case "reviews": {
+    title = `${s.testimonials_title} | ${SITE.name}`;
+    description = s.testimonials_title;
+    crumbs = [homeCrumb, { name: s.testimonials_title }];
+    break;
+  }
+
+  case "blog": {
+    title = `${s.blog_title} | ${SITE.name}`;
+    description = s.blog_sub;
+    crumbs = [homeCrumb, { name: s.nav_blog }];
+    break;
+  }
+
+  case "blogPost": {
+    const post = POSTS.find((p) => p.copy[lang]?.slug === params.post)!;
+    const copy = post.copy[lang]!;
+    title = copy.metaTitle;
+    description = copy.metaDescription;
+    ogType = "article";
+    ogImage = photoUrl(post.photo, site) ?? ogImage;
+    crumbs = [
+      homeCrumb,
+      { name: s.nav_blog, href: pathFor("blog", lang) },
+      { name: copy.title },
+    ];
+    schemaNodes.push(
+      articleSchema({
+        headline: copy.title,
+        description: copy.metaDescription,
+        url: canonical,
+        datePublished: post.date,
+        dateModified: post.updated,
+        image: ogImage,
+        lang,
+      }),
+    );
+    break;
+  }
+
+  case "privacy":
+  case "terms":
+  case "cancellation": {
+    const copy = legalCopy(key as LegalKey, lang);
+    title = copy.metaTitle;
+    description = copy.metaDescription;
+    crumbs = [homeCrumb, { name: copy.title }];
+    break;
+  }
+}
+
+schemaNodes.push(
+  breadcrumbSchema(
+    crumbs.map((crumb, i) => ({
+      name: crumb.name,
+      url: crumb.href ? absolute(crumb.href) : canonical,
+    })),
+  ),
+);
+
+const legalKey = (["privacy", "terms", "cancellation"] as const).includes(
+  key as LegalKey,
+)
+  ? (key as LegalKey)
+  : null;
+const legal = legalKey ? legalCopy(legalKey, lang) : null;
+const blogPost =
+  key === "blogPost"
+    ? POSTS.find((p) => p.copy[lang]?.slug === params.post)!
+    : null;
+---
+
+<Base
+  lang={lang}
+  title={title}
+  description={description}
+  path={path}
+  alternates={alternates}
+  current={key}
+  ogImage={ogImage}
+  ogType={ogType}
+  schemaNodes={schemaNodes}
+  simpleFooter={simpleFooter}
+>
+  {crumbs.length > 1 && <Breadcrumbs crumbs={crumbs} />}
+
+  {key === "home" && <HomeView lang={lang} />}
+  {key === "activities" && <ActivitiesHubView lang={lang} />}
+  {key === "activity" && <ActivityView activity={params.activity!} lang={lang} />}
+  {key === "quadVariant" && <QuadVariantView variant={params.variant!} lang={lang} />}
+  {key === "packages" && <PackagesView lang={lang} />}
+  {key === "package" && <PackageView pkg={params.pkg!} lang={lang} />}
+  {key === "essaouiraActivities" && <DiscoverView lang={lang} />}
+  {key === "about" && <AboutView lang={lang} />}
+  {key === "gallery" && <GalleryView lang={lang} />}
+  {key === "faq" && <FaqView lang={lang} />}
+  {key === "book" && <BookView lang={lang} />}
+  {key === "reviews" && <ReviewsView lang={lang} />}
+  {key === "blog" && <BlogHubView lang={lang} />}
+  {
+    key === "blogPost" && blogPost && (
+      <BlogPostView post={blogPost} copy={blogPost.copy[lang]!} lang={lang} />
+    )
+  }
+  {
+    legal && legalKey && (
+      <LegalView
+        lang={lang}
+        page={legalKey}
+        title={legal.title}
+        sections={legal.sections}
+      />
+    )
+  }
+</Base>

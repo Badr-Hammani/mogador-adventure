@@ -1,0 +1,183 @@
+---
+import { t, type Lang } from "../lib/i18n";
+import { pathFor } from "../lib/routes";
+import { money } from "../lib/site";
+import { ORDERED_PACKAGES, PACKAGE_META, packageCopy } from "../data/packages";
+import { PACKAGE_PRICING } from "../data/pricing";
+import { ACTIVITY_META, activityCopy } from "../data/activities";
+import PageHeader from "../components/PageHeader.astro";
+import CTABand from "../components/CTABand.astro";
+import Icon from "../components/Icon.astro";
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const s = t(lang);
+
+const saveLabel: Record<Lang, string> = {
+  en: "Save",
+  fr: "Économisez",
+  es: "Ahorra",
+  de: "Spare",
+  ar: "وفّر",
+};
+---
+
+<div class="container">
+  <PageHeader
+    kicker={s.packages_kicker}
+    title={s.packages_title}
+    intro={s.packages_intro}
+    centered
+  />
+</div>
+
+<div class="container packages-grid">
+  {
+    ORDERED_PACKAGES.map((key) => {
+      const copy = packageCopy(key, lang);
+      const meta = PACKAGE_META[key];
+      const price = PACKAGE_PRICING[key];
+      const href = pathFor("package", lang, { pkg: key });
+      const saving = price.wasPrice - price.price;
+      return (
+        <article class="package">
+          <div class="package-icons" aria-hidden="true">
+            {meta.activities.map((a) => (
+              <span class="icon-badge icon-badge-sm">
+                <Icon name={ACTIVITY_META[a].icon} size={17} />
+              </span>
+            ))}
+          </div>
+          <h2 class="h3">
+            <a href={href} class="pkg-link">
+              {copy.name}
+            </a>
+          </h2>
+          <p class="package-teaser">{copy.teaser}</p>
+          <ul class="package-includes">
+            {meta.activities.map((a) => (
+              <li>
+                <Icon name="check" size={14} stroke={2.6} />
+                {activityCopy(a, lang).name}
+              </li>
+            ))}
+          </ul>
+          <div class="package-foot">
+            <div>
+              <span class="package-price">{money(price.price)}</span>
+              <s class="package-was">{money(price.wasPrice)}</s>
+              <span class="package-duration">{price.label[lang]}</span>
+            </div>
+            {saving > 0 && (
+              <span class="tag save-tag">
+                {saveLabel[lang]} {money(saving)}
+              </span>
+            )}
+          </div>
+        </article>
+      );
+    })
+  }
+</div>
+
+<CTABand lang={lang} />
+
+<style>
+  .packages-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: var(--s4);
+    padding-block: var(--s5) var(--s9);
+  }
+
+  .package {
+    background: var(--surface);
+    border-radius: var(--r-card);
+    padding: var(--s5);
+    box-shadow: var(--shadow-card);
+    display: flex;
+    flex-direction: column;
+    gap: var(--s2);
+    position: relative;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .package:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-panel);
+  }
+
+  .pkg-link::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: var(--r-card);
+  }
+
+  .package-icons {
+    display: flex;
+    gap: 6px;
+    margin-block-end: var(--s1);
+  }
+
+  .package-teaser {
+    font-size: 14px;
+    opacity: 0.8;
+    line-height: 1.6;
+  }
+
+  .package-includes {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-block-start: var(--s2);
+    flex: 1;
+  }
+  .package-includes li {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 13px;
+    font-weight: 600;
+    opacity: 0.85;
+  }
+  .package-includes :global(svg) {
+    color: var(--accent-dark);
+    flex-shrink: 0;
+  }
+
+  .package-foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--s2);
+    flex-wrap: wrap;
+    margin-block-start: var(--s3);
+    padding-block-start: var(--s3);
+    border-top: 1px solid var(--border-light);
+  }
+
+  .package-price {
+    font-family: var(--font-display);
+    font-size: 24px;
+    color: var(--accent-dark);
+  }
+  .package-was {
+    font-size: 13px;
+    opacity: 0.5;
+    margin-inline-start: 6px;
+  }
+  .package-duration {
+    display: block;
+    font-size: 12px;
+    opacity: 0.6;
+    margin-block-start: 2px;
+  }
+
+  .save-tag {
+    background: var(--accent-tint);
+    color: var(--accent-dark);
+  }
+</style>

@@ -1,0 +1,73 @@
+---
+import { t, type Lang } from "../lib/i18n";
+import Icon from "./Icon.astro";
+
+/**
+ * The four things that actually close a booking in this market: no deposit,
+ * free cancellation, pickup included, local guides. Competitors bury these in
+ * an FAQ; putting them above the fold is a conversion decision, not decoration.
+ */
+interface Props {
+  lang: Lang;
+  compact?: boolean;
+}
+
+const { lang, compact = false } = Astro.props;
+const s = t(lang);
+
+const items = [
+  { icon: "check" as const, title: s.trust_no_deposit, sub: s.trust_no_deposit_sub },
+  { icon: "clock" as const, title: s.trust_cancel, sub: s.trust_cancel_sub },
+  { icon: "pin" as const, title: s.trust_pickup, sub: s.trust_pickup_sub },
+  { icon: "star" as const, title: s.trust_local, sub: s.trust_local_sub },
+];
+---
+
+<div class:list={["trust-bar", { compact }]}>
+  {
+    items.map((item) => (
+      <div class="trust-item">
+        <span class="icon-badge icon-badge-sm">
+          <Icon name={item.icon} size={17} stroke={2.4} />
+        </span>
+        <div>
+          <strong>{item.title}</strong>
+          {!compact && <span>{item.sub}</span>}
+        </div>
+      </div>
+    ))
+  }
+</div>
+
+<style>
+  .trust-bar {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+    gap: var(--s4);
+  }
+
+  .trust-item {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--s2);
+  }
+
+  .trust-item strong {
+    display: block;
+    font-size: 14px;
+    font-weight: 700;
+  }
+
+  .trust-item span {
+    display: block;
+    font-size: 13px;
+    opacity: 0.7;
+    line-height: 1.5;
+    margin-block-start: 2px;
+  }
+
+  .compact {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: var(--s3);
+  }
+</style>

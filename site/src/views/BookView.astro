@@ -1,0 +1,475 @@
+---
+import { t, type Lang } from "../lib/i18n";
+import { SITE, telLink } from "../lib/site";
+import { CONFIG, hasFormBackend } from "../lib/config";
+import { ORDERED_ACTIVITIES, activityCopy } from "../data/activities";
+import PageHeader from "../components/PageHeader.astro";
+import TrustBar from "../components/TrustBar.astro";
+import Icon from "../components/Icon.astro";
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const s = t(lang);
+
+const activities = ORDERED_ACTIVITIES.map((key) => ({
+  key,
+  name: activityCopy(key, lang).name,
+}));
+
+const greetings: Record<Lang, string> = {
+  en: "Hi Mogador Adventures! I'd like to book an adventure.",
+  fr: "Bonjour Mogador Adventures ! Je souhaite réserver une aventure.",
+  es: "¡Hola Mogador Adventures! Me gustaría reservar una aventura.",
+  de: "Hallo Mogador Adventures! Ich möchte gern ein Abenteuer buchen.",
+  ar: "مرحباً Mogador Adventures! أودّ حجز مغامرة.",
+};
+
+const fieldLabels: Record<Lang, Record<string, string>> = {
+  en: { name: "Name", email: "Email", activity: "Activity", date: "Date", people: "People", note: "Note" },
+  fr: { name: "Nom", email: "Email", activity: "Activité", date: "Date", people: "Personnes", note: "Message" },
+  es: { name: "Nombre", email: "Correo", activity: "Actividad", date: "Fecha", people: "Personas", note: "Nota" },
+  de: { name: "Name", email: "E-Mail", activity: "Aktivität", date: "Datum", people: "Personen", note: "Notiz" },
+  ar: { name: "الاسم", email: "البريد", activity: "النشاط", date: "التاريخ", people: "الأشخاص", note: "ملاحظة" },
+};
+
+const subjects: Record<Lang, string> = {
+  en: "Booking inquiry",
+  fr: "Demande de réservation",
+  es: "Consulta de reserva",
+  de: "Buchungsanfrage",
+  ar: "طلب حجز",
+};
+
+const contactHeading: Record<Lang, string> = {
+  en: "Or reach us directly",
+  fr: "Ou contactez-nous directement",
+  es: "O contáctanos directamente",
+  de: "Oder erreiche uns direkt",
+  ar: "أو تواصل معنا مباشرة",
+};
+
+const mapLabel: Record<Lang, string> = {
+  en: "Where we are",
+  fr: "Où nous sommes",
+  es: "Dónde estamos",
+  de: "Wo wir sind",
+  ar: "أين نحن",
+};
+
+const successMsg: Record<Lang, string> = {
+  en: "Thanks — we've got your details and we'll reply on WhatsApp shortly.",
+  fr: "Merci — nous avons vos informations et nous vous répondons sur WhatsApp très vite.",
+  es: "Gracias — tenemos tus datos y te responderemos por WhatsApp enseguida.",
+  de: "Danke — wir haben deine Angaben und melden uns gleich per WhatsApp.",
+  ar: "شكراً — وصلتنا بياناتك وسنردّ عليك على واتساب قريباً.",
+};
+
+const config = {
+  waNumber: SITE.whatsappNumber,
+  email: SITE.email,
+  greeting: greetings[lang],
+  labels: fieldLabels[lang],
+  subject: subjects[lang],
+  errRequired: s.form_required,
+  errEmail: s.form_invalid_email,
+  formKey: CONFIG.web3formsKey,
+  success: successMsg[lang],
+};
+
+const mapSrc = `https://www.openstreetmap.org/export/embed.html?bbox=${SITE.geo.lng - 0.05}%2C${SITE.geo.lat - 0.03}%2C${SITE.geo.lng + 0.05}%2C${SITE.geo.lat + 0.03}&layer=mapnik&marker=${SITE.geo.lat}%2C${SITE.geo.lng}`;
+---
+
+<div class="container">
+  <PageHeader
+    kicker={s.contact_kicker}
+    title={s.contact_title}
+    intro={s.contact_sub}
+    centered
+  />
+</div>
+
+<div class="container book-layout">
+  <section class="form-panel">
+    <h2 class="h3 form-title">{s.form_title}</h2>
+    <p class="form-hint">{s.form_hint}</p>
+
+    <form id="booking-form" novalidate>
+      <div class="field">
+        <label class="field-label" for="f-name">{s.form_name} *</label>
+        <input class="input" id="f-name" name="name" type="text" autocomplete="name" required />
+        <span class="field-error" data-error-for="name"></span>
+      </div>
+
+      <div class="field">
+        <label class="field-label" for="f-email">{s.form_email}</label>
+        <input class="input" id="f-email" name="email" type="email" autocomplete="email" />
+        <span class="field-error" data-error-for="email"></span>
+      </div>
+
+      <div class="field">
+        <label class="field-label" for="f-activity">{s.form_activity} *</label>
+        <select class="select" id="f-activity" name="activity" required>
+          <option value="">{s.form_activity_placeholder}</option>
+          {activities.map((a) => <option value={a.name}>{a.name}</option>)}
+          <option value={s.form_not_sure}>{s.form_not_sure}</option>
+        </select>
+        <span class="field-error" data-error-for="activity"></span>
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label class="field-label" for="f-date">{s.form_date}</label>
+          <input class="input" id="f-date" name="date" type="date" />
+        </div>
+        <div class="field">
+          <label class="field-label" for="f-people">{s.form_people}</label>
+          <input class="input" id="f-people" name="people" type="number" min="1" max="30" value="2" />
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="field-label" for="f-message">{s.form_message}</label>
+        <textarea class="textarea" id="f-message" name="message" rows="3"></textarea>
+      </div>
+
+      <div class="form-actions">
+        <a
+          id="wa-submit"
+          class="btn btn-primary btn-block"
+          href={`https://wa.me/${SITE.whatsappNumber}`}
+          target="_blank"
+          rel="noopener"
+          data-context="booking-form"
+        >
+          <Icon name="whatsapp" size={18} stroke={2} />
+          {s.form_submit_wa}
+        </a>
+        <a id="mail-submit" class="btn btn-outline btn-block" href={`mailto:${SITE.email}`}>
+          {s.form_submit_email}
+        </a>
+      </div>
+
+      <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
+    </form>
+
+    <div class="reply-note">
+      <Icon name="check" size={15} stroke={2.6} />
+      {s.trust_reply}
+    </div>
+  </section>
+
+  <aside class="contact-panel">
+    <h2 class="h3">{contactHeading[lang]}</h2>
+    <ul class="contact-list">
+      <li>
+        <a href={telLink()} class="contact-row">
+          <span class="icon-badge icon-badge-sm"><Icon name="phone" size={17} /></span>
+          <span>
+            <strong>{SITE.phone}</strong>
+            <small>{s.reply_time}</small>
+          </span>
+        </a>
+      </li>
+      <li>
+        <a href={`mailto:${SITE.email}`} class="contact-row">
+          <span class="icon-badge icon-badge-sm"><Icon name="whatsapp" size={17} stroke={2} /></span>
+          <span>
+            <strong>{SITE.email}</strong>
+            <small>{s.footer_contact}</small>
+          </span>
+        </a>
+      </li>
+      <li>
+        <a href={SITE.social.instagram} target="_blank" rel="noopener" class="contact-row">
+          <span class="icon-badge icon-badge-sm"><Icon name="instagram" size={17} stroke={2} /></span>
+          <span>
+            <strong>{SITE.social.instagramHandle}</strong>
+            <small>Instagram</small>
+          </span>
+        </a>
+      </li>
+      <li>
+        <a href={SITE.social.tiktok} target="_blank" rel="noopener" class="contact-row">
+          <span class="icon-badge icon-badge-sm"><Icon name="tiktok" size={17} stroke={2} /></span>
+          <span>
+            <strong>{SITE.social.tiktokHandle}</strong>
+            <small>TikTok</small>
+          </span>
+        </a>
+      </li>
+      <li>
+        <div class="contact-row">
+          <span class="icon-badge icon-badge-sm"><Icon name="pin" size={17} /></span>
+          <span>
+            <strong>{SITE.address.locality}, {SITE.address.countryName}</strong>
+            <small>{SITE.areaServed.slice(0, 4).join(" · ")}</small>
+          </span>
+        </div>
+      </li>
+    </ul>
+
+    <h3 class="map-heading">{mapLabel[lang]}</h3>
+    <iframe
+      class="map"
+      src={mapSrc}
+      title={`${SITE.name} — ${SITE.address.locality}`}
+      loading="lazy"
+      referrerpolicy="no-referrer-when-downgrade"></iframe>
+
+    <div class="trust-card">
+      <TrustBar lang={lang} compact />
+    </div>
+  </aside>
+</div>
+
+<script define:vars={{ config }}>
+  const form = document.getElementById("booking-form");
+  const waBtn = document.getElementById("wa-submit");
+  const mailBtn = document.getElementById("mail-submit");
+  const status = document.getElementById("form-status");
+
+  const read = () => ({
+    name: form.name.value.trim(),
+    email: form.email.value.trim(),
+    activity: form.activity.value,
+    date: form.date.value,
+    people: form.people.value,
+    message: form.message.value.trim(),
+  });
+
+  const buildMessage = () => {
+    const v = read();
+    const L = config.labels;
+    const lines = [config.greeting, ""];
+    if (v.name) lines.push(`${L.name}: ${v.name}`);
+    if (v.email) lines.push(`${L.email}: ${v.email}`);
+    if (v.activity) lines.push(`${L.activity}: ${v.activity}`);
+    if (v.date) lines.push(`${L.date}: ${v.date}`);
+    if (v.people) lines.push(`${L.people}: ${v.people}`);
+    if (v.message) lines.push(`${L.note}: ${v.message}`);
+    return lines.join("\n");
+  };
+
+  const setError = (field, message) => {
+    const el = form.querySelector(`[data-error-for="${field}"]`);
+    if (el) el.textContent = message || "";
+  };
+
+  const validate = ({ silent } = { silent: true }) => {
+    const v = read();
+    let ok = true;
+
+    if (!v.name) {
+      if (!silent) setError("name", config.errRequired);
+      ok = false;
+    } else setError("name", "");
+
+    if (!v.activity) {
+      if (!silent) setError("activity", config.errRequired);
+      ok = false;
+    } else setError("activity", "");
+
+    // Email is optional, but if provided it must look like an email.
+    if (v.email && !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.email)) {
+      if (!silent) setError("email", config.errEmail);
+      ok = false;
+    } else setError("email", "");
+
+    return ok;
+  };
+
+  const refreshLinks = () => {
+    const text = encodeURIComponent(buildMessage());
+    waBtn.href = `https://wa.me/${config.waNumber}?text=${text}`;
+    mailBtn.href = `mailto:${config.email}?subject=${encodeURIComponent(
+      config.subject,
+    )}&body=${text}`;
+  };
+
+  /**
+   * Fire-and-forget copy of the enquiry to the form backend, so a lead is
+   * recorded even if the visitor never completes the WhatsApp handoff.
+   * Silent by design — it must never block the WhatsApp link from opening.
+   */
+  const logLead = async () => {
+    if (!config.formKey) return;
+    const v = read();
+    try {
+      await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({
+          access_key: config.formKey,
+          subject: `${config.subject} — ${v.name || "no name"}`,
+          from_name: "Mogador Adventures website",
+          ...v,
+          page: window.location.href,
+        }),
+      });
+      if (status) status.textContent = config.success;
+    } catch {
+      /* Never block the booking on analytics plumbing. */
+    }
+  };
+
+  form.addEventListener("input", () => {
+    validate({ silent: true });
+    refreshLinks();
+  });
+  form.addEventListener("change", () => {
+    validate({ silent: true });
+    refreshLinks();
+  });
+  form.addEventListener("submit", (e) => e.preventDefault());
+
+  [waBtn, mailBtn].forEach((btn) => {
+    btn.addEventListener("click", (event) => {
+      if (!validate({ silent: false })) {
+        event.preventDefault();
+        form.querySelector(".field-error:not(:empty)")?.scrollIntoView({
+          behavior: "smooth",
+          block: "center",
+        });
+        return;
+      }
+      refreshLinks();
+      logLead();
+    });
+  });
+
+  refreshLinks();
+</script>
+
+<style>
+  .book-layout {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: var(--s7);
+    align-items: start;
+    padding-block: var(--s3) var(--s9);
+  }
+
+  .form-panel {
+    background: var(--surface);
+    border-radius: var(--r-card);
+    padding: var(--s6);
+    box-shadow: var(--shadow-panel);
+  }
+
+  .form-title {
+    margin-block-end: var(--s1);
+  }
+  .form-hint {
+    font-size: 13px;
+    opacity: 0.7;
+    line-height: 1.6;
+    margin-block-end: var(--s5);
+  }
+
+  .field-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--s3);
+  }
+
+  .form-actions {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s2);
+    margin-block-start: var(--s4);
+  }
+
+  .form-status:not(:empty) {
+    font-size: 13px;
+    color: var(--sage-dark);
+    font-weight: 600;
+    margin-block-start: var(--s3);
+  }
+
+  .reply-note {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 12px;
+    opacity: 0.7;
+    margin-block-start: var(--s4);
+    justify-content: center;
+  }
+  .reply-note :global(svg) {
+    color: var(--accent-dark);
+  }
+
+  .contact-panel {
+    background: var(--surface);
+    border-radius: var(--r-card);
+    padding: var(--s6);
+  }
+
+  .contact-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s3);
+    margin-block: var(--s4) var(--s6);
+  }
+
+  .contact-row {
+    display: flex;
+    align-items: center;
+    gap: var(--s2);
+  }
+  .contact-row strong {
+    display: block;
+    font-size: 14px;
+  }
+  .contact-row small {
+    display: block;
+    font-size: 12px;
+    opacity: 0.6;
+    margin-block-start: 1px;
+  }
+  a.contact-row:hover strong {
+    color: var(--accent-dark);
+  }
+
+  .map-heading {
+    font-family: var(--font-body);
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 700;
+    opacity: 0.55;
+    margin-block-end: var(--s2);
+  }
+
+  .map {
+    width: 100%;
+    height: 220px;
+    border: 0;
+    border-radius: var(--r-card);
+    background: var(--surface-elevated);
+  }
+
+  .trust-card {
+    margin-block-start: var(--s5);
+    padding-block-start: var(--s5);
+    border-top: 1px solid var(--border-light);
+  }
+
+  @media (max-width: 760px) {
+    .book-layout {
+      grid-template-columns: 1fr;
+      gap: var(--s5);
+    }
+    .form-panel,
+    .contact-panel {
+      padding: var(--s5);
+    }
+    .field-row {
+      grid-template-columns: 1fr;
+      gap: 0;
+    }
+  }
+</style>

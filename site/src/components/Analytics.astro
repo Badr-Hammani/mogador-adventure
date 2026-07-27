@@ -1,0 +1,67 @@
+---
+import { CONFIG, hasAnalytics } from "../lib/config";
+
+/**
+ * GA4 + conversion tracking.
+ *
+ * The important part is not pageviews — it's `whatsapp_click`. WhatsApp is
+ * where bookings actually happen, so without this event there is no way to
+ * know which pages produce revenue and which just produce traffic.
+ */
+const gaId = CONFIG.ga4Id;
+---
+
+{
+  CONFIG.googleSiteVerification && (
+    <meta
+      name="google-site-verification"
+      content={CONFIG.googleSiteVerification}
+    />
+  )
+}
+
+{
+  hasAnalytics() && (
+    <>
+      <script
+        async
+        src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}
+      />
+      <script is:inline define:vars={{ gaId }}>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() {
+          window.dataLayer.push(arguments);
+        }
+        window.gtag = gtag;
+        gtag("js", new Date());
+        gtag("config", gaId, { anonymize_ip: true });
+      </script>
+    </>
+  )
+}
+
+<script>
+  // Track every outbound WhatsApp / phone / email click, labelled with the
+  // page and activity it came from. Safe no-op when analytics is not configured.
+  function track(name: string, params: Record<string, unknown>) {
+    const gtag = (window as any).gtag;
+    if (typeof gtag === "function") gtag("event", name, params);
+  }
+
+  document.addEventListener("click", (event) => {
+    const target = (event.target as HTMLElement | null)?.closest("a");
+    if (!target) return;
+    const href = target.getAttribute("href") ?? "";
+
+    if (href.startsWith("https://wa.me/")) {
+      track("whatsapp_click", {
+        page_path: window.location.pathname,
+        context: target.dataset.context ?? "unknown",
+      });
+    } else if (href.startsWith("tel:")) {
+      track("phone_click", { page_path: window.location.pathname });
+    } else if (href.startsWith("mailto:")) {
+      track("email_click", { page_path: window.location.pathname });
+    }
+  });
+</script>

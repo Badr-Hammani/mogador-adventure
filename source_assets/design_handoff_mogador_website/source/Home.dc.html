@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caprasimo:wght@400&family=Figtree:wght@400;600;700&display=swap">
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; }
+  ::selection { background: rgba(198,113,57,0.3); }
+  a { text-decoration: none; }
+</style>
+<script src="./i18n.js"></script>
+<script src="./image-slot.js"></script>
+</helmet>
+
+<div style="background:#f5ead8;color:#201e1d;font-family:'Figtree',sans-serif;min-height:100vh;direction:{{ t.dir }}">
+
+  <header style="position:sticky;top:0;z-index:40;background:rgba(245,234,216,0.92);backdrop-filter:blur(6px);border-bottom:1px solid rgba(32,30,29,0.10)">
+    <div style="max-width:1180px;margin:0 auto;display:flex;align-items:center;gap:17.6px;padding:13.2px 26.4px">
+      <a href="./Home.dc.html" style="font-family:'Caprasimo',serif;font-size:20px;color:#201e1d;margin-right:auto">Mogador Adventures</a>
+      <nav style="display:none;gap:26.4px;align-items:center" data-desktop-nav="1">
+        <sc-for list="{{ navLinks }}" as="link" hint-placeholder-count="7">
+          <a href="{{ link.href }}" style="font-size:14px;color:{{ link.color }};font-weight:600">{{ link.label }}</a>
+        </sc-for>
+      </nav>
+      <select onchange="{{ onLangChange }}" value="{{ lang }}" style="font-family:'Figtree',sans-serif;font-size:13px;border:1px solid rgba(32,30,29,0.16);border-radius:999px;padding:6px 12px;background:#ebddc5;color:#201e1d;cursor:pointer">
+        <sc-for list="{{ langOptions }}" as="opt" hint-placeholder-count="5">
+          <option value="{{ opt.code }}">{{ opt.name }}</option>
+        </sc-for>
+      </select>
+      <a href="{{ waHref }}" target="_blank" rel="noopener" style="display:none;align-items:center;gap:6px;background:#c67139;color:#f5ead8;font-family:'Caprasimo',serif;font-size:13px;padding:8.8px 17.6px;border-radius:999px;white-space:nowrap" data-desktop-cta="1" style-hover="background:#b2622d">{{ t.nav_contact }}</a>
+      <button onclick="{{ toggleMobile }}" aria-label="Menu" style="display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:999px;border:1px solid rgba(32,30,29,0.16);background:transparent;cursor:pointer" data-mobile-toggle="1">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#201e1d" stroke-width="2.5" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+      </button>
+    </div>
+    <sc-if value="{{ mobileOpen }}" hint-placeholder-val="{{ false }}">
+      <nav style="display:flex;flex-direction:column;padding:8.8px 26.4px 17.6px;gap:4.4px;border-top:1px solid rgba(32,30,29,0.10)">
+        <sc-for list="{{ navLinks }}" as="link" hint-placeholder-count="7">
+          <a href="{{ link.href }}" style="font-size:15px;padding:8.8px 0;color:{{ link.color }};font-weight:600">{{ link.label }}</a>
+        </sc-for>
+        <a href="{{ waHref }}" target="_blank" rel="noopener" style="margin-top:8.8px;text-align:center;background:#c67139;color:#f5ead8;font-family:'Caprasimo',serif;font-size:14px;padding:10px;border-radius:999px">{{ t.nav_contact }}</a>
+      </nav>
+    </sc-if>
+  </header>
+
+  <section style="position:relative;min-height:640px;display:flex;align-items:flex-end;padding:52.8px 26.4px;overflow:hidden">
+    <div style="position:absolute;inset:0;filter:saturate(0.6) contrast(0.85) brightness(1.1) opacity(0.94)">
+      <image-slot id="hero-bg" shape="rect" placeholder="Hero photo: dunes meeting the Atlantic, Essaouira" src="uploads/mogador_hero.jpg" style="width:100%;height:100%"></image-slot>
+    </div>
+    <div style="position:absolute;inset:0;background:linear-gradient(0deg, rgba(32,30,29,0.72) 0%, rgba(32,30,29,0.25) 55%, rgba(32,30,29,0.15) 100%)"></div>
+    <div style="position:relative;max-width:720px;color:#f9f4ed">
+      <span style="display:inline-block;background:rgba(249,244,237,0.16);color:#f9f4ed;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;padding:5px 14px;border-radius:999px;margin-bottom:17.6px">Essaouira, Morocco</span>
+      <h1 style="font-family:'Caprasimo',serif;font-size:52px;line-height:1.08;margin:0 0 13.2px;text-wrap:pretty">{{ t.hero_title }}</h1>
+      <p style="font-size:17px;line-height:1.5;opacity:0.92;margin:0 0 26.4px;max-width:560px">{{ t.hero_sub }}</p>
+      <div style="display:flex;gap:13.2px;flex-wrap:wrap">
+        <a href="{{ waHref }}" target="_blank" rel="noopener" style="background:#c67139;color:#f5ead8;font-family:'Caprasimo',serif;font-size:15px;padding:13.2px 28px;border-radius:999px" style-hover="background:#b2622d">{{ t.cta_book }}</a>
+        <a href="./Activities.dc.html" style="border:1.5px solid rgba(249,244,237,0.6);color:#f9f4ed;font-family:'Caprasimo',serif;font-size:15px;padding:13.2px 28px;border-radius:999px" style-hover="background:rgba(249,244,237,0.12)">{{ t.cta_activities }}</a>
+      </div>
+    </div>
+  </section>
+
+  <section style="max-width:1180px;margin:0 auto;padding:70.4px 26.4px 35.2px">
+    <div style="max-width:620px;margin-bottom:35.2px">
+      <h6 style="font-size:12px;letter-spacing:0.1em;text-transform:uppercase;color:#c67139;margin:0 0 8.8px">{{ t.activities_kicker }}</h6>
+      <h2 style="font-family:'Caprasimo',serif;font-size:34px;margin:0 0 13.2px">{{ t.activities_title }}</h2>
+      <p style="font-size:16px;opacity:0.8;margin:0">{{ t.activities_intro }}</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:22px">
+      <div style="display:flex;flex-direction:column;gap:13.2px;padding:22px;border-radius:32px;background:#ebddc5;box-shadow:0 1px 2px rgba(46,43,37,0.14)">
+        <div style="width:52px;height:52px;border-radius:999px;background:#fff2eb;color:#8c491a;display:flex;align-items:center;justify-content:center">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><circle cx="12" cy="12" r="3"></circle></svg>
+        </div>
+        <h3 style="font-family:'Caprasimo',serif;font-size:19px;margin:0">Quad Biking the Dunes</h3>
+        <p style="font-size:14px;opacity:0.8;margin:0;flex:1">Rip through golden dunes on a guided quad convoy, sunset run included.</p>
+        <a href="./Activities.dc.html#quad" style="font-size:13px;color:#8c491a;font-weight:700;display:inline-flex;align-items:center;gap:4px">{{ t.learn_more }} →</a>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:13.2px;padding:22px;border-radius:32px;background:#ebddc5;box-shadow:0 1px 2px rgba(46,43,37,0.14)">
+        <div style="width:52px;height:52px;border-radius:999px;background:#fff2eb;color:#8c491a;display:flex;align-items:center;justify-content:center">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 15c1.5 1 3 1 4.5 0s3-1 4.5 0 3 1 4.5 0 3-1 4.5 0"></path><path d="M2 19c1.5 1 3 1 4.5 0s3-1 4.5 0 3 1 4.5 0 3-1 4.5 0"></path></svg>
+        </div>
+        <h3 style="font-family:'Caprasimo',serif;font-size:19px;margin:0">Surf Lessons</h3>
+        <p style="font-size:14px;opacity:0.8;margin:0;flex:1">Atlantic swell, small-group coaching, all levels welcome from first paddle to first wave.</p>
+        <a href="./Activities.dc.html#surf" style="font-size:13px;color:#8c491a;font-weight:700;display:inline-flex;align-items:center;gap:4px">{{ t.learn_more }} →</a>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:13.2px;padding:22px;border-radius:32px;background:#ebddc5;box-shadow:0 1px 2px rgba(46,43,37,0.14)">
+        <div style="width:52px;height:52px;border-radius:999px;background:#fff2eb;color:#8c491a;display:flex;align-items:center;justify-content:center">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4"></path><path d="m4.93 10.93 1.41 1.41"></path><path d="M2 18h2"></path><path d="M20 18h2"></path><path d="m19.07 10.93-1.41 1.41"></path><path d="M22 22H2"></path><path d="m8 6 4-4 4 4"></path><path d="M16 18a4 4 0 0 0-8 0"></path></svg>
+        </div>
+        <h3 style="font-family:'Caprasimo',serif;font-size:19px;margin:0">Camel Rides</h3>
+        <p style="font-size:14px;opacity:0.8;margin:0;flex:1">Ride the beach at golden hour the way caravans once crossed these shores.</p>
+        <a href="./Activities.dc.html#camel" style="font-size:13px;color:#8c491a;font-weight:700;display:inline-flex;align-items:center;gap:4px">{{ t.learn_more }} →</a>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:13.2px;padding:22px;border-radius:32px;background:#ebddc5;box-shadow:0 1px 2px rgba(46,43,37,0.14)">
+        <div style="width:52px;height:52px;border-radius:999px;background:#fff2eb;color:#8c491a;display:flex;align-items:center;justify-content:center">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.8 19.6A2 2 0 1 0 14 16H2"></path><path d="M17.5 8a2.5 2.5 0 1 1 2 4H2"></path><path d="M9.8 4.4A2 2 0 1 1 11 8H2"></path></svg>
+        </div>
+        <h3 style="font-family:'Caprasimo',serif;font-size:19px;margin:0">Horseback Riding</h3>
+        <p style="font-size:14px;opacity:0.8;margin:0;flex:1">Gallop along the coast or through the argan forest with a local guide.</p>
+        <a href="./Activities.dc.html#horse" style="font-size:13px;color:#8c491a;font-weight:700;display:inline-flex;align-items:center;gap:4px">{{ t.learn_more }} →</a>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:13.2px;padding:22px;border-radius:32px;background:#ebddc5;box-shadow:0 1px 2px rgba(46,43,37,0.14)">
+        <div style="width:52px;height:52px;border-radius:999px;background:#fff2eb;color:#8c491a;display:flex;align-items:center;justify-content:center">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2c-2 4-6 5-6 10a6 6 0 0 0 12 0c0-2-1-3-2-4 0 2-1 3-2 2 1-3-1-5-2-8Z"></path></svg>
+        </div>
+        <h3 style="font-family:'Caprasimo',serif;font-size:19px;margin:0">Moroccan Cooking Class</h3>
+        <p style="font-size:14px;opacity:0.8;margin:0;flex:1">Learn tagine and bread from a local kitchen, then eat what you made.</p>
+        <a href="./Activities.dc.html#cooking" style="font-size:13px;color:#8c491a;font-weight:700;display:inline-flex;align-items:center;gap:4px">{{ t.learn_more }} →</a>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:13.2px;padding:22px;border-radius:32px;background:#ebddc5;box-shadow:0 1px 2px rgba(46,43,37,0.14)">
+        <div style="width:52px;height:52px;border-radius:999px;background:#fff2eb;color:#8c491a;display:flex;align-items:center;justify-content:center">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path></svg>
+        </div>
+        <h3 style="font-family:'Caprasimo',serif;font-size:19px;margin:0">Yoga Sessions</h3>
+        <p style="font-size:14px;opacity:0.8;margin:0;flex:1">Sunrise or sunset flow on the sand, open to every level.</p>
+        <a href="./Activities.dc.html#yoga" style="font-size:13px;color:#8c491a;font-weight:700;display:inline-flex;align-items:center;gap:4px">{{ t.learn_more }} →</a>
+      </div>
+    </div>
+  </section>
+
+  <section style="max-width:1180px;margin:0 auto;padding:35.2px 26.4px 70.4px;display:grid;grid-template-columns:1fr 1fr;gap:44px;align-items:center" data-about-grid="1">
+    <div style="border-radius:32px;overflow:hidden;filter:saturate(0.6) contrast(0.85) brightness(1.1) opacity(0.94)">
+      <image-slot id="about-teaser" shape="rect" placeholder="Photo: guide with clients on the beach" src="uploads/mogador_couple_quad.jpg" style="width:100%;aspect-ratio:4/3"></image-slot>
+    </div>
+    <div>
+      <h6 style="font-size:12px;letter-spacing:0.1em;text-transform:uppercase;color:#c67139;margin:0 0 8.8px">{{ t.about_kicker }}</h6>
+      <h2 style="font-family:'Caprasimo',serif;font-size:30px;margin:0 0 13.2px;text-wrap:pretty">{{ t.about_title }}</h2>
+      <p style="font-size:15px;opacity:0.8;margin:0 0 22px">Mogador Adventures was built by locals who grew up between these dunes and this ocean. We show you the Essaouira most visitors never see — desert to the east, Atlantic to the west, argan forest in between — and our team films every ride, wave and dinner so you leave with more than memories.</p>
+      <a href="./About.dc.html" style="border:1.5px solid #c67139;color:#8c491a;font-family:'Caprasimo',serif;font-size:14px;padding:11px 24px;border-radius:999px" style-hover="background:#fff2eb">{{ t.about_cta }}</a>
+    </div>
+  </section>
+
+  <section style="background:#ebddc5;padding:70.4px 26.4px">
+    <div style="max-width:1180px;margin:0 auto">
+      <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:26.4px;flex-wrap:wrap;gap:13.2px">
+        <div>
+          <h6 style="font-size:12px;letter-spacing:0.1em;text-transform:uppercase;color:#7a8a5e;margin:0 0 8.8px">{{ t.gallery_kicker }}</h6>
+          <h2 style="font-family:'Caprasimo',serif;font-size:30px;margin:0">{{ t.gallery_title }}</h2>
+        </div>
+        <a href="./Gallery.dc.html" style="font-size:14px;color:#56633f;font-weight:700">{{ t.gallery_cta }} →</a>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:13.2px">
+        <sc-for list="{{ galleryTeaser }}" as="g" hint-placeholder-count="6">
+          <div style="border-radius:16px;overflow:hidden;filter:saturate(0.6) contrast(0.85) brightness(1.1) opacity(0.94)">
+            <image-slot id="{{ g.id }}" shape="rect" placeholder="{{ g.label }}" style="width:100%;aspect-ratio:1/1"></image-slot>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <section style="max-width:1180px;margin:0 auto;padding:70.4px 26.4px">
+    <h6 style="font-size:12px;letter-spacing:0.1em;text-transform:uppercase;color:#c67139;margin:0 0 8.8px">{{ t.testimonials_kicker }}</h6>
+    <h2 style="font-family:'Caprasimo',serif;font-size:30px;margin:0 0 26.4px">{{ t.testimonials_title }}</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:22px">
+      <sc-for list="{{ testimonials }}" as="rev" hint-placeholder-count="3">
+        <div style="padding:22px;border-radius:32px;background:#f9f4ed;box-shadow:0 1px 2px rgba(46,43,37,0.14)">
+          <p style="font-size:15px;line-height:1.6;margin:0 0 13.2px;opacity:0.9">&ldquo;{{ rev.quote }}&rdquo;</p>
+          <p style="font-size:13px;font-weight:700;margin:0">{{ rev.name }}</p>
+          <p style="font-size:12px;opacity:0.6;margin:0">{{ rev.origin }}</p>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <section style="position:relative;padding:70.4px 26.4px;text-align:center;overflow:hidden">
+    <div style="position:absolute;inset:0;background:#c67139;opacity:0.94"></div>
+    <div style="position:relative;max-width:560px;margin:0 auto;color:#f5ead8">
+      <h2 style="font-family:'Caprasimo',serif;font-size:32px;margin:0 0 13.2px">{{ t.final_cta_title }}</h2>
+      <p style="font-size:15px;opacity:0.92;margin:0 0 26.4px">{{ t.final_cta_sub }}</p>
+      <a href="{{ waHref }}" target="_blank" rel="noopener" style="display:inline-flex;background:#f5ead8;color:#8c491a;font-family:'Caprasimo',serif;font-size:15px;padding:13.2px 28px;border-radius:999px" style-hover="background:#eee7db">{{ t.cta_book }}</a>
+    </div>
+  </section>
+
+  <footer style="background:#201e1d;color:#f9f4ed;padding:52.8px 26.4px 26.4px">
+    <div style="max-width:1180px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:35.2px;margin-bottom:35.2px">
+      <div>
+        <div style="font-family:'Caprasimo',serif;font-size:19px;margin-bottom:8.8px">Mogador Adventures</div>
+        <p style="font-size:13px;opacity:0.65;margin:0">{{ t.footer_tagline }}</p>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:8.8px">
+        <sc-for list="{{ navLinks }}" as="link" hint-placeholder-count="7">
+          <a href="{{ link.href }}" style="font-size:13px;color:#dcd3c4">{{ link.label }}</a>
+        </sc-for>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:13.2px">
+        <a href="tel:+212662169221" style="display:flex;align-items:center;gap:8px;font-size:13px;color:#dcd3c4">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+          +212 662 169 221
+        </a>
+        <div style="display:flex;align-items:center;gap:8px;font-size:13px;color:#dcd3c4">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+          Essaouira, Morocco
+        </div>
+        <div style="display:flex;gap:13.2px">
+          <a href="https://instagram.com/mogador_adventures" target="_blank" rel="noopener" style="color:#dcd3c4" aria-label="Instagram">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37Z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+          </a>
+          <a href="https://tiktok.com/@essasports2" target="_blank" rel="noopener" style="color:#dcd3c4" aria-label="TikTok">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polygon points="10 8 16 12 10 16 10 8"></polygon></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div style="max-width:1180px;margin:0 auto;border-top:1px solid rgba(249,244,237,0.14);padding-top:17.6px;font-size:12px;opacity:0.55">© 2026 Mogador Adventures. {{ t.footer_rights }}</div>
+  </footer>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+
+class Component extends DCLogic {
+  state = { lang: "en", mobileOpen: false };
+
+  componentDidMount() {
+    if (window.getMogadorLang) this.setState({ lang: window.getMogadorLang() });
+    const style = document.createElement("style");
+    style.textContent = `@media (min-width:900px){ [data-desktop-nav]{display:flex !important} [data-desktop-cta]{display:inline-flex !important} [data-mobile-toggle]{display:none !important} }`;
+    document.head.appendChild(style);
+  }
+
+  toggleMobile = () => this.setState((s) => ({ mobileOpen: !s.mobileOpen }));
+  onLangChange = (e) => { if (window.setMogadorLang) window.setMogadorLang(e.target.value); };
+
+  renderVals() {
+    const dict = (window.MOGADOR_I18N && window.MOGADOR_I18N[this.state.lang]) || {};
+    const t = Object.assign({
+      dir: "ltr", nav_home: "Home", nav_activities: "Activities", nav_about: "Our Story", nav_gallery: "Gallery",
+      nav_blog: "Journal", nav_faq: "FAQ", nav_contact: "Book Now", hero_title: "Explore dunes, ocean & Moroccan flavors.",
+      hero_sub: "Quad. Surf. Camel. Horse. Cooking. Yoga. One unforgettable Essaouira adventure.",
+      cta_book: "Book Your Adventure", cta_activities: "See Activities", activities_kicker: "What we run",
+      activities_title: "Six ways to feel Essaouira", activities_intro: "From golden dunes to Atlantic waves, discover Essaouira the way locals live it.",
+      learn_more: "Learn more", about_kicker: "Our story", about_title: "The real Essaouira — desert, ocean, forest",
+      about_cta: "Meet the team", gallery_kicker: "From the field", gallery_title: "Moments from recent trips",
+      gallery_cta: "See the full gallery", testimonials_kicker: "Happy travelers", testimonials_title: "What guests say",
+      final_cta_title: "Ready for your Essaouira adventure?", final_cta_sub: "Message us and we'll help you build the perfect day.",
+      footer_tagline: "Explore dunes, ocean & Moroccan flavors.", footer_rights: "All rights reserved.",
+    }, dict);
+
+    const active = "#8c491a";
+    const inactive = "#201e1d";
+    const navLinks = [
+      { href: "./Home.dc.html", label: t.nav_home, color: active },
+      { href: "./Activities.dc.html", label: t.nav_activities, color: inactive },
+      { href: "./About.dc.html", label: t.nav_about, color: inactive },
+      { href: "./Gallery.dc.html", label: t.nav_gallery, color: inactive },
+      { href: "./Blog.dc.html", label: t.nav_blog, color: inactive },
+      { href: "./FAQ.dc.html", label: t.nav_faq, color: inactive },
+      { href: "./Contact.dc.html", label: t.nav_contact, color: inactive },
+    ];
+
+    const langOptions = (window.MOGADOR_LANGS || ["en"]).map((code) => ({
+      code, name: (window.MOGADOR_I18N[code] || {}).name || code,
+    }));
+
+    const testimonials = [
+      { quote: "Our guide knew every dune and every wave. Best day of the whole trip.", name: "Lena K.", origin: "Berlin, Germany" },
+      { quote: "Booked through Instagram DM and it was seamless — quad biking then a home-cooked tagine.", name: "Marco R.", origin: "Milan, Italy" },
+      { quote: "Surf lesson in the morning, sunset yoga after. Felt like locals, not tourists.", name: "Amara O.", origin: "Lagos, Nigeria" },
+    ];
+
+    const galleryTeaser = [1, 2, 3, 4, 5, 6].map((n) => ({ id: `home-gallery-${n}`, label: `Gallery photo ${n}` }));
+
+    const waHref = "https://wa.me/212662169221?text=" + encodeURIComponent("Hi Mogador Adventures! I'd like to book an adventure.");
+
+    return { t, navLinks, langOptions, lang: this.state.lang, onLangChange: this.onLangChange, mobileOpen: this.state.mobileOpen, toggleMobile: this.toggleMobile, testimonials, galleryTeaser, waHref };
+  }
+}
+
+</script>
+</body>
+</html>

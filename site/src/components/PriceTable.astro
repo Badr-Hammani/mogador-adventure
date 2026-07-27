@@ -1,0 +1,155 @@
+---
+import { t, type Lang } from "../lib/i18n";
+import { money, waLink } from "../lib/site";
+import type { PriceOption } from "../data/pricing";
+import Icon from "./Icon.astro";
+
+interface Props {
+  lang: Lang;
+  options: PriceOption[];
+  /** Activity name, used to pre-fill each row's WhatsApp message. */
+  activityName: string;
+}
+
+const { lang, options, activityName } = Astro.props;
+const s = t(lang);
+
+const prefixes: Record<Lang, string> = {
+  en: "Hi Mogador Adventures! I'd like to book",
+  fr: "Bonjour Mogador Adventures ! Je souhaite réserver",
+  es: "¡Hola Mogador Adventures! Me gustaría reservar",
+  de: "Hallo Mogador Adventures! Ich möchte gern buchen",
+  ar: "مرحباً Mogador Adventures! أودّ حجز",
+};
+
+const popularLabel: Record<Lang, string> = {
+  en: "Most booked",
+  fr: "Le plus réservé",
+  es: "Más reservado",
+  de: "Am meisten gebucht",
+  ar: "الأكثر حجزاً",
+};
+---
+
+<div class="price-block">
+  <h2 class="h2-sm">{s.prices_title}</h2>
+  <ul class="price-list">
+    {
+      options.map((option) => (
+        <li class:list={["price-row", { popular: option.popular }]}>
+          <div class="price-main">
+            <span class="price-duration">
+              <Icon name="clock" size={15} stroke={2} />
+              {option.label[lang]}
+            </span>
+            {option.popular && (
+              <span class="tag popular-tag">{popularLabel[lang]}</span>
+            )}
+          </div>
+          <div class="price-side">
+            <span class="price-amount">
+              {money(option.price)}
+              <small>/{s.per_person}</small>
+            </span>
+            <a
+              class="btn btn-outline btn-sm"
+              href={waLink(
+                `${prefixes[lang]}: ${activityName} — ${option.label[lang]}.`,
+              )}
+              target="_blank"
+              rel="noopener"
+              data-context={`price-${option.key}`}
+            >
+              {s.book_this}
+            </a>
+          </div>
+        </li>
+      ))
+    }
+  </ul>
+  <p class="price-note">{s.prices_note}</p>
+</div>
+
+<style>
+  .price-block {
+    background: var(--surface-elevated);
+    border-radius: var(--r-card);
+    padding: var(--s5);
+    box-shadow: var(--shadow-card);
+  }
+
+  .price-list {
+    margin-block: var(--s4) 0;
+  }
+
+  .price-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--s3);
+    flex-wrap: wrap;
+    padding-block: var(--s3);
+    border-bottom: 1px solid var(--border-light);
+  }
+  .price-row:last-child {
+    border-bottom: none;
+  }
+
+  .price-main {
+    display: flex;
+    align-items: center;
+    gap: var(--s2);
+    flex-wrap: wrap;
+  }
+
+  .price-duration {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 15px;
+    font-weight: 600;
+  }
+
+  .popular-tag {
+    background: var(--accent-tint);
+    color: var(--accent-dark);
+  }
+
+  .price-side {
+    display: flex;
+    align-items: center;
+    gap: var(--s3);
+  }
+
+  .price-amount {
+    font-family: var(--font-display);
+    font-size: 22px;
+    color: var(--accent-dark);
+    white-space: nowrap;
+  }
+  .price-amount small {
+    font-family: var(--font-body);
+    font-size: 11px;
+    opacity: 0.6;
+    color: var(--text);
+  }
+
+  .price-note {
+    font-size: 13px;
+    opacity: 0.7;
+    margin-block-start: var(--s4);
+    line-height: 1.6;
+  }
+
+  @media (max-width: 560px) {
+    .price-row {
+      align-items: flex-start;
+      flex-direction: column;
+      gap: var(--s2);
+    }
+    .price-side {
+      width: 100%;
+      justify-content: space-between;
+    }
+  }
+</style>

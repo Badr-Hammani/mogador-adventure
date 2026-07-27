@@ -1,0 +1,75 @@
+---
+import { t, type Lang } from "../lib/i18n";
+import { waLink } from "../lib/site";
+import Icon from "./Icon.astro";
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const s = t(lang);
+
+const messages: Record<Lang, string> = {
+  en: "Hi Mogador Adventures! I'd like to book an adventure.",
+  fr: "Bonjour Mogador Adventures ! Je souhaite réserver une aventure.",
+  es: "¡Hola Mogador Adventures! Me gustaría reservar una aventura.",
+  de: "Hallo Mogador Adventures! Ich möchte gern ein Abenteuer buchen.",
+  ar: "مرحباً Mogador Adventures! أودّ حجز مغامرة.",
+};
+---
+
+<a
+  class="wa-fab"
+  href={waLink(messages[lang])}
+  target="_blank"
+  rel="noopener"
+  data-context="floating-button"
+  aria-label={s.cta_whatsapp}
+>
+  <Icon name="whatsapp" size={24} stroke={2} />
+  <span class="wa-label">{s.cta_whatsapp_short}</span>
+</a>
+
+<style>
+  .wa-fab {
+    position: fixed;
+    inset-block-end: var(--s4);
+    inset-inline-end: var(--s4);
+    z-index: 50;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #25d366;
+    color: #fff;
+    padding: 13px var(--s4);
+    border-radius: var(--r-pill);
+    box-shadow: 0 4px 14px rgba(32, 30, 29, 0.28);
+    font-family: var(--font-display);
+    font-size: 14px;
+    transition: transform 0.15s ease, background-color 0.15s ease;
+  }
+
+  .wa-fab:hover {
+    background: #1eb455;
+    transform: translateY(-1px);
+  }
+
+  /* On small screens keep it a compact circle so it never covers content. */
+  @media (max-width: 560px) {
+    .wa-fab {
+      padding: 14px;
+      inset-block-end: var(--s3);
+      inset-inline-end: var(--s3);
+    }
+    .wa-label {
+      display: none;
+    }
+  }
+
+  @media print {
+    .wa-fab {
+      display: none;
+    }
+  }
+</style>

@@ -1,0 +1,194 @@
+---
+import { t, type Lang } from "../lib/i18n";
+import { pathFor, pageExistsIn } from "../lib/routes";
+import { money } from "../lib/site";
+import { ORDERED_ACTIVITIES, activityCopy, ACTIVITY_META } from "../data/activities";
+import { PRICING, fromPrice } from "../data/pricing";
+import PageHeader from "../components/PageHeader.astro";
+import Photo from "../components/Photo.astro";
+import CTABand from "../components/CTABand.astro";
+import TrustBar from "../components/TrustBar.astro";
+import Icon from "../components/Icon.astro";
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const s = t(lang);
+const showPackages = pageExistsIn("packages", lang);
+---
+
+<div class="container">
+  <PageHeader
+    kicker={s.activities_kicker}
+    title={s.activities_title}
+    intro={s.activities_intro}
+    centered
+  />
+</div>
+
+<div class="container trust-strip">
+  <TrustBar lang={lang} compact />
+</div>
+
+<div class="container activity-rows">
+  {
+    ORDERED_ACTIVITIES.map((key, index) => {
+      const copy = activityCopy(key, lang);
+      const meta = ACTIVITY_META[key];
+      const href = pathFor("activity", lang, { activity: key });
+      const price = fromPrice(key);
+      const durations = (PRICING[key] ?? [])
+        .map((o) => o.label[lang])
+        .slice(0, 3);
+      return (
+        <section class:list={["activity-row", { reverse: index % 2 === 1 }]}>
+          <a href={href} class="row-media" aria-hidden="true" tabindex="-1">
+            <Photo
+              src={meta.photo}
+              alt={copy.imageAlt}
+              ratio="4-3"
+              icon={meta.icon}
+            />
+          </a>
+          <div class="row-text">
+            <span class="icon-badge">
+              <Icon name={meta.icon} size={24} />
+            </span>
+            <h2 class="h2-sm">
+              <a href={href}>{copy.name}</a>
+            </h2>
+            <p class="row-intro">{copy.intro}</p>
+            <div class="tag-row">
+              {copy.tags.slice(0, 3).map((tag) => (
+                <span class="tag">{tag}</span>
+              ))}
+            </div>
+            {durations.length > 0 && (
+              <p class="row-durations">
+                <Icon name="clock" size={14} stroke={2} />
+                {durations.join(" · ")}
+              </p>
+            )}
+            <div class="row-actions">
+              <a href={href} class="btn btn-primary btn-sm">
+                {s.learn_more}
+              </a>
+              {price > 0 && (
+                <span class="row-price">
+                  {s.from_price} <strong>{money(price)}</strong>
+                </span>
+              )}
+            </div>
+          </div>
+        </section>
+      );
+    })
+  }
+</div>
+
+{
+  showPackages && (
+    <section class="band-surface section-sm">
+      <div class="container packages-promo">
+        <p class="kicker kicker-sage">{s.packages_kicker}</p>
+        <h2 class="h2-sm">{s.packages_title}</h2>
+        <p class="lead">{s.packages_intro}</p>
+        <a href={pathFor("packages", lang)} class="btn btn-outline btn-sm">
+          {s.view_all}
+        </a>
+      </div>
+    </section>
+  )
+}
+
+<CTABand lang={lang} />
+
+<style>
+  .trust-strip {
+    padding-block-end: var(--s7);
+    border-bottom: 1px solid var(--border-light);
+  }
+
+  .activity-rows {
+    padding-block: var(--s7);
+    display: flex;
+    flex-direction: column;
+    gap: var(--s9);
+  }
+
+  .activity-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--s7);
+    align-items: center;
+  }
+
+  .activity-row.reverse .row-media {
+    order: 2;
+  }
+
+  .row-text .icon-badge {
+    margin-block-end: var(--s3);
+  }
+
+  .row-text h2 a:hover {
+    color: var(--accent-dark);
+  }
+
+  .row-intro {
+    font-size: 15px;
+    line-height: 1.7;
+    opacity: 0.84;
+    margin-block: var(--s2) var(--s3);
+  }
+
+  .row-durations {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 13px;
+    opacity: 0.7;
+    margin-block-start: var(--s3);
+  }
+
+  .row-actions {
+    display: flex;
+    align-items: center;
+    gap: var(--s3);
+    flex-wrap: wrap;
+    margin-block-start: var(--s4);
+  }
+
+  .row-price {
+    font-size: 13px;
+    opacity: 0.75;
+  }
+  .row-price strong {
+    font-family: var(--font-display);
+    font-size: 18px;
+    color: var(--accent-dark);
+  }
+
+  .packages-promo {
+    text-align: center;
+    max-width: 620px;
+  }
+  .packages-promo .lead {
+    margin-block: var(--s2) var(--s4);
+  }
+
+  @media (max-width: 760px) {
+    .activity-row {
+      grid-template-columns: 1fr;
+      gap: var(--s4);
+    }
+    .activity-row.reverse .row-media {
+      order: 0;
+    }
+    .activity-rows {
+      gap: var(--s8);
+    }
+  }
+</style>

@@ -1,0 +1,87 @@
+---
+import { t, type Lang } from "../lib/i18n";
+import { SITE } from "../lib/site";
+import { GALLERY, localised } from "../data/content";
+import PageHeader from "../components/PageHeader.astro";
+import Photo from "../components/Photo.astro";
+import CTABand from "../components/CTABand.astro";
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const s = t(lang);
+
+const igLabel: Record<Lang, string> = {
+  en: `${SITE.social.instagramHandle} on Instagram`,
+  fr: `${SITE.social.instagramHandle} sur Instagram`,
+  es: `${SITE.social.instagramHandle} en Instagram`,
+  de: `${SITE.social.instagramHandle} auf Instagram`,
+  ar: `${SITE.social.instagramHandle} على إنستغرام`,
+};
+---
+
+<div class="container">
+  <PageHeader
+    kicker={s.gallery_kicker}
+    title={s.gallery_title}
+    intro={s.gallery_page_sub}
+    centered
+  >
+    <a
+      href={SITE.social.instagram}
+      target="_blank"
+      rel="noopener"
+      class="ig-link"
+    >
+      {igLabel[lang]} <span class="arrow-glyph">→</span>
+    </a>
+  </PageHeader>
+</div>
+
+<div class="container gallery-grid">
+  {
+    GALLERY.map((slot, i) => (
+      <Photo
+        src={slot.photo}
+        alt={localised(slot.label, lang)}
+        ratio={slot.portrait ? "4-5" : "1-1"}
+        shape="tile"
+        icon={i % 2 === 0 ? "quad" : "camel"}
+        sizes="(max-width: 560px) 50vw, (max-width: 1180px) 33vw, 280px"
+        widths={[280, 560, 840]}
+      />
+    ))
+  }
+</div>
+
+<CTABand lang={lang} />
+
+<style>
+  .ig-link {
+    display: inline-flex;
+    gap: 5px;
+    align-items: center;
+    color: var(--sage-dark);
+    font-size: 14px;
+    font-weight: 700;
+    margin-block-start: var(--s3);
+  }
+  .ig-link:hover {
+    text-decoration: underline;
+  }
+
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: var(--s2);
+    padding-block: var(--s3) var(--s9);
+  }
+
+  @media (max-width: 560px) {
+    .gallery-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+</style>

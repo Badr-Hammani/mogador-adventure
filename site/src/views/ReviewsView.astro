@@ -1,0 +1,205 @@
+---
+import { t, type Lang } from "../lib/i18n";
+import { SITE } from "../lib/site";
+import { CONFIG } from "../lib/config";
+import { TESTIMONIALS, testimonialText } from "../data/content";
+import { activityCopy } from "../data/activities";
+import type { ActivityKey } from "../lib/routes";
+import PageHeader from "../components/PageHeader.astro";
+import CTABand from "../components/CTABand.astro";
+import Icon from "../components/Icon.astro";
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const s = t(lang);
+
+const copy: Record<Lang, { h1: string; intro: string; askHeading: string; askBody: string; askCta: string }> = {
+  en: {
+    h1: "What our guests say",
+    intro:
+      "We book almost entirely through word of mouth, Instagram and WhatsApp. These are guests who came back and told us about it.",
+    askHeading: "Been out with us?",
+    askBody:
+      "A Google review takes a minute and genuinely decides whether the next traveller finds us. If you rode with us, we'd be grateful.",
+    askCta: "Leave a Google review",
+  },
+  fr: {
+    h1: "Ce que disent nos clients",
+    intro:
+      "Nous travaillons presque exclusivement par bouche-à-oreille, Instagram et WhatsApp. Voici des clients qui sont revenus nous en parler.",
+    askHeading: "Vous êtes sorti avec nous ?",
+    askBody:
+      "Un avis Google prend une minute et détermine réellement si le prochain voyageur nous trouve. Si vous avez roulé avec nous, nous vous en serions reconnaissants.",
+    askCta: "Laisser un avis Google",
+  },
+  es: {
+    h1: "Lo que dicen nuestros huéspedes",
+    intro:
+      "Trabajamos casi todo por el boca a boca, Instagram y WhatsApp. Estos son huéspedes que volvieron a contárnoslo.",
+    askHeading: "¿Has salido con nosotros?",
+    askBody:
+      "Una reseña en Google lleva un minuto y decide de verdad si el siguiente viajero nos encuentra. Si viniste con nosotros, te lo agradeceríamos.",
+    askCta: "Dejar una reseña en Google",
+  },
+  de: {
+    h1: "Das sagen unsere Gäste",
+    intro:
+      "Wir buchen fast alles über Mundpropaganda, Instagram und WhatsApp. Das hier sind Gäste, die zurückkamen und es uns erzählt haben.",
+    askHeading: "Warst du mit uns unterwegs?",
+    askBody:
+      "Eine Google-Bewertung dauert eine Minute und entscheidet tatsächlich, ob die nächsten Reisenden uns finden. Wenn du mit uns gefahren bist, wären wir dankbar.",
+    askCta: "Google-Bewertung schreiben",
+  },
+  ar: {
+    h1: "ماذا يقول ضيوفنا",
+    intro:
+      "نعمل تقريباً بالكامل عبر التوصية الشفهية وإنستغرام وواتساب. هؤلاء ضيوف عادوا ليخبرونا.",
+    askHeading: "هل خرجت معنا؟",
+    askBody:
+      "تقييم على غوغل يستغرق دقيقة ويحدّد فعلاً ما إذا كان المسافر التالي سيجدنا. إن كنت قد رافقتنا، سنكون ممتنين.",
+    askCta: "اكتب تقييماً على غوغل",
+  },
+};
+
+const c = copy[lang];
+---
+
+<div class="container">
+  <PageHeader
+    kicker={s.testimonials_kicker}
+    title={c.h1}
+    intro={c.intro}
+    centered
+  />
+</div>
+
+<div class="container reviews-grid">
+  {
+    TESTIMONIALS.map((item) => {
+      const text = testimonialText(item, lang);
+      const activity = activityCopy(item.activity as ActivityKey, lang);
+      return (
+        <figure class="review">
+          <div class="stars" aria-label={`${item.rating} / 5`}>
+            {Array.from({ length: item.rating }).map(() => (
+              <Icon name="star" size={15} />
+            ))}
+          </div>
+          <blockquote>{text.quote}</blockquote>
+          <figcaption>
+            <strong>{item.name}</strong>
+            <span>{text.origin}</span>
+            <span class="tag review-tag">{activity.name}</span>
+          </figcaption>
+        </figure>
+      );
+    })
+  }
+</div>
+
+<section class="container ask-section">
+  <div class="ask-card">
+    <h2 class="h2-sm">{c.askHeading}</h2>
+    <p class="ask-body">{c.askBody}</p>
+    {
+      CONFIG.googleReviewUrl ? (
+        <a
+          href={CONFIG.googleReviewUrl}
+          target="_blank"
+          rel="noopener"
+          class="btn btn-primary"
+        >
+          {c.askCta}
+        </a>
+      ) : (
+        <a
+          href={SITE.social.instagram}
+          target="_blank"
+          rel="noopener"
+          class="btn btn-outline"
+        >
+          {SITE.social.instagramHandle}
+        </a>
+      )
+    }
+  </div>
+</section>
+
+<CTABand lang={lang} />
+
+<style>
+  .reviews-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+    gap: var(--s4);
+    padding-block: var(--s3) var(--s7);
+  }
+
+  .review {
+    margin: 0;
+    background: var(--surface-elevated);
+    border-radius: var(--r-card);
+    padding: var(--s5);
+    box-shadow: var(--shadow-card);
+    display: flex;
+    flex-direction: column;
+    gap: var(--s3);
+  }
+
+  .stars {
+    display: flex;
+    gap: 2px;
+    color: var(--accent);
+  }
+
+  .review blockquote {
+    margin: 0;
+    font-size: 15px;
+    line-height: 1.65;
+    opacity: 0.9;
+    flex: 1;
+  }
+  .review blockquote::before {
+    content: open-quote;
+  }
+  .review blockquote::after {
+    content: close-quote;
+  }
+
+  .review figcaption strong {
+    display: block;
+    font-size: 13px;
+  }
+  .review figcaption span {
+    font-size: 12px;
+    opacity: 0.6;
+  }
+  .review-tag {
+    display: inline-block;
+    margin-block-start: var(--s2);
+    opacity: 1;
+  }
+
+  .ask-section {
+    padding-block-end: var(--s9);
+  }
+
+  .ask-card {
+    background: var(--surface);
+    border-radius: var(--r-card);
+    padding: var(--s6);
+    text-align: center;
+    max-width: 620px;
+    margin-inline: auto;
+  }
+
+  .ask-body {
+    font-size: 15px;
+    line-height: 1.65;
+    opacity: 0.82;
+    margin-block: var(--s2) var(--s4);
+  }
+</style>

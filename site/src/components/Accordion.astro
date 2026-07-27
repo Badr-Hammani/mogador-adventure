@@ -1,0 +1,100 @@
+---
+/**
+ * FAQ accordion.
+ *
+ * Built on <details>/<summary> so it works with JavaScript disabled and is
+ * keyboard-accessible for free. A small script enforces the handoff's
+ * "only one open at a time" behaviour on top.
+ */
+import Icon from "./Icon.astro";
+
+interface Props {
+  items: { q: string; a: string }[];
+  /** Open the first item by default, per the handoff. */
+  openFirst?: boolean;
+}
+
+const { items, openFirst = true } = Astro.props;
+---
+
+<div class="accordion" data-accordion>
+  {
+    items.map((item, i) => (
+      <details class="accordion-item" open={openFirst && i === 0}>
+        <summary>
+          <span class="accordion-q">{item.q}</span>
+          <span class="accordion-chevron" aria-hidden="true">
+            <Icon name="chevron" size={18} />
+          </span>
+        </summary>
+        <div class="accordion-a">
+          <p>{item.a}</p>
+        </div>
+      </details>
+    ))
+  }
+</div>
+
+<style>
+  .accordion {
+    max-width: 800px;
+  }
+
+  .accordion-item {
+    border-bottom: 1px solid rgba(32, 30, 29, 0.12);
+  }
+
+  summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--s3);
+    padding-block: var(--s4);
+    cursor: pointer;
+    list-style: none;
+  }
+  summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .accordion-q {
+    font-family: var(--font-display);
+    font-size: 17px;
+    line-height: 1.35;
+  }
+
+  .accordion-chevron {
+    flex-shrink: 0;
+    color: var(--accent-dark);
+    transition: transform 0.2s ease;
+  }
+
+  details[open] .accordion-chevron {
+    transform: rotate(180deg);
+  }
+
+  .accordion-a {
+    padding-block-end: var(--s4);
+  }
+
+  .accordion-a p {
+    font-size: 15px;
+    line-height: 1.7;
+    opacity: 0.82;
+    max-width: 640px;
+  }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLElement>("[data-accordion]").forEach((group) => {
+    const items = Array.from(group.querySelectorAll("details"));
+    items.forEach((item) => {
+      item.addEventListener("toggle", () => {
+        if (!item.open) return;
+        items.forEach((other) => {
+          if (other !== item) other.open = false;
+        });
+      });
+    });
+  });
+</script>

@@ -1,0 +1,75 @@
+---
+import { t, type Lang } from "../lib/i18n";
+import { pathFor } from "../lib/routes";
+import { waLink } from "../lib/site";
+
+interface Props {
+  lang: Lang;
+  title?: string;
+  subtitle?: string;
+  /** Pre-fills the WhatsApp message with the activity or package name. */
+  context?: string;
+}
+
+const { lang, title, subtitle, context } = Astro.props;
+const s = t(lang);
+
+const prefixes: Record<Lang, string> = {
+  en: "Hi Mogador Adventures! I'd like to book",
+  fr: "Bonjour Mogador Adventures ! Je souhaite réserver",
+  es: "¡Hola Mogador Adventures! Me gustaría reservar",
+  de: "Hallo Mogador Adventures! Ich möchte gern buchen",
+  ar: "مرحباً Mogador Adventures! أودّ حجز",
+};
+
+const generic: Record<Lang, string> = {
+  en: "Hi Mogador Adventures! I'd like to book an adventure.",
+  fr: "Bonjour Mogador Adventures ! Je souhaite réserver une aventure.",
+  es: "¡Hola Mogador Adventures! Me gustaría reservar una aventura.",
+  de: "Hallo Mogador Adventures! Ich möchte gern ein Abenteuer buchen.",
+  ar: "مرحباً Mogador Adventures! أودّ حجز مغامرة.",
+};
+
+const message = context ? `${prefixes[lang]}: ${context}.` : generic[lang];
+---
+
+<section class="cta-band">
+  <div class="cta-band-inner">
+    <h2 class="h2-sm">{title ?? s.final_cta_title}</h2>
+    <p class="cta-sub">{subtitle ?? s.final_cta_sub}</p>
+    <div class="cta-actions">
+      <a
+        href={waLink(message)}
+        target="_blank"
+        rel="noopener"
+        class="btn btn-light"
+        data-context={context ?? "cta-band"}
+      >
+        {s.cta_book}
+      </a>
+      <a href={pathFor("book", lang)} class="btn btn-on-dark">
+        {s.nav_contact}
+      </a>
+    </div>
+    <p class="cta-note">{s.trust_reply}</p>
+  </div>
+</section>
+
+<style>
+  .cta-sub {
+    font-size: 15px;
+    opacity: 0.92;
+    margin-block: var(--s2) var(--s5);
+  }
+  .cta-actions {
+    display: flex;
+    gap: var(--s2);
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .cta-note {
+    font-size: 12px;
+    opacity: 0.8;
+    margin-block-start: var(--s3);
+  }
+</style>

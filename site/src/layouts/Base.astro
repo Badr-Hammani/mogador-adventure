@@ -1,0 +1,157 @@
+---
+import "@fontsource/caprasimo/400.css";
+import "@fontsource/figtree/400.css";
+import "@fontsource/figtree/600.css";
+import "@fontsource/figtree/700.css";
+import "../styles/global.css";
+
+import { LANG_META, DEFAULT_LANG, t, type Lang } from "../lib/i18n";
+import { pathFor, type PageKey } from "../lib/routes";
+import { SITE } from "../lib/site";
+import { CONFIG } from "../lib/config";
+import { graph, localBusinessSchema, websiteSchema } from "../lib/schema";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import WhatsAppFab from "../components/WhatsAppFab.astro";
+import Analytics from "../components/Analytics.astro";
+
+interface Props {
+  lang: Lang;
+  title: string;
+  description: string;
+  /** Path of THIS page, used for the canonical URL. */
+  path: string;
+  /** Reciprocal alternates — drives both hreflang and the language switcher. */
+  alternates: { lang: Lang; path: string }[];
+  current?: PageKey;
+  /** Absolute URL of the social share image. */
+  ogImage?: string;
+  ogType?: "website" | "article";
+  /** Extra JSON-LD nodes merged into the page's @graph. */
+  schemaNodes?: (Record<string, unknown> | null | undefined)[];
+  simpleFooter?: boolean;
+  noindex?: boolean;
+}
+
+const {
+  lang,
+  title,
+  description,
+  path,
+  alternates,
+  current,
+  ogImage,
+  ogType = "website",
+  schemaNodes = [],
+  simpleFooter = false,
+  noindex = false,
+} = Astro.props;
+
+const meta = LANG_META[lang];
+const site = Astro.site ?? new URL(SITE.domain);
+const canonical = new URL(path, site).toString();
+const s = t(lang);
+
+const jsonLd = graph([
+  localBusinessSchema(lang),
+  websiteSchema(lang),
+  ...schemaNodes,
+]);
+
+const xDefault = alternates.find((a) => a.lang === DEFAULT_LANG) ?? alternates[0];
+---
+
+<!doctype html>
+<html lang={meta.htmlLang} dir={meta.dir}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+
+    {
+      !CONFIG.indexable ? (
+        <meta name="robots" content="noindex, nofollow" />
+      ) : (
+        noindex && <meta name="robots" content="noindex, follow" />
+      )
+    }
+
+    {/* hreflang — only for locales where this page genuinely exists. */}
+    {
+      alternates.map((alt) => (
+        <link
+          rel="alternate"
+          hreflang={LANG_META[alt.lang].htmlLang}
+          href={new URL(alt.path, site).toString()}
+        />
+      ))
+    }
+    {
+      xDefault && (
+        <link
+          rel="alternate"
+          hreflang="x-default"
+          href={new URL(xDefault.path, site).toString()}
+        />
+      )
+    }
+
+    <meta property="og:type" content={ogType} />
+    <meta property="og:site_name" content={SITE.name} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:locale" content={meta.ogLocale} />
+    {ogImage && <meta property="og:image" content={ogImage} />}
+    {ogImage && <meta property="og:image:alt" content={title} />}
+
+    <meta name="twitter:card" content={ogImage ? "summary_large_image" : "summary"} />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    {ogImage && <meta name="twitter:image" content={ogImage} />}
+
+    <meta name="theme-color" content="#f5ead8" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="geo.region" content="MA-ESI" />
+    <meta name="geo.placename" content={SITE.address.locality} />
+    <meta name="geo.position" content={`${SITE.geo.lat};${SITE.geo.lng}`} />
+    <meta name="ICBM" content={`${SITE.geo.lat}, ${SITE.geo.lng}`} />
+
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="sitemap" href="/sitemap.xml" />
+
+    {/* set:html on the script itself — building the tag as a string gets the
+        quotes HTML-escaped, which silently breaks the JSON-LD for crawlers. */}
+    <script type="application/ld+json" is:inline set:html={jsonLd} />
+
+    <Analytics />
+  </head>
+
+  <body>
+    <a href="#main" class="skip-link">{s.skip_to_content}</a>
+
+    <Header lang={lang} current={current} alternates={alternates} />
+
+    <main id="main">
+      <slot />
+    </main>
+
+    <Footer lang={lang} simple={simpleFooter} />
+    <WhatsAppFab lang={lang} />
+  </body>
+</html>
+
+<style is:global>
+  body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+  main {
+    flex: 1;
+  }
+</style>

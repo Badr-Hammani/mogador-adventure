@@ -1,0 +1,56 @@
+---
+import { type Lang } from "../lib/i18n";
+import { SITE } from "../lib/site";
+import PageHeader from "../components/PageHeader.astro";
+
+interface Props {
+  lang: Lang;
+  page: "privacy" | "terms" | "cancellation";
+  title: string;
+  sections: { heading: string; body: string[] }[];
+}
+
+const { title, sections } = Astro.props;
+---
+
+<div class="container legal">
+  <PageHeader title={title} />
+  <div class="legal-body prose">
+    {
+      sections.map((section) => (
+        <section>
+          <h2 class="h3">{section.heading}</h2>
+          {section.body.map((para) => (
+            <p class="body-text">{para}</p>
+          ))}
+        </section>
+      ))
+    }
+    <p class="legal-contact body-text">
+      {SITE.name} · {SITE.address.locality}, {SITE.address.countryName} ·
+      <a href={`mailto:${SITE.email}`}>{SITE.email}</a> · {SITE.phone}
+    </p>
+  </div>
+</div>
+
+<style>
+  .legal {
+    padding-block-end: var(--s9);
+  }
+  .legal-body section + section {
+    margin-block-start: var(--s6);
+  }
+  .legal-body .h3 {
+    margin-block-end: var(--s2);
+  }
+  .legal-contact {
+    margin-block-start: var(--s7);
+    padding-block-start: var(--s4);
+    border-top: 1px solid var(--border-light);
+    font-size: 14px;
+  }
+  .legal-contact a {
+    color: var(--accent-dark);
+    font-weight: 600;
+  }
+</style>

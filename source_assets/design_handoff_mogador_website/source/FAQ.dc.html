@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caprasimo:wght@400&family=Figtree:wght@400;600;700&display=swap">
+<style>* { box-sizing: border-box; } body { margin: 0; } ::selection { background: rgba(198,113,57,0.3); } a { text-decoration: none; }</style>
+<script src="./i18n.js"></script>
+</helmet>
+
+<div style="background:#f5ead8;color:#201e1d;font-family:'Figtree',sans-serif;min-height:100vh;direction:{{ t.dir }}">
+  <header style="position:sticky;top:0;z-index:40;background:rgba(245,234,216,0.92);backdrop-filter:blur(6px);border-bottom:1px solid rgba(32,30,29,0.10)">
+    <div style="max-width:1180px;margin:0 auto;display:flex;align-items:center;gap:17.6px;padding:13.2px 26.4px">
+      <a href="./Home.dc.html" style="font-family:'Caprasimo',serif;font-size:20px;color:#201e1d;margin-right:auto">Mogador Adventures</a>
+      <nav style="display:none;gap:26.4px;align-items:center" data-desktop-nav="1">
+        <sc-for list="{{ navLinks }}" as="link" hint-placeholder-count="7"><a href="{{ link.href }}" style="font-size:14px;color:{{ link.color }};font-weight:600">{{ link.label }}</a></sc-for>
+      </nav>
+      <select onchange="{{ onLangChange }}" value="{{ lang }}" style="font-family:'Figtree',sans-serif;font-size:13px;border:1px solid rgba(32,30,29,0.16);border-radius:999px;padding:6px 12px;background:#ebddc5;color:#201e1d;cursor:pointer">
+        <sc-for list="{{ langOptions }}" as="opt" hint-placeholder-count="5"><option value="{{ opt.code }}">{{ opt.name }}</option></sc-for>
+      </select>
+      <a href="{{ waHref }}" target="_blank" rel="noopener" style="display:none;align-items:center;gap:6px;background:#c67139;color:#f5ead8;font-family:'Caprasimo',serif;font-size:13px;padding:8.8px 17.6px;border-radius:999px;white-space:nowrap" data-desktop-cta="1" style-hover="background:#b2622d">{{ t.nav_contact }}</a>
+      <button onclick="{{ toggleMobile }}" aria-label="Menu" style="display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:999px;border:1px solid rgba(32,30,29,0.16);background:transparent;cursor:pointer" data-mobile-toggle="1">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#201e1d" stroke-width="2.5" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+      </button>
+    </div>
+    <sc-if value="{{ mobileOpen }}" hint-placeholder-val="{{ false }}">
+      <nav style="display:flex;flex-direction:column;padding:8.8px 26.4px 17.6px;gap:4.4px;border-top:1px solid rgba(32,30,29,0.10)">
+        <sc-for list="{{ navLinks }}" as="link" hint-placeholder-count="7"><a href="{{ link.href }}" style="font-size:15px;padding:8.8px 0;color:{{ link.color }};font-weight:600">{{ link.label }}</a></sc-for>
+        <a href="{{ waHref }}" target="_blank" rel="noopener" style="margin-top:8.8px;text-align:center;background:#c67139;color:#f5ead8;font-family:'Caprasimo',serif;font-size:14px;padding:10px;border-radius:999px">{{ t.nav_contact }}</a>
+      </nav>
+    </sc-if>
+  </header>
+
+  <section style="max-width:800px;margin:0 auto;padding:52.8px 26.4px 8.8px;text-align:center">
+    <h6 style="font-size:12px;letter-spacing:0.1em;text-transform:uppercase;color:#c67139;margin:0 0 8.8px">{{ t.faq_kicker }}</h6>
+    <h1 style="font-family:'Caprasimo',serif;font-size:36px;margin:0">{{ t.faq_title }}</h1>
+  </section>
+
+  <section style="max-width:800px;margin:0 auto;padding:35.2px 26.4px 70.4px">
+    <sc-for list="{{ faqs }}" as="item" hint-placeholder-count="8">
+      <div style="border-bottom:1px solid rgba(32,30,29,0.12)">
+        <button onclick="{{ item.toggle }}" style="width:100%;display:flex;justify-content:space-between;align-items:center;gap:13.2px;background:none;border:none;text-align:left;padding:17.6px 0;cursor:pointer;font-family:'Caprasimo',serif;font-size:17px;color:#201e1d">
+          <span>{{ item.q }}</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8c491a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="{{ item.iconStyle }};flex:none"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </button>
+        <sc-if value="{{ item.open }}" hint-placeholder-val="{{ false }}">
+          <p style="margin:0 0 22px;font-size:15px;line-height:1.6;opacity:0.82;max-width:640px">{{ item.a }}</p>
+        </sc-if>
+      </div>
+    </sc-for>
+  </section>
+
+  <section style="position:relative;padding:70.4px 26.4px;text-align:center;overflow:hidden">
+    <div style="position:absolute;inset:0;background:#c67139;opacity:0.94"></div>
+    <div style="position:relative;max-width:560px;margin:0 auto;color:#f5ead8">
+      <h2 style="font-family:'Caprasimo',serif;font-size:28px;margin:0 0 13.2px">Still have questions?</h2>
+      <p style="font-size:15px;opacity:0.92;margin:0 0 26.4px">Message us directly and we'll answer in minutes.</p>
+      <a href="{{ waHref }}" target="_blank" rel="noopener" style="display:inline-flex;background:#f5ead8;color:#8c491a;font-family:'Caprasimo',serif;font-size:15px;padding:13.2px 28px;border-radius:999px" style-hover="background:#eee7db">{{ t.cta_book }}</a>
+    </div>
+  </section>
+
+  <footer style="background:#201e1d;color:#f9f4ed;padding:52.8px 26.4px 26.4px">
+    <div style="max-width:1180px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:35.2px;margin-bottom:35.2px">
+      <div><div style="font-family:'Caprasimo',serif;font-size:19px;margin-bottom:8.8px">Mogador Adventures</div><p style="font-size:13px;opacity:0.65;margin:0">{{ t.footer_tagline }}</p></div>
+      <div style="display:flex;flex-direction:column;gap:8.8px"><sc-for list="{{ navLinks }}" as="link" hint-placeholder-count="7"><a href="{{ link.href }}" style="font-size:13px;color:#dcd3c4">{{ link.label }}</a></sc-for></div>
+      <div style="display:flex;flex-direction:column;gap:13.2px">
+        <a href="tel:+212662169221" style="display:flex;align-items:center;gap:8px;font-size:13px;color:#dcd3c4"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>+212 662 169 221</a>
+        <div style="display:flex;align-items:center;gap:8px;font-size:13px;color:#dcd3c4"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path><circle cx="12" cy="10" r="3"></circle></svg>Essaouira, Morocco</div>
+        <div style="display:flex;gap:13.2px">
+          <a href="https://instagram.com/mogador_adventures" target="_blank" rel="noopener" style="color:#dcd3c4" aria-label="Instagram"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37Z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg></a>
+          <a href="https://tiktok.com/@essasports2" target="_blank" rel="noopener" style="color:#dcd3c4" aria-label="TikTok"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polygon points="10 8 16 12 10 16 10 8"></polygon></svg></a>
+        </div>
+      </div>
+    </div>
+    <div style="max-width:1180px;margin:0 auto;border-top:1px solid rgba(249,244,237,0.14);padding-top:17.6px;font-size:12px;opacity:0.55">© 2026 Mogador Adventures. {{ t.footer_rights }}</div>
+  </footer>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+
+class Component extends DCLogic {
+  state = { lang: "en", mobileOpen: false, openIdx: 0 };
+  componentDidMount() {
+    if (window.getMogadorLang) this.setState({ lang: window.getMogadorLang() });
+    const style = document.createElement("style");
+    style.textContent = `@media (min-width:900px){ [data-desktop-nav]{display:flex !important} [data-desktop-cta]{display:inline-flex !important} [data-mobile-toggle]{display:none !important} }`;
+    document.head.appendChild(style);
+  }
+  toggleMobile = () => this.setState((s) => ({ mobileOpen: !s.mobileOpen }));
+  onLangChange = (e) => { if (window.setMogadorLang) window.setMogadorLang(e.target.value); };
+  toggleFaq = (i) => this.setState((s) => ({ openIdx: s.openIdx === i ? -1 : i }));
+
+  renderVals() {
+    const dict = (window.MOGADOR_I18N && window.MOGADOR_I18N[this.state.lang]) || {};
+    const t = Object.assign({
+      dir: "ltr", nav_home: "Home", nav_activities: "Activities", nav_about: "Our Story", nav_gallery: "Gallery",
+      nav_blog: "Journal", nav_faq: "FAQ", nav_contact: "Book Now", faq_kicker: "Good to know",
+      faq_title: "Frequently asked questions", cta_book: "Book Your Adventure",
+      footer_tagline: "Explore dunes, ocean & Moroccan flavors.", footer_rights: "All rights reserved.",
+    }, dict);
+    const active = "#8c491a", inactive = "#201e1d";
+    const navLinks = [
+      { href: "./Home.dc.html", label: t.nav_home, color: inactive },
+      { href: "./Activities.dc.html", label: t.nav_activities, color: inactive },
+      { href: "./About.dc.html", label: t.nav_about, color: inactive },
+      { href: "./Gallery.dc.html", label: t.nav_gallery, color: inactive },
+      { href: "./Blog.dc.html", label: t.nav_blog, color: inactive },
+      { href: "./FAQ.dc.html", label: t.nav_faq, color: active },
+      { href: "./Contact.dc.html", label: t.nav_contact, color: inactive },
+    ];
+    const langOptions = (window.MOGADOR_LANGS || ["en"]).map((code) => ({ code, name: (window.MOGADOR_I18N[code] || {}).name || code }));
+    const raw = [
+      { q: "How do I book?", a: "Message us on Instagram (@mogador_adventures) or WhatsApp (+212 662 169 221) with your dates and preferred activity — that's how nearly all our bookings happen. The contact form on this site opens a WhatsApp chat for you." },
+      { q: "Do you take walk-ins or same-day bookings?", a: "Often yes, especially outside peak season — message us and we'll tell you what's available that day." },
+      { q: "Is a deposit required?", a: "For most activities, no — you confirm by chat and pay on the day. Larger groups or multi-day plans may ask for a small deposit, which we'll always tell you upfront." },
+      { q: "What should I bring?", a: "Comfortable clothes you don't mind getting sandy or wet, sun protection, and a water bottle. We provide safety gear, boards and wetsuits for surf, and helmets for quad biking." },
+      { q: "Are activities suitable for beginners?", a: "Yes — every activity is coached or guided for first-timers, and we adjust pace and difficulty to your group." },
+      { q: "Can you pick us up from our riad or hotel?", a: "Yes, pickup within Essaouira is usually included — tell us where you're staying when you message us." },
+      { q: "What languages do your guides speak?", a: "Arabic, French and English at minimum; several guides also speak Spanish and German." },
+      { q: "What's your cancellation policy?", a: "Weather-dependent activities (surf, quad) can be rescheduled free of charge if conditions turn — just message us as early as you can." },
+    ];
+    const faqs = raw.map((f, i) => ({ ...f, open: this.state.openIdx === i, toggle: () => this.toggleFaq(i), iconStyle: this.state.openIdx === i ? "transform:rotate(180deg)" : "" }));
+    const waHref = "https://wa.me/212662169221?text=" + encodeURIComponent("Hi Mogador Adventures! I have a question.");
+    return { t, navLinks, langOptions, lang: this.state.lang, onLangChange: this.onLangChange, mobileOpen: this.state.mobileOpen, toggleMobile: this.toggleMobile, faqs, waHref };
+  }
+}
+
+</script>
+</body>
+</html>

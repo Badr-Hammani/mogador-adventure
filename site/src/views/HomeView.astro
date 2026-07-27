@@ -1,0 +1,395 @@
+---
+import { t, type Lang } from "../lib/i18n";
+import { pathFor, pageExistsIn } from "../lib/routes";
+import { waLink, money } from "../lib/site";
+import { ORDERED_ACTIVITIES } from "../data/activities";
+import {
+  ORDERED_PACKAGES,
+  PACKAGE_META,
+  packageCopy,
+} from "../data/packages";
+import { PACKAGE_PRICING } from "../data/pricing";
+import { GALLERY, TESTIMONIALS, testimonialText, localised } from "../data/content";
+import ActivityCard from "../components/ActivityCard.astro";
+import CTABand from "../components/CTABand.astro";
+import Photo from "../components/Photo.astro";
+import TrustBar from "../components/TrustBar.astro";
+import Icon from "../components/Icon.astro";
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const s = t(lang);
+
+const heroMessages: Record<Lang, string> = {
+  en: "Hi Mogador Adventures! I'd like to book an adventure.",
+  fr: "Bonjour Mogador Adventures ! Je souhaite réserver une aventure.",
+  es: "¡Hola Mogador Adventures! Me gustaría reservar una aventura.",
+  de: "Hallo Mogador Adventures! Ich möchte gern ein Abenteuer buchen.",
+  ar: "مرحباً Mogador Adventures! أودّ حجز مغامرة.",
+};
+
+const galleryTeaser = GALLERY.slice(0, 6);
+const showPackages = pageExistsIn("packages", lang);
+const packages = showPackages ? ORDERED_PACKAGES.slice(0, 3) : [];
+---
+
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-media">
+    <Photo
+      src="mogador_hero.jpg"
+      alt={s.hero_title}
+      ratio="none"
+      eager
+      widths={[640, 1024, 1600, 2000]}
+      sizes="100vw"
+      class="hero-photo"
+    />
+  </div>
+  <div class="hero-overlay"></div>
+  <div class="container hero-inner">
+    <span class="pill-tag">{s.hero_badge}</span>
+    <h1 class="h1-hero">{s.hero_title}</h1>
+    <p class="hero-sub">{s.hero_sub}</p>
+    <div class="hero-actions">
+      <a
+        href={waLink(heroMessages[lang])}
+        target="_blank"
+        rel="noopener"
+        class="btn btn-primary"
+        data-context="hero">{s.cta_book}</a
+      >
+      <a href={pathFor("activities", lang)} class="btn btn-on-dark">
+        {s.cta_activities}
+      </a>
+    </div>
+    <p class="hero-note">
+      <Icon name="check" size={14} stroke={2.6} />
+      {s.trust_reply}
+    </p>
+  </div>
+</section>
+
+<!-- Trust -->
+<section class="container trust-section">
+  <TrustBar lang={lang} />
+</section>
+
+<!-- Activities -->
+<section class="container section-sm">
+  <div class="section-head">
+    <p class="kicker">{s.activities_kicker}</p>
+    <h2 class="h2">{s.activities_title}</h2>
+    <p class="lead">{s.activities_intro}</p>
+  </div>
+  <div class="grid grid-cards">
+    {ORDERED_ACTIVITIES.map((key) => <ActivityCard activity={key} lang={lang} />)}
+  </div>
+</section>
+
+<!-- Packages -->
+{
+  showPackages && (
+    <section class="band-surface section-sm">
+      <div class="container">
+        <div class="section-head">
+          <p class="kicker kicker-sage">{s.packages_kicker}</p>
+          <h2 class="h2">{s.packages_title}</h2>
+          <p class="lead">{s.packages_intro}</p>
+        </div>
+        <div class="grid grid-cards">
+          {packages.map((key) => {
+            const copy = packageCopy(key, lang);
+            const price = PACKAGE_PRICING[key];
+            return (
+              <article class="card-elevated package-card">
+                <h3 class="h3">
+                  <a href={pathFor("package", lang, { pkg: key })} class="pkg-link">
+                    {copy.name}
+                  </a>
+                </h3>
+                <p class="pkg-teaser">{copy.teaser}</p>
+                <div class="pkg-foot">
+                  <span class="pkg-price">
+                    <strong>{money(price.price)}</strong>
+                    <s>{money(price.wasPrice)}</s>
+                  </span>
+                  <span class="link-arrow">
+                    {s.learn_more} <span class="arrow-glyph">→</span>
+                  </span>
+                </div>
+              </article>
+            );
+          })}
+        </div>
+        <p class="packages-more">
+          <a href={pathFor("packages", lang)} class="link-arrow">
+            {s.view_all} <span class="arrow-glyph">→</span>
+          </a>
+        </p>
+      </div>
+    </section>
+  )
+}
+
+<!-- About teaser -->
+<section class="container section-sm">
+  <div class="grid grid-two">
+    <Photo
+      src="mogador_couple_quad.jpg"
+      alt={s.about_title}
+      ratio="4-3"
+      icon="quad"
+    />
+    <div>
+      <p class="kicker">{s.about_kicker}</p>
+      <h2 class="h2-sm">{s.about_title}</h2>
+      <p class="about-body">{s.about_body}</p>
+      <a href={pathFor("about", lang)} class="btn btn-outline btn-sm">
+        {s.about_cta}
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- Gallery teaser -->
+<section class="band-surface section-sm">
+  <div class="container">
+    <div class="gallery-head">
+      <div>
+        <p class="kicker kicker-sage">{s.gallery_kicker}</p>
+        <h2 class="h2-sm">{s.gallery_title}</h2>
+      </div>
+      <a href={pathFor("gallery", lang)} class="link-arrow gallery-link">
+        {s.gallery_cta} <span class="arrow-glyph">→</span>
+      </a>
+    </div>
+    <div class="grid grid-tiles">
+      {
+        galleryTeaser.map((slot) => (
+          <Photo
+            src={slot.photo}
+            alt={localised(slot.label, lang)}
+            ratio="1-1"
+            shape="tile"
+            icon="camel"
+          />
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<!-- Testimonials -->
+<section class="container section-sm">
+  <p class="kicker">{s.testimonials_kicker}</p>
+  <h2 class="h2-sm testimonials-title">{s.testimonials_title}</h2>
+  <div class="grid grid-cards">
+    {
+      TESTIMONIALS.map((item) => {
+        const text = testimonialText(item, lang);
+        return (
+          <figure class="card-elevated testimonial">
+            <div class="stars" aria-label={`${item.rating} / 5`}>
+              {Array.from({ length: item.rating }).map(() => (
+                <Icon name="star" size={14} />
+              ))}
+            </div>
+            <blockquote>{text.quote}</blockquote>
+            <figcaption>
+              <strong>{item.name}</strong>
+              <span>{text.origin}</span>
+            </figcaption>
+          </figure>
+        );
+      })
+    }
+  </div>
+</section>
+
+<CTABand lang={lang} />
+
+<style>
+  .hero {
+    position: relative;
+    min-height: 640px;
+    display: flex;
+    align-items: flex-end;
+    padding-block: var(--s8);
+    overflow: hidden;
+  }
+
+  .hero-media {
+    position: absolute;
+    inset: 0;
+  }
+
+  .hero-media :global(.hero-photo) {
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
+  }
+
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      0deg,
+      rgba(32, 30, 29, 0.72) 0%,
+      rgba(32, 30, 29, 0.25) 55%,
+      rgba(32, 30, 29, 0.15) 100%
+    );
+  }
+
+  .hero-inner {
+    position: relative;
+    color: var(--dark-text);
+    width: 100%;
+  }
+
+  .hero-inner > * {
+    max-width: 720px;
+  }
+
+  .hero-inner h1 {
+    margin-block: var(--s3) var(--s2);
+  }
+
+  .hero-sub {
+    font-size: 17px;
+    line-height: 1.5;
+    opacity: 0.92;
+    max-width: 560px;
+    margin-block-end: var(--s5);
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: var(--s2);
+    flex-wrap: wrap;
+  }
+
+  .hero-note {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 13px;
+    opacity: 0.85;
+    margin-block-start: var(--s4);
+  }
+
+  .trust-section {
+    padding-block: var(--s7);
+    border-bottom: 1px solid var(--border-light);
+  }
+
+  .section-head {
+    max-width: 620px;
+    margin-block-end: var(--s6);
+  }
+  .section-head .h2 {
+    margin-block-end: var(--s2);
+  }
+
+  .package-card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s2);
+    position: relative;
+  }
+  .pkg-link::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: var(--r-card);
+  }
+  .pkg-teaser {
+    font-size: 14px;
+    opacity: 0.8;
+    flex: 1;
+  }
+  .pkg-foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--s2);
+    flex-wrap: wrap;
+  }
+  .pkg-price strong {
+    font-family: var(--font-display);
+    font-size: 19px;
+    color: var(--accent-dark);
+  }
+  .pkg-price s {
+    font-size: 13px;
+    opacity: 0.5;
+    margin-inline-start: 6px;
+  }
+  .packages-more {
+    margin-block-start: var(--s5);
+  }
+
+  .about-body {
+    font-size: 15px;
+    opacity: 0.82;
+    line-height: 1.7;
+    margin-block: var(--s2) var(--s4);
+  }
+
+  .gallery-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    gap: var(--s2);
+    margin-block-end: var(--s5);
+  }
+  .gallery-link {
+    color: var(--sage-dark);
+  }
+
+  .testimonials-title {
+    margin-block-end: var(--s5);
+  }
+
+  .testimonial {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--s2);
+  }
+  .stars {
+    display: flex;
+    gap: 2px;
+    color: var(--accent);
+  }
+  .testimonial blockquote {
+    margin: 0;
+    font-size: 15px;
+    line-height: 1.6;
+    opacity: 0.9;
+  }
+  .testimonial blockquote::before {
+    content: open-quote;
+  }
+  .testimonial blockquote::after {
+    content: close-quote;
+  }
+  .testimonial figcaption strong {
+    display: block;
+    font-size: 13px;
+  }
+  .testimonial figcaption span {
+    font-size: 12px;
+    opacity: 0.6;
+  }
+
+  @media (max-width: 640px) {
+    .hero {
+      min-height: 540px;
+    }
+  }
+</style>

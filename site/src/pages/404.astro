@@ -1,0 +1,52 @@
+---
+import { DEFAULT_LANG, t } from "../lib/i18n";
+import { pathFor } from "../lib/routes";
+import { SITE } from "../lib/site";
+import Base from "../layouts/Base.astro";
+
+const lang = DEFAULT_LANG;
+const s = t(lang);
+---
+
+<Base
+  lang={lang}
+  title={`Page not found | ${SITE.name}`}
+  description="That page doesn't exist. Head back to our Essaouira activities."
+  path="/404/"
+  alternates={[{ lang, path: "/404/" }]}
+  noindex
+>
+  <section class="container notfound">
+    <p class="kicker">404</p>
+    <h1 class="h1-page">This page took a wrong turn in the dunes.</h1>
+    <p class="lead">
+      The page you were looking for doesn't exist. Try one of these instead.
+    </p>
+    <div class="notfound-actions">
+      <a href={pathFor("activities", lang)} class="btn btn-primary">
+        {s.cta_activities}
+      </a>
+      <a href={pathFor("home", lang)} class="btn btn-outline">
+        {s.nav_home}
+      </a>
+      <a href={pathFor("book", lang)} class="btn btn-outline">
+        {s.nav_contact}
+      </a>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .notfound {
+    padding-block: var(--s9);
+    max-width: 640px;
+  }
+  .notfound .lead {
+    margin-block: var(--s3) var(--s5);
+  }
+  .notfound-actions {
+    display: flex;
+    gap: var(--s2);
+    flex-wrap: wrap;
+  }
+</style>

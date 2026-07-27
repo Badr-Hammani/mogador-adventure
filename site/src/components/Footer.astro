@@ -1,0 +1,255 @@
+---
+import { t, type Lang } from "../lib/i18n";
+import { pathFor, pageExistsIn, type PageKey } from "../lib/routes";
+import { SITE, telLink } from "../lib/site";
+import Icon from "./Icon.astro";
+
+interface Props {
+  lang: Lang;
+  /** Contact page uses the simplified copyright-only variant. */
+  simple?: boolean;
+}
+
+const { lang, simple = false } = Astro.props;
+const s = t(lang);
+
+const exploreKeys: PageKey[] = [
+  "activities",
+  "packages",
+  "essaouiraActivities",
+  "about",
+  "gallery",
+  "blog",
+  "faq",
+  "book",
+];
+
+const exploreLabels: Record<string, string> = {
+  activities: s.nav_activities,
+  packages: s.nav_packages,
+  essaouiraActivities:
+    lang === "fr"
+      ? "Que faire à Essaouira"
+      : lang === "es"
+        ? "Qué hacer en Essaouira"
+        : lang === "de"
+          ? "Was tun in Essaouira"
+          : lang === "ar"
+            ? "ماذا تفعل في الصويرة"
+            : "Things to do in Essaouira",
+  about: s.nav_about,
+  gallery: s.nav_gallery,
+  blog: s.nav_blog,
+  faq: s.nav_faq,
+  book: s.nav_contact,
+};
+
+const legalKeys: PageKey[] = ["privacy", "terms", "cancellation"];
+const legalLabels: Record<string, string> = {
+  privacy:
+    lang === "fr"
+      ? "Confidentialité"
+      : lang === "es"
+        ? "Privacidad"
+        : lang === "de"
+          ? "Datenschutz"
+          : lang === "ar"
+            ? "الخصوصية"
+            : "Privacy",
+  terms:
+    lang === "fr"
+      ? "Conditions"
+      : lang === "es"
+        ? "Condiciones"
+        : lang === "de"
+          ? "AGB"
+          : lang === "ar"
+            ? "الشروط"
+            : "Terms",
+  cancellation:
+    lang === "fr"
+      ? "Annulation"
+      : lang === "es"
+        ? "Cancelación"
+        : lang === "de"
+          ? "Stornierung"
+          : lang === "ar"
+            ? "الإلغاء"
+            : "Cancellation",
+};
+
+const explore = exploreKeys.filter((k) => pageExistsIn(k, lang));
+const legal = legalKeys.filter((k) => pageExistsIn(k, lang));
+---
+
+<footer class="site-footer">
+  <div class="container">
+    {
+      !simple && (
+        <div class="footer-grid">
+          <div>
+            <div class="footer-wordmark">{SITE.name}</div>
+            <p class="footer-tagline">{s.footer_tagline}</p>
+            <p class="footer-address">
+              {SITE.address.locality}, {SITE.address.countryName}
+            </p>
+          </div>
+
+          <nav aria-label={s.footer_explore}>
+            <h2 class="footer-heading">{s.footer_explore}</h2>
+            <ul class="footer-links">
+              {explore.map((key) => (
+                <li>
+                  <a href={pathFor(key, lang)}>{exploreLabels[key]}</a>
+                </li>
+              ))}
+            </ul>
+          </nav>
+
+          <div>
+            <h2 class="footer-heading">{s.footer_contact}</h2>
+            <ul class="footer-links">
+              <li>
+                <a href={telLink()} class="footer-contact-row">
+                  <Icon name="phone" size={15} />
+                  {SITE.phone}
+                </a>
+              </li>
+              <li>
+                <a href={`mailto:${SITE.email}`} class="footer-contact-row">
+                  {SITE.email}
+                </a>
+              </li>
+              <li class="footer-contact-row">
+                <Icon name="pin" size={15} />
+                {SITE.address.locality}, {SITE.address.countryName}
+              </li>
+            </ul>
+            <div class="socials">
+              <a
+                href={SITE.social.instagram}
+                target="_blank"
+                rel="noopener"
+                aria-label="Instagram"
+              >
+                <Icon name="instagram" size={19} stroke={2} />
+              </a>
+              <a
+                href={SITE.social.tiktok}
+                target="_blank"
+                rel="noopener"
+                aria-label="TikTok"
+              >
+                <Icon name="tiktok" size={19} stroke={2} />
+              </a>
+            </div>
+          </div>
+        </div>
+      )
+    }
+
+    <div class="footer-bottom">
+      <span>
+        © {SITE.copyrightYear} {SITE.name}. {s.footer_rights}
+      </span>
+      {
+        !simple && legal.length > 0 && (
+          <span class="legal-links">
+            {legal.map((key) => (
+              <a href={pathFor(key, lang)}>{legalLabels[key]}</a>
+            ))}
+          </span>
+        )
+      }
+    </div>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    background: var(--dark);
+    color: var(--dark-text);
+    padding-block: var(--s8) var(--s5);
+    margin-block-start: auto;
+  }
+
+  .footer-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--s6);
+    margin-block-end: var(--s6);
+  }
+
+  .footer-wordmark {
+    font-family: var(--font-display);
+    font-size: 19px;
+    margin-block-end: var(--s1);
+  }
+
+  .footer-tagline,
+  .footer-address {
+    font-size: 13px;
+    opacity: 0.65;
+  }
+  .footer-address {
+    margin-block-start: var(--s1);
+  }
+
+  .footer-heading {
+    font-family: var(--font-body);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    opacity: 0.5;
+    margin: 0 0 var(--s2);
+  }
+
+  .footer-links {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s1);
+  }
+
+  .footer-links a,
+  .footer-contact-row {
+    font-size: 13px;
+    color: var(--dark-muted);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .footer-links a:hover {
+    color: var(--dark-text);
+    text-decoration: underline;
+  }
+
+  .socials {
+    display: flex;
+    gap: var(--s2);
+    margin-block-start: var(--s3);
+    color: var(--dark-muted);
+  }
+  .socials a:hover {
+    color: var(--dark-text);
+  }
+
+  .footer-bottom {
+    border-top: 1px solid rgba(249, 244, 237, 0.14);
+    padding-block-start: var(--s3);
+    font-size: 12px;
+    opacity: 0.55;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s2) var(--s4);
+    justify-content: space-between;
+  }
+
+  .legal-links {
+    display: flex;
+    gap: var(--s3);
+  }
+  .legal-links a:hover {
+    text-decoration: underline;
+  }
+</style>

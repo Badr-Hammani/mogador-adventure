@@ -1,0 +1,96 @@
+---
+import { t, type Lang } from "../lib/i18n";
+import { pathFor, type ActivityKey } from "../lib/routes";
+import { activityCopy, ACTIVITY_META } from "../data/activities";
+import { fromPrice } from "../data/pricing";
+import { money } from "../lib/site";
+import Icon from "./Icon.astro";
+
+interface Props {
+  activity: ActivityKey;
+  lang: Lang;
+}
+
+const { activity, lang } = Astro.props;
+const s = t(lang);
+const copy = activityCopy(activity, lang);
+const meta = ACTIVITY_META[activity];
+const price = fromPrice(activity);
+const href = pathFor("activity", lang, { activity });
+---
+
+<article class="activity-card">
+  <span class="icon-badge">
+    <Icon name={meta.icon} size={24} />
+  </span>
+  <h3 class="h3">
+    <a href={href} class="card-link">{copy.name}</a>
+  </h3>
+  <p class="card-teaser">{copy.teaser}</p>
+  <div class="card-foot">
+    {
+      price > 0 && (
+        <span class="card-price">
+          {s.from_price} <strong>{money(price)}</strong>
+        </span>
+      )
+    }
+    <span class="link-arrow">
+      {s.learn_more} <span class="arrow-glyph">→</span>
+    </span>
+  </div>
+</article>
+
+<style>
+  .activity-card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s2);
+    padding: var(--s4);
+    border-radius: var(--r-card);
+    background: var(--surface);
+    box-shadow: var(--shadow-card);
+    position: relative;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+
+  .activity-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-panel);
+  }
+
+  /* Whole card is the click target, but only the title is a real link —
+     keeps the accessibility tree clean and the link text meaningful. */
+  .card-link::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: var(--r-card);
+  }
+
+  .card-teaser {
+    font-size: 14px;
+    opacity: 0.8;
+    flex: 1;
+  }
+
+  .card-foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--s2);
+    flex-wrap: wrap;
+    margin-block-start: var(--s1);
+  }
+
+  .card-price {
+    font-size: 13px;
+    opacity: 0.75;
+  }
+  .card-price strong {
+    font-family: var(--font-display);
+    font-size: 16px;
+    opacity: 1;
+    color: var(--accent-dark);
+  }
+</style>

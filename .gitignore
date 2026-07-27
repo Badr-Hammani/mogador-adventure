@@ -1,0 +1,19 @@
+# Dependencies & build output
+node_modules/
+dist/
+.astro/
+
+# Local tooling
+.claude/
+*.log
+.env
+.env.*
+!.env.example
+
+# Working files not needed to build the site
+incoming_photos/
+site/mogador-site-dist.zip
+
+# OS
+.DS_Store
+Thumbs.db

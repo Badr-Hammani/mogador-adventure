@@ -1,0 +1,66 @@
+---
+import { Image } from "astro:assets";
+import { resolvePhoto } from "../lib/photos";
+import Icon from "./Icon.astro";
+import type { IconName } from "../lib/icons";
+
+interface Props {
+  /** Filename in src/assets/photos. Null/absent renders the pending panel. */
+  src?: string | null;
+  /** Alt text when a real photo exists; also the brief shown on the panel. */
+  alt: string;
+  ratio?: "4-3" | "1-1" | "4-5" | "16-10" | "none";
+  /** Rounded card (32px) vs gallery tile (16px). */
+  shape?: "card" | "tile";
+  /** Icon drawn on the pending panel. */
+  icon?: IconName;
+  /** First meaningful image on the page — skips lazy loading for LCP. */
+  eager?: boolean;
+  widths?: number[];
+  sizes?: string;
+  class?: string;
+}
+
+const {
+  src,
+  alt,
+  ratio = "4-3",
+  shape = "card",
+  icon = "quad",
+  eager = false,
+  widths = [400, 800, 1200],
+  sizes = "(max-width: 760px) 100vw, 600px",
+  class: className = "",
+} = Astro.props;
+
+const image = resolvePhoto(src);
+const frameClass = shape === "tile" ? "photo-tile" : "photo-frame";
+const ratioClass = ratio === "none" ? "" : `ratio-${ratio}`;
+---
+
+{
+  image ? (
+    <div class={`${frameClass} ${ratioClass} ${className}`}>
+      <Image
+        src={image}
+        alt={alt}
+        widths={widths}
+        sizes={sizes}
+        loading={eager ? "eager" : "lazy"}
+        fetchpriority={eager ? "high" : "auto"}
+        decoding={eager ? "sync" : "async"}
+      />
+    </div>
+  ) : (
+    <div
+      class={`${frameClass} ${ratioClass} photo-pending ${className}`}
+      role="img"
+      aria-label={alt}
+    >
+      <span class="icon-badge" aria-hidden="true">
+        <Icon name={icon} size={22} />
+      </span>
+      <span>{alt}</span>
+    </div>
+  )
+}

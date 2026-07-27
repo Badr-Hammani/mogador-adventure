@@ -1,0 +1,134 @@
+---
+import { t, type Lang } from "../lib/i18n";
+import { pathFor } from "../lib/routes";
+import { discoverCopy } from "../data/pages";
+import { ORDERED_ACTIVITIES } from "../data/activities";
+import PageHeader from "../components/PageHeader.astro";
+import ActivityCard from "../components/ActivityCard.astro";
+import Photo from "../components/Photo.astro";
+import CTABand from "../components/CTABand.astro";
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const s = t(lang);
+const copy = discoverCopy(lang);
+---
+
+<div class="container">
+  <PageHeader title={copy.h1} intro={copy.intro} centered />
+</div>
+
+<div class="container hero-photo-wrap">
+  <Photo
+    src="mogador_hero.jpg"
+    alt={copy.h1}
+    ratio="16-10"
+    eager
+    widths={[600, 1000, 1400]}
+    sizes="(max-width: 1180px) 100vw, 1130px"
+  />
+</div>
+
+<div class="container discover-body prose">
+  {
+    copy.sections.map((section) => (
+      <section class="discover-section">
+        <h2 class="h2-sm">{section.heading}</h2>
+        {section.body.map((para) => (
+          <p class="body-text">{para}</p>
+        ))}
+      </section>
+    ))
+  }
+</div>
+
+<section class="band-surface section-sm">
+  <div class="container">
+    <h2 class="h2-sm seasons-heading">{copy.seasonHeading}</h2>
+    <div class="seasons">
+      {
+        copy.seasons.map((season) => (
+          <div class="season">
+            <h3 class="season-period">{season.period}</h3>
+            <p class="season-text">{season.text}</p>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<section class="container section-sm">
+  <div class="section-head">
+    <p class="kicker">{s.activities_kicker}</p>
+    <h2 class="h2-sm">{s.activities_title}</h2>
+  </div>
+  <div class="grid grid-cards">
+    {ORDERED_ACTIVITIES.map((key) => <ActivityCard activity={key} lang={lang} />)}
+  </div>
+  <p class="more-link">
+    <a href={pathFor("activities", lang)} class="link-arrow">
+      {s.view_all} <span class="arrow-glyph">→</span>
+    </a>
+  </p>
+</section>
+
+<CTABand lang={lang} />
+
+<style>
+  .hero-photo-wrap {
+    padding-block-end: var(--s7);
+  }
+
+  .discover-body {
+    padding-block-end: var(--s8);
+  }
+
+  .discover-section + .discover-section {
+    margin-block-start: var(--s7);
+  }
+
+  .discover-section .h2-sm {
+    margin-block-end: var(--s3);
+  }
+
+  .seasons-heading {
+    margin-block-end: var(--s5);
+  }
+
+  .seasons {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: var(--s4);
+  }
+
+  .season {
+    background: var(--surface-elevated);
+    border-radius: var(--r-card);
+    padding: var(--s4);
+  }
+
+  .season-period {
+    font-family: var(--font-display);
+    font-size: 16px;
+    color: var(--accent-dark);
+    margin-block-end: var(--s1);
+  }
+
+  .season-text {
+    font-size: 14px;
+    line-height: 1.6;
+    opacity: 0.82;
+  }
+
+  .section-head {
+    margin-block-end: var(--s5);
+  }
+
+  .more-link {
+    margin-block-start: var(--s5);
+  }
+</style>

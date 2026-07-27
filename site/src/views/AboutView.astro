@@ -1,0 +1,221 @@
+---
+import { t, type Lang } from "../lib/i18n";
+import { ABOUT_STORY, TEAM, localised } from "../data/content";
+import { DEFAULT_LANG } from "../lib/i18n";
+import Photo from "../components/Photo.astro";
+import CTABand from "../components/CTABand.astro";
+import TrustBar from "../components/TrustBar.astro";
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const s = t(lang);
+const story = ABOUT_STORY[lang] ?? ABOUT_STORY[DEFAULT_LANG]!;
+
+const teamHeading: Record<Lang, string> = {
+  en: "The people you'll actually meet",
+  fr: "Les personnes que vous rencontrerez vraiment",
+  es: "La gente que vas a conocer de verdad",
+  de: "Die Menschen, die du wirklich triffst",
+  ar: "الأشخاص الذين ستلتقي بهم فعلاً",
+};
+
+const landscapes: { photo: string | null; alt: Record<Lang, string> }[] = [
+  {
+    photo: "dune-belt-sunset-essaouira.jpg",
+    alt: {
+      en: "The dune belt south of Essaouira",
+      fr: "Le cordon dunaire au sud d'Essaouira",
+      es: "El cordón de dunas al sur de Essaouira",
+      de: "Der Dünengürtel südlich von Essaouira",
+      ar: "حزام الكثبان جنوب الصويرة",
+    },
+  },
+  {
+    photo: "atlantic-beach-sunrise-essaouira.jpg",
+    alt: {
+      en: "The Atlantic break at Essaouira",
+      fr: "Le spot atlantique d'Essaouira",
+      es: "El pico atlántico de Essaouira",
+      de: "Der Atlantik-Break bei Essaouira",
+      ar: "موج الأطلسي في الصويرة",
+    },
+  },
+  {
+    photo: "argan-forest-camels-track-essaouira.jpg",
+    alt: {
+      en: "The argan forest inland from the coast",
+      fr: "La forêt d'arganiers à l'intérieur des terres",
+      es: "El bosque de argán tierra adentro",
+      de: "Der Arganwald im Landesinneren",
+      ar: "غابة الأركان في الداخل",
+    },
+  },
+];
+---
+
+<section class="about-hero">
+  <div class="about-hero-media">
+    <Photo
+      src="mogador_couple_quad.jpg"
+      alt={s.about_title}
+      ratio="none"
+      eager
+      widths={[640, 1200, 1800]}
+      sizes="100vw"
+      class="about-hero-photo"
+    />
+  </div>
+  <div class="about-hero-overlay"></div>
+  <div class="container about-hero-inner">
+    <p class="kicker about-kicker">{s.about_kicker}</p>
+    <h1 class="h1-page">{s.about_title}</h1>
+  </div>
+</section>
+
+<div class="container story">
+  {story.map((para) => <p class="body-text">{para}</p>)}
+</div>
+
+<div class="container landscapes">
+  {
+    landscapes.map((item) => (
+      <Photo
+        src={item.photo}
+        alt={item.alt[lang] ?? item.alt.en}
+        ratio="4-3"
+        icon="camel"
+      />
+    ))
+  }
+</div>
+
+<section class="band-surface section-sm">
+  <div class="container team">
+    <p class="kicker">{s.about_kicker}</p>
+    <h2 class="h2-sm">{teamHeading[lang]}</h2>
+    <div class="team-grid">
+      {
+        TEAM.map((member) => (
+          <article class="team-card">
+            <div class="team-photo">
+              <Photo
+                src={member.photo}
+                alt={`${member.name} — ${localised(member.role, lang)}`}
+                ratio="1-1"
+                shape="tile"
+                icon="quad"
+              />
+            </div>
+            <h3 class="team-name">{member.name}</h3>
+            <p class="team-role">{localised(member.role, lang)}</p>
+            <p class="team-bio">{localised(member.bio, lang)}</p>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<section class="container trust-section">
+  <h2 class="h2-sm trust-heading">{s.trust_title}</h2>
+  <TrustBar lang={lang} />
+</section>
+
+<CTABand lang={lang} />
+
+<style>
+  .about-hero {
+    position: relative;
+    min-height: 340px;
+    display: flex;
+    align-items: flex-end;
+    padding-block: var(--s7);
+    overflow: hidden;
+  }
+  .about-hero-media {
+    position: absolute;
+    inset: 0;
+  }
+  .about-hero-media :global(.about-hero-photo) {
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
+  }
+  .about-hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      0deg,
+      rgba(32, 30, 29, 0.75) 0%,
+      rgba(32, 30, 29, 0.3) 70%,
+      rgba(32, 30, 29, 0.2) 100%
+    );
+  }
+  .about-hero-inner {
+    position: relative;
+    color: var(--dark-text);
+  }
+  .about-kicker {
+    color: #eec19c;
+  }
+
+  .story {
+    max-width: 900px;
+    padding-block: var(--s8) var(--s6);
+  }
+
+  .landscapes {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: var(--s4);
+    padding-block-end: var(--s8);
+  }
+
+  .team .h2-sm {
+    margin-block-end: var(--s6);
+  }
+
+  .team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: var(--s5);
+  }
+
+  .team-card {
+    text-align: center;
+  }
+
+  .team-photo {
+    width: 140px;
+    margin-inline: auto;
+    margin-block-end: var(--s3);
+  }
+  .team-photo :global(.photo-tile) {
+    border-radius: var(--r-pill);
+  }
+
+  .team-name {
+    font-family: var(--font-display);
+    font-size: 17px;
+  }
+  .team-role {
+    font-size: 12px;
+    opacity: 0.6;
+    margin-block: 3px var(--s2);
+  }
+  .team-bio {
+    font-size: 14px;
+    line-height: 1.6;
+    opacity: 0.82;
+  }
+
+  .trust-section {
+    padding-block: var(--s8);
+  }
+  .trust-heading {
+    margin-block-end: var(--s5);
+  }
+</style>

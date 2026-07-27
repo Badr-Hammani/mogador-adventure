@@ -1,0 +1,215 @@
+---
+import { t, type Lang } from "../lib/i18n";
+import { pathFor } from "../lib/routes";
+import { formatDate, type Post, type PostCopy } from "../data/blog";
+import { activityCopy, ACTIVITY_META } from "../data/activities";
+import { fromPrice } from "../data/pricing";
+import { money } from "../lib/site";
+import Photo from "../components/Photo.astro";
+import CTABand from "../components/CTABand.astro";
+import Icon from "../components/Icon.astro";
+
+interface Props {
+  post: Post;
+  copy: PostCopy;
+  lang: Lang;
+}
+
+const { post, copy, lang } = Astro.props;
+const s = t(lang);
+const activity = activityCopy(post.relatedActivity, lang);
+const meta = ACTIVITY_META[post.relatedActivity];
+const activityHref = pathFor("activity", lang, {
+  activity: post.relatedActivity,
+});
+const price = fromPrice(post.relatedActivity);
+
+const relatedLabel: Record<Lang, string> = {
+  en: "Related activity",
+  fr: "Activité liée",
+  es: "Actividad relacionada",
+  de: "Passende Aktivität",
+  ar: "نشاط ذو صلة",
+};
+---
+
+<article class="post">
+  <header class="container post-head">
+    <p class="post-meta">{copy.category} · {formatDate(post.date, lang)}</p>
+    <h1 class="h1-page">{copy.title}</h1>
+    <p class="lead post-excerpt">{copy.excerpt}</p>
+  </header>
+
+  <div class="container">
+    <Photo
+      src={post.photo}
+      alt={copy.title}
+      ratio="16-10"
+      icon={meta.icon}
+      eager
+      widths={[600, 1000, 1400]}
+      sizes="(max-width: 1180px) 100vw, 1130px"
+    />
+  </div>
+
+  <div class="container post-layout">
+    <div class="post-content">
+      {
+        copy.blocks.map((block) => {
+          if (block.type === "h2") return <h2 class="h2-sm block-h2">{block.text}</h2>;
+          if (block.type === "list")
+            return (
+              <ul class="block-list">
+                {block.items?.map((item) => (
+                  <li>
+                    <Icon name="check" size={15} stroke={2.6} />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            );
+          return <p class="body-text">{block.text}</p>;
+        })
+      }
+
+      <p class="back">
+        <a href={pathFor("blog", lang)} class="link-arrow">
+          <span class="arrow-glyph">←</span> {s.back_to_blog}
+        </a>
+      </p>
+    </div>
+
+    <aside class="post-side">
+      <div class="related-card">
+        <p class="related-kicker">{relatedLabel[lang]}</p>
+        <span class="icon-badge">
+          <Icon name={meta.icon} size={22} />
+        </span>
+        <h2 class="h3">{activity.name}</h2>
+        <p class="related-teaser">{activity.teaser}</p>
+        {
+          price > 0 && (
+            <p class="related-price">
+              {s.from_price} <strong>{money(price)}</strong>
+            </p>
+          )
+        }
+        <a href={activityHref} class="btn btn-primary btn-sm btn-block">
+          {s.learn_more}
+        </a>
+      </div>
+    </aside>
+  </div>
+</article>
+
+<CTABand lang={lang} />
+
+<style>
+  .post-head {
+    padding-block: var(--s7) var(--s5);
+    max-width: 780px;
+  }
+
+  .post-meta {
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent-dark);
+    font-weight: 700;
+    margin-block-end: var(--s2);
+  }
+
+  .post-excerpt {
+    margin-block-start: var(--s3);
+  }
+
+  .post-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1.7fr) minmax(0, 1fr);
+    gap: var(--s7);
+    align-items: start;
+    padding-block: var(--s7);
+  }
+
+  .post-content {
+    max-width: 68ch;
+  }
+
+  .block-h2 {
+    margin-block: var(--s6) var(--s3);
+  }
+
+  .block-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s2);
+    margin-block: var(--s3);
+  }
+  .block-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--s2);
+    font-size: 15px;
+    line-height: 1.6;
+    opacity: 0.86;
+  }
+  .block-list :global(svg) {
+    color: var(--accent-dark);
+    flex-shrink: 0;
+    margin-block-start: 4px;
+  }
+
+  .back {
+    margin-block-start: var(--s7);
+    padding-block-start: var(--s4);
+    border-top: 1px solid var(--border-light);
+  }
+
+  .post-side {
+    position: sticky;
+    top: 90px;
+  }
+
+  .related-card {
+    background: var(--surface);
+    border-radius: var(--r-card);
+    padding: var(--s5);
+  }
+  .related-kicker {
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    opacity: 0.55;
+    font-weight: 700;
+    margin-block-end: var(--s3);
+  }
+  .related-card .icon-badge {
+    margin-block-end: var(--s2);
+  }
+  .related-teaser {
+    font-size: 14px;
+    line-height: 1.6;
+    opacity: 0.8;
+    margin-block: var(--s2) var(--s3);
+  }
+  .related-price {
+    font-size: 13px;
+    opacity: 0.75;
+    margin-block-end: var(--s3);
+  }
+  .related-price strong {
+    font-family: var(--font-display);
+    font-size: 19px;
+    color: var(--accent-dark);
+  }
+
+  @media (max-width: 900px) {
+    .post-layout {
+      grid-template-columns: 1fr;
+      gap: var(--s6);
+    }
+    .post-side {
+      position: static;
+    }
+  }
+</style>
