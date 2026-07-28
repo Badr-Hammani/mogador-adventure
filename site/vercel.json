@@ -1,8 +1,8 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": "astro",
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
-  "framework": "astro",
   "trailingSlash": true,
   "headers": [
     {
@@ -22,7 +22,6 @@
       ]
     },
     {
-      "comment": "Build assets are content-hashed, so they can never go stale.",
       "source": "/_astro/(.*)",
       "headers": [
         {
@@ -32,7 +31,6 @@
       ]
     },
     {
-      "comment": "HTML must revalidate so a content edit goes live immediately rather than sitting in the CDN for hours — the problem we hit on GitHub Pages.",
       "source": "/(.*).html",
       "headers": [
         { "key": "Cache-Control", "value": "public, max-age=0, must-revalidate" }
