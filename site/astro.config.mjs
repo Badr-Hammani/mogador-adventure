@@ -18,7 +18,7 @@ import { defineConfig } from "astro/config";
  * The GitHub Actions workflow passes `--site` and `--base` on the command line,
  * which override whatever is here.
  *
- * WHEN mogadoradventures.com IS LIVE: point the domain at Vercel, set
+ * WHEN mogadoradventure.com IS LIVE: point the domain at Vercel, set
  * PUBLIC_SITE_URL in the Vercel project settings, and flip `indexable: true`
  * in src/lib/config.ts.
  */
@@ -33,7 +33,7 @@ const vercelHost =
 
 const site =
   explicitSite ??
-  (vercelHost ? `https://${vercelHost}` : "https://mogadoradventures.com");
+  (vercelHost ? `https://${vercelHost}` : "https://mogadoradventure.com");
 
 export default defineConfig({
   site,

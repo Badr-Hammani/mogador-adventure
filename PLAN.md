@@ -22,7 +22,7 @@ I looked at the actual search results you're competing in. Here's the situation:
 | Exact-match operator domains | dianaquad-essaouira.com, monsterquad-essaouira.com, quadessaouira.online, palmaquad.com, mogaquad.com, mofidaquad.com, quad-attitude-essaouira.com, essa-adventure.com | Domain name literally contains the keyword, aged 3–8 years, single-activity focus |
 | Content/affiliate sites | exploreessaouira.com, tripadvisor.com, travel blogs | Editorial depth + links |
 
-**The strategic problem:** `mogadoradventures.com` is a *brand* domain for a *six-activity* business, competing against a swarm of *keyword* domains for *one-activity* businesses. On a like-for-like basis they have the structural advantage on the head term.
+**The strategic problem:** `mogadoradventure.com` is a *brand* domain for a *six-activity* business, competing against a swarm of *keyword* domains for *one-activity* businesses. On a like-for-like basis they have the structural advantage on the head term.
 
 **The strategic answer — three parts:**
 
@@ -50,8 +50,13 @@ Anyone promising #1 on the head term in 3 months on a new domain is selling you 
 These are cheap, fast, and everything else depends on them.
 
 ### 1.1 Domain
-- Register **`mogadoradventures.com`** (matches the email already in use, `hello@mogadoradventures.com`).
-- Also register and 301-redirect: `mogadoradventures.ma`, `mogador-adventures.com`.
+- ✅ **`mogadoradventure.com`** is registered (Namecheap) and pointed at Vercel. Note the
+  singular *adventure* — every link, card and listing must use that exact spelling.
+  The apex is canonical; `www.` 301-redirects to it.
+- Optional later: register and 301-redirect `mogadoradventure.ma` and `mogador-adventures.com`
+  as defensive/typo domains.
+- No mailbox exists on the domain yet, so the site uses `mogador.adventures@gmail.com`.
+  Set up `hello@mogadoradventure.com` and switch `SITE.email` once it receives mail.
 - ⚠️ **Do not** buy a separate exact-match domain like `quad-essaouira-mogador.com` and run it as a second site. Splitting authority across two domains is the most common own-goal in this niche. One domain, many pages.
 
 ### 1.2 Google Business Profile (GBP) — **highest ROI action in this entire document**
@@ -174,22 +179,22 @@ Also pull the best existing frames from your Instagram/TikTok back catalogue —
 **The fix — path-based routing with hreflang:**
 
 ```
-mogadoradventures.com/            → English (default)
-mogadoradventures.com/fr/         → Français
-mogadoradventures.com/es/         → Español
-mogadoradventures.com/de/         → Deutsch
-mogadoradventures.com/ar/         → العربية (dir=rtl)
+mogadoradventure.com/            → English (default)
+mogadoradventure.com/fr/         → Français
+mogadoradventure.com/es/         → Español
+mogadoradventure.com/de/         → Deutsch
+mogadoradventure.com/ar/         → العربية (dir=rtl)
 ```
 
 Every page emits reciprocal hreflang tags in `<head>`:
 
 ```html
-<link rel="alternate" hreflang="en" href="https://mogadoradventures.com/activities/quad-biking-essaouira/" />
-<link rel="alternate" hreflang="fr" href="https://mogadoradventures.com/fr/activites/quad-essaouira/" />
-<link rel="alternate" hreflang="es" href="https://mogadoradventures.com/es/actividades/quad-essaouira/" />
-<link rel="alternate" hreflang="de" href="https://mogadoradventures.com/de/aktivitaeten/quad-essaouira/" />
-<link rel="alternate" hreflang="ar" href="https://mogadoradventures.com/ar/الأنشطة/كواد-الصويرة/" />
-<link rel="alternate" hreflang="x-default" href="https://mogadoradventures.com/activities/quad-biking-essaouira/" />
+<link rel="alternate" hreflang="en" href="https://mogadoradventure.com/activities/quad-biking-essaouira/" />
+<link rel="alternate" hreflang="fr" href="https://mogadoradventure.com/fr/activites/quad-essaouira/" />
+<link rel="alternate" hreflang="es" href="https://mogadoradventure.com/es/actividades/quad-essaouira/" />
+<link rel="alternate" hreflang="de" href="https://mogadoradventure.com/de/aktivitaeten/quad-essaouira/" />
+<link rel="alternate" hreflang="ar" href="https://mogadoradventure.com/ar/الأنشطة/كواد-الصويرة/" />
+<link rel="alternate" hreflang="x-default" href="https://mogadoradventure.com/activities/quad-biking-essaouira/" />
 ```
 
 Note the **translated URL slugs** — `/fr/activites/quad-essaouira/` outranks `/fr/activities/quad-biking/` because the keyword is in the path.
@@ -587,10 +592,10 @@ If you only act on three things from this document:
 Name:      Mogador Adventures
 Phone:     +212 662 169 221
 WhatsApp:  https://wa.me/212662169221
-Email:     hello@mogadoradventures.com
+Email:     mogador.adventures@gmail.com
 Instagram: @mogador_adventures
 TikTok:    @essasports2
-Location:  Essaouira, Morocco  (31.5085, -9.7595)
+Location:  Essaouira, Morocco  Diabat (31.4788867, -9.7655976)
 ```
 
 ## Appendix C — Competitors to monitor

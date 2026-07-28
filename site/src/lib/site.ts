@@ -9,7 +9,7 @@
 export const SITE = {
   name: "Mogador Adventures",
   legalName: "Mogador Adventures",
-  domain: "https://mogadoradventures.com",
+  domain: "https://mogadoradventure.com",
   // Founding year removed — "2019" came from the design mockup and the operator
   // has confirmed it is wrong. Not currently rendered anywhere; add the real
   // year here if you want it in the About copy or the schema.
@@ -19,11 +19,11 @@ export const SITE = {
   whatsappNumber: "212662169221",
   /*
    * The address on the operator's printed rate card, and the one that actually
-   * receives mail. `hello@mogadoradventures.com` was carried over from the
+   * receives mail. `hello@mogadoradventure.com` was carried over from the
    * design handoff, but that domain isn't registered — so every mailto link on
    * the site pointed at a mailbox that cannot exist.
    *
-   * Switch to hello@mogadoradventures.com once the domain is live AND the
+   * Switch to hello@mogadoradventure.com once the domain is live AND the
    * mailbox is set up, not before.
    */
   email: "mogador.adventures@gmail.com",

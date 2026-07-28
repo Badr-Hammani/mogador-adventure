@@ -16,7 +16,7 @@ export const CONFIG = {
    *         and later you have two competing copies plus canonical tags
    *         pointing at a domain that didn't exist yet.
    *
-   * Flip to true ONLY once mogadoradventures.com is registered, DNS points at
+   * Flip to true ONLY once mogadoradventure.com is registered, DNS points at
    * Cloudflare Pages, and `site` in astro.config.mjs matches it exactly.
    * Then rebuild, redeploy, and submit the sitemap in Search Console.
    */
