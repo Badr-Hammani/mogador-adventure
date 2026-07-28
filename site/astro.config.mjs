@@ -4,21 +4,40 @@ import { defineConfig } from "astro/config";
 /**
  * Mogador Adventures — static site.
  *
- * ── Deployment target ────────────────────────────────────────────────────────
- * Currently GitHub Project Pages:  https://badr-hammani.github.io/mogador-adventure/
+ * ── Why site/base are computed rather than hardcoded ─────────────────────────
+ * The same commit is deployed to two hosts, which need different values:
  *
- * `site` + `base` together build every canonical URL, hreflang tag, sitemap
- * entry and internal link, so they must match the live URL exactly.
+ *   Vercel          served at the domain root        base "/"
+ *   GitHub Pages    served at /mogador-adventure/    base "/mogador-adventure/"
  *
- * WHEN mogadoradventures.com IS REGISTERED, change to:
- *     site: "https://mogadoradventures.com",
- *     base: "/",
- * and set `indexable: true` in src/lib/config.ts. Nothing else needs touching —
- * every href flows through pathFor() in src/lib/routes.ts, which reads the base.
+ * `site` and `base` build every canonical URL, hreflang tag, sitemap entry and
+ * internal link, so getting them wrong doesn't fail the build — it silently
+ * ships a site where every link 404s.
+ *
+ * Vercel exposes the deployment URL as an env var, so it configures itself.
+ * The GitHub Actions workflow passes `--site` and `--base` on the command line,
+ * which override whatever is here.
+ *
+ * WHEN mogadoradventures.com IS LIVE: point the domain at Vercel, set
+ * PUBLIC_SITE_URL in the Vercel project settings, and flip `indexable: true`
+ * in src/lib/config.ts.
  */
+
+// Set this in Vercel → Settings → Environment Variables once the real domain
+// is attached. It wins over the auto-generated deployment URL.
+const explicitSite = process.env.PUBLIC_SITE_URL;
+
+// Vercel provides the stable production domain, and a per-deployment URL.
+const vercelHost =
+  process.env.VERCEL_PROJECT_PRODUCTION_URL || process.env.VERCEL_URL;
+
+const site =
+  explicitSite ??
+  (vercelHost ? `https://${vercelHost}` : "https://mogadoradventures.com");
+
 export default defineConfig({
-  site: "https://badr-hammani.github.io",
-  base: "/mogador-adventure",
+  site,
+  base: "/",
   trailingSlash: "always",
   build: {
     format: "directory",
