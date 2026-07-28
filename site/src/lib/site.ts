@@ -15,7 +15,16 @@ export const SITE = {
   phone: "+212 662 169 221",
   phoneE164: "+212662169221",
   whatsappNumber: "212662169221",
-  email: "hello@mogadoradventures.com",
+  /*
+   * The address on the operator's printed rate card, and the one that actually
+   * receives mail. `hello@mogadoradventures.com` was carried over from the
+   * design handoff, but that domain isn't registered — so every mailto link on
+   * the site pointed at a mailbox that cannot exist.
+   *
+   * Switch to hello@mogadoradventures.com once the domain is live AND the
+   * mailbox is set up, not before.
+   */
+  email: "mogador.adventures@gmail.com",
 
   address: {
     locality: "Essaouira",

@@ -48,30 +48,33 @@ const EN: Record<QuadVariantKey, QuadVariantCopy> = {
     h1: "Quad Biking Essaouira — Prices for 2026",
     metaTitle: "Quad Essaouira Prices 2026 | From €30, No Deposit",
     metaDescription:
-      "What quad biking actually costs in Essaouira: €30 for 1 hour, €45 for 2 hours, €65 for 3 hours, €85 half day. All-inclusive, no deposit, free cancellation.",
+      "What quad biking costs in Essaouira: from €30 for an hour in Diabat up to €140 for a full day to the Sidi M'barek waterfall. Priced per quad, one or two riders.",
     intro:
       "Straight prices, no packages to decode and nothing added at the end. Here is what a quad tour in Essaouira costs with us, and what that price includes.",
     body: [
       "Most quad operators in Essaouira do not publish prices. You message them, they ask where you're staying, and the number arrives afterwards. We think that's a bad way to start, so ours are on this page and they are the prices you pay.",
-      "Every rate below is per person and includes the quad and fuel, a guide, helmet and protective gear, the safety briefing and practice loop, hotel pickup and drop-off in Essaouira or Diabat, and the photos and video from your ride. There is no fuel surcharge, no equipment fee and no mandatory tip.",
-      "Two people can share one quad at the same price as a single rider — so a couple on a two-hour tour pays €45, not €90. Only the driver needs to be 16 or over.",
-      "Group and family rates: from six people we discount, and for eight or more we'll usually put a second guide on and still come out cheaper per head. Message us with numbers and we'll quote properly.",
+      "Prices are per quad, not per person — that is the thing worth understanding before you compare us with anyone else. One machine costs the same whether you take the short Diabat loop or the full day to Sidi M'barek; what changes is whether one person rides it or two share it. A couple on the two-hour tour pays €70 for the pair, which works out at €35 each, so sharing is the cheaper way to ride if you're happy two-up.",
+      "Every rate includes the quad and fuel, a guide, a helmet and the safety briefing before you set off. Closed shoes are required and reservation is required. Pickup from your hotel or riad in Essaouira or Diabat is available on request — ask when you book and we'll arrange it.",
+      "The six options are genuinely different rides, not the same loop at different lengths. The hour stays on Diabat's beach and forest trails. Two hours adds the wild dunes and a natural freshwater spring. Three hours runs out to Cap Sim. The half day reaches the little fishing port of Taguenza. The two full days go further again — south along the shore to Sidi Kaouki, or out to the Sidi M'barek waterfall.",
+      "Group rates: from six people we discount, and for larger groups we put a second guide on. Message us with numbers and dates and we'll quote properly.",
       "You pay on the day, in cash (dirham or euro) or by card. No deposit is required for standard bookings, and cancellation is free up to 24 hours before departure.",
     ],
     facts: [
+      { label: "Priced per", value: "Quad — 1 or 2 riders, not per person" },
       { label: "Payment", value: "Cash or card, on the day" },
       { label: "Deposit", value: "None for standard bookings" },
-      { label: "Cancellation", value: "Free up to 24 hours before" },
-      { label: "Sharing", value: "Two riders per quad at no extra cost" },
+      { label: "Pickup", value: "Available on request" },
+      { label: "Required", value: "Closed shoes · advance reservation" },
+      { label: "Included", value: "Guide, helmet, fuel, safety briefing" },
     ],
   },
 
   sunset: {
     label: "Sunset tour",
     h1: "Sunset Quad Tour in Essaouira — The Ride Locals Take",
-    metaTitle: "Sunset Quad Tour Essaouira | Golden Hour Dunes €45",
+    metaTitle: "Sunset Quad Tour Essaouira | Golden Hour Dunes €50",
     metaDescription:
-      "The late-afternoon quad tour that finishes with the sun going into the Atlantic. Firmer sand, better light, cooler air. 2 hours, €45, mint tea on the dunes.",
+      "The late-afternoon quad tour that finishes with the sun going into the Atlantic. Firmer sand, better light, cooler air. 2 hours — €50 for one rider, €70 for two sharing.",
     intro:
       "If you only do one quad ride in Essaouira, do this one. Firmer sand, long shadows across the dunes, and the sun going down over the Atlantic as you finish.",
     body: [
@@ -93,9 +96,9 @@ const EN: Record<QuadVariantKey, QuadVariantCopy> = {
   oneHour: {
     label: "1 hour",
     h1: "1-Hour Quad Tour in Essaouira — Short Beach & Dune Ride",
-    metaTitle: "1 Hour Quad Essaouira | Short Beach Ride €30",
+    metaTitle: "1 Hour Quad Essaouira | Diabat Beach & Forest €30",
     metaDescription:
-      "The short quad tour in Essaouira: one hour on the beach and the first dunes. €30 per person, all gear and hotel pickup included. Good for a first try.",
+      "The short quad tour in Essaouira: one hour on the beach and the first dunes. €30 for one rider, €45 for two sharing. Helmet and guide included.",
     intro:
       "The short one. An hour on the beach and the near dunes — enough to learn the machine and get the feeling, without committing your afternoon.",
     body: [
@@ -114,9 +117,9 @@ const EN: Record<QuadVariantKey, QuadVariantCopy> = {
   twoHours: {
     label: "2 hours",
     h1: "2-Hour Quad Tour in Essaouira — Beach, Dunes and Argan Forest",
-    metaTitle: "2 Hour Quad Tour Essaouira | Dunes & Forest €45",
+    metaTitle: "2 Hour Quad Tour Essaouira | Dunes & Spring €50",
     metaDescription:
-      "Our most-booked quad tour: two hours across beach, the full dune belt and the argan forest near Essaouira. €45 per person, everything included.",
+      "Our most-booked quad tour: two hours across beach, the full dune belt and the argan forest near Essaouira. €50 for one rider, €70 for two sharing.",
     intro:
       "The one most people book, and the one we recommend. Two hours gets you all three landscapes — beach, dune belt and argan forest — without rushing any of them.",
     body: [
@@ -137,9 +140,9 @@ const EN: Record<QuadVariantKey, QuadVariantCopy> = {
   halfDay: {
     label: "Half day",
     h1: "Half-Day Quad Tour in Essaouira — 4 Hours to the Far Dunes",
-    metaTitle: "Half Day Quad Essaouira | 4-Hour Dune Tour €85",
+    metaTitle: "Half Day Quad Essaouira | Taguenza & Cap Sim €90",
     metaDescription:
-      "Four hours by quad from Essaouira: the far dune belt, argan forest, Berber village stop and remote beach. €85 per person, lunch stop included.",
+      "Half a day by quad from Diabat: forest and dunes all the way to the little fishing port of Taguenza and Cap Sim. €90 for one rider, €110 for two.",
     intro:
       "Four hours and real distance. This is the tour that gets you past the dunes everyone rides and out to the country behind them.",
     body: [
@@ -154,7 +157,7 @@ const EN: Record<QuadVariantKey, QuadVariantCopy> = {
       { label: "Includes", value: "Berber village tea stop and a food break" },
       { label: "Fitness", value: "Moderate — some previous quad experience helps" },
     ],
-    priceKey: "quad-4h",
+    priceKey: "quad-half-day",
   },
 
   diabat: {
@@ -186,30 +189,33 @@ const FR: Record<QuadVariantKey, QuadVariantCopy> = {
     h1: "Quad Essaouira — Les prix 2026",
     metaTitle: "Quad Essaouira prix 2026 | Dès 30 €, sans acompte",
     metaDescription:
-      "Ce que coûte vraiment le quad à Essaouira : 30 € l'heure, 45 € 2 heures, 65 € 3 heures, 85 € la demi-journée. Tout compris, sans acompte, annulation gratuite.",
+      "Ce que coûte le quad à Essaouira : de 30 € l'heure à Diabat jusqu'à 140 € la journée vers la cascade de Sidi M'barek. Tarif par quad, un ou deux pilotes.",
     intro:
       "Des prix clairs, pas de formules à décrypter et rien qui s'ajoute à la fin. Voici ce que coûte une sortie quad à Essaouira chez nous, et ce que ce prix comprend.",
     body: [
       "La plupart des loueurs de quad à Essaouira n'affichent pas leurs prix. Vous écrivez, on vous demande où vous logez, et le chiffre arrive ensuite. Nous trouvons que c'est une mauvaise façon de commencer : les nôtres sont sur cette page et ce sont ceux que vous payez.",
-      "Chaque tarif ci-dessous est par personne et comprend le quad et le carburant, un guide, le casque et l'équipement de protection, le briefing sécurité et la boucle d'essai, le transfert aller-retour depuis votre hôtel à Essaouira ou Diabat, et les photos et vidéos de votre sortie. Pas de supplément carburant, pas de frais d'équipement, pas de pourboire obligatoire.",
-      "Deux personnes peuvent partager un quad au même prix qu'un pilote seul — un couple sur une sortie de deux heures paie donc 45 €, pas 90 €. Seul le conducteur doit avoir 16 ans ou plus.",
-      "Tarifs groupes et familles : à partir de six personnes nous appliquons une remise, et au-delà de huit nous ajoutons généralement un second guide tout en restant moins cher par tête. Écrivez-nous avec le nombre de participants et nous ferons un vrai devis.",
+      "Les tarifs sont par quad, pas par personne — c'est ce qu'il faut comprendre avant de nous comparer à qui que ce soit. Une machine coûte le même prix que vous fassiez la petite boucle de Diabat ou la journée complète vers Sidi M'barek ; ce qui change, c'est qu'un seul pilote la monte ou que deux la partagent. Un couple sur la sortie de deux heures paie 70 € à deux, soit 35 € par personne : partager revient donc moins cher si le duo vous convient.",
+      "Chaque tarif comprend le quad et le carburant, un guide, le casque et le briefing sécurité avant le départ. Les chaussures fermées sont obligatoires et la réservation est obligatoire. Le transfert depuis votre hôtel ou riad à Essaouira ou Diabat est possible sur demande — signalez-le à la réservation et nous l'organisons.",
+      "Les six formules sont de vraies sorties différentes, pas la même boucle à des longueurs variables. L'heure reste sur la plage et les pistes forestières de Diabat. Deux heures ajoutent les dunes sauvages et une source d'eau douce naturelle. Trois heures poussent jusqu'au Cap Sim. La demi-journée atteint le petit port de pêche de Taguenza. Les deux journées complètes vont plus loin encore — vers le sud le long du rivage jusqu'à Sidi Kaouki, ou jusqu'à la cascade de Sidi M'barek.",
+      "Tarifs groupes : à partir de six personnes nous appliquons une remise, et pour les groupes plus importants nous ajoutons un second guide. Écrivez-nous avec le nombre de participants et les dates pour un vrai devis.",
       "Vous payez le jour même, en espèces (dirhams ou euros) ou par carte. Aucun acompte n'est demandé pour les réservations standard, et l'annulation est gratuite jusqu'à 24 heures avant le départ.",
     ],
     facts: [
+      { label: "Tarif", value: "Par quad — 1 ou 2 pilotes, pas par personne" },
       { label: "Paiement", value: "Espèces ou carte, le jour même" },
       { label: "Acompte", value: "Aucun pour les réservations standard" },
-      { label: "Annulation", value: "Gratuite jusqu'à 24 h avant" },
-      { label: "Partage", value: "Deux personnes par quad sans supplément" },
+      { label: "Transfert", value: "Possible sur demande" },
+      { label: "Obligatoire", value: "Chaussures fermées · réservation" },
+      { label: "Inclus", value: "Guide, casque, carburant, briefing" },
     ],
   },
 
   sunset: {
     label: "Coucher de soleil",
     h1: "Quad au coucher du soleil à Essaouira — La sortie que font les locaux",
-    metaTitle: "Quad coucher de soleil Essaouira | Heure dorée 45 €",
+    metaTitle: "Quad coucher de soleil Essaouira | Heure dorée 50 €",
     metaDescription:
-      "La sortie quad de fin d'après-midi qui se termine avec le soleil dans l'Atlantique. Sable plus ferme, meilleure lumière, air plus frais. 2 heures, 45 €.",
+      "La sortie quad de fin d'après-midi qui se termine avec le soleil dans l'Atlantique. Sable plus ferme, meilleure lumière, air plus frais. 2 heures — 50 € pour un pilote, 70 € à deux.",
     intro:
       "Si vous ne faites qu'une sortie quad à Essaouira, faites celle-là. Sable plus ferme, longues ombres sur les dunes, et le soleil qui descend sur l'Atlantique au moment où vous terminez.",
     body: [
@@ -231,9 +237,9 @@ const FR: Record<QuadVariantKey, QuadVariantCopy> = {
   oneHour: {
     label: "1 heure",
     h1: "Sortie quad d'1 heure à Essaouira — Plage et premières dunes",
-    metaTitle: "Quad 1 heure Essaouira | Sortie courte plage 30 €",
+    metaTitle: "Quad 1 heure Essaouira | Plage et forêt de Diabat 30 €",
     metaDescription:
-      "La sortie quad courte à Essaouira : une heure sur la plage et les premières dunes. 30 € par personne, équipement et transfert hôtel inclus.",
+      "La sortie quad courte à Essaouira : une heure sur la plage et les premières dunes. 30 € pour un pilote, 45 € à deux. Casque et guide inclus.",
     intro:
       "La formule courte. Une heure sur la plage et les dunes proches — de quoi prendre en main la machine et attraper la sensation, sans y consacrer votre après-midi.",
     body: [
@@ -252,9 +258,9 @@ const FR: Record<QuadVariantKey, QuadVariantCopy> = {
   twoHours: {
     label: "2 heures",
     h1: "Sortie quad de 2 heures à Essaouira — Plage, dunes et forêt d'arganiers",
-    metaTitle: "Quad 2 heures Essaouira | Dunes et forêt 45 €",
+    metaTitle: "Quad 2 heures Essaouira | Dunes et source 50 €",
     metaDescription:
-      "Notre sortie quad la plus réservée : deux heures entre plage, cordon dunaire complet et forêt d'arganiers près d'Essaouira. 45 € par personne, tout compris.",
+      "Notre sortie quad la plus réservée : deux heures entre plage, cordon dunaire complet et forêt d'arganiers près d'Essaouira. 50 € pour un pilote, 70 € à deux.",
     intro:
       "Celle que la plupart des gens réservent, et celle que nous recommandons. Deux heures pour parcourir les trois paysages — plage, cordon dunaire et forêt d'arganiers — sans en bâcler aucun.",
     body: [
@@ -275,9 +281,9 @@ const FR: Record<QuadVariantKey, QuadVariantCopy> = {
   halfDay: {
     label: "Demi-journée",
     h1: "Quad demi-journée à Essaouira — 4 heures vers les dunes lointaines",
-    metaTitle: "Quad demi-journée Essaouira | 4 heures dunes 85 €",
+    metaTitle: "Quad demi-journée Essaouira | Taguenza et Cap Sim 90 €",
     metaDescription:
-      "Quatre heures de quad depuis Essaouira : cordon dunaire lointain, forêt d'arganiers, arrêt dans un village berbère et plage isolée. 85 €, pause repas incluse.",
+      "Une demi-journée de quad depuis Diabat : forêt et dunes jusqu'au petit port de pêche de Taguenza et au Cap Sim. 90 € pour un pilote, 110 € à deux.",
     intro:
       "Quatre heures et de la vraie distance. C'est la sortie qui vous emmène au-delà des dunes que tout le monde parcourt, jusqu'à l'arrière-pays.",
     body: [
@@ -292,7 +298,7 @@ const FR: Record<QuadVariantKey, QuadVariantCopy> = {
       { label: "Comprend", value: "Thé dans un village berbère et pause repas" },
       { label: "Condition physique", value: "Modérée — une première expérience aide" },
     ],
-    priceKey: "quad-4h",
+    priceKey: "quad-half-day",
   },
 
   diabat: {

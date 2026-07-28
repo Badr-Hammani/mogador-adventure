@@ -22,6 +22,21 @@ const prefixes: Record<Lang, string> = {
   ar: "مرحباً Mogador Adventures! أودّ حجز",
 };
 
+/* The card prices one quad, for one rider or two sharing. */
+const headOne: Record<Lang, string> = {
+  en: "1 rider",
+  fr: "1 pilote",
+  es: "1 piloto",
+  de: "1 Fahrer",
+  ar: "سائق واحد",
+};
+const headTwo: Record<Lang, string> = {
+  en: "2 sharing",
+  fr: "2 partagé",
+  es: "2 compartido",
+  de: "2 geteilt",
+  ar: "شخصان",
+};
 const popularLabel: Record<Lang, string> = {
   en: "Most booked",
   fr: "Le plus réservé",
@@ -29,10 +44,23 @@ const popularLabel: Record<Lang, string> = {
   de: "Am meisten gebucht",
   ar: "الأكثر حجزاً",
 };
+
+const hasSharing = options.some((o) => o.priceTwo);
 ---
 
 <div class="price-block">
   <h2 class="h2-sm">{s.prices_title}</h2>
+
+  {
+    hasSharing && (
+      <div class="price-head" aria-hidden="true">
+        <span class="ph-dur" />
+        <span class="ph-col">{headOne[lang]}</span>
+        <span class="ph-col">{headTwo[lang]}</span>
+      </div>
+    )
+  }
+
   <ul class="price-list">
     {
       options.map((option) => (
@@ -45,28 +73,38 @@ const popularLabel: Record<Lang, string> = {
             {option.popular && (
               <span class="tag popular-tag">{popularLabel[lang]}</span>
             )}
+            {option.route && <span class="price-route">{option.route[lang]}</span>}
           </div>
-          <div class="price-side">
+
+          <div class="price-figures">
             <span class="price-amount">
               {money(option.price)}
-              <small>/{s.per_person}</small>
+              <small>{headOne[lang]}</small>
             </span>
-            <a
-              class="btn btn-outline btn-sm"
-              href={waLink(
-                `${prefixes[lang]}: ${activityName} — ${option.label[lang]}.`,
-              )}
-              target="_blank"
-              rel="noopener"
-              data-context={`price-${option.key}`}
-            >
-              {s.book_this}
-            </a>
+            {option.priceTwo && (
+              <span class="price-amount price-amount-two">
+                {money(option.priceTwo)}
+                <small>{headTwo[lang]}</small>
+              </span>
+            )}
           </div>
+
+          <a
+            class="btn btn-outline btn-sm price-cta"
+            href={waLink(
+              `${prefixes[lang]}: ${activityName} — ${option.label[lang]}.`,
+            )}
+            target="_blank"
+            rel="noopener"
+            data-context={`price-${option.key}`}
+          >
+            {s.book_this}
+          </a>
         </li>
       ))
     }
   </ul>
+
   <p class="price-note">{s.prices_note}</p>
 </div>
 
@@ -78,16 +116,19 @@ const popularLabel: Record<Lang, string> = {
     box-shadow: var(--shadow-card);
   }
 
+  .price-head {
+    display: none;
+  }
+
   .price-list {
     margin-block: var(--s4) 0;
   }
 
   .price-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: var(--s3);
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: var(--s2) var(--s3);
+    align-items: start;
     padding-block: var(--s3);
     border-bottom: 1px solid var(--border-light);
   }
@@ -97,9 +138,9 @@ const popularLabel: Record<Lang, string> = {
 
   .price-main {
     display: flex;
-    align-items: center;
-    gap: var(--s2);
-    flex-wrap: wrap;
+    flex-direction: column;
+    gap: 6px;
+    align-items: flex-start;
   }
 
   .price-duration {
@@ -110,28 +151,51 @@ const popularLabel: Record<Lang, string> = {
     font-weight: 600;
   }
 
+  .price-route {
+    font-size: 12.5px;
+    line-height: 1.5;
+    opacity: 0.7;
+    max-width: 42ch;
+  }
+
   .popular-tag {
     background: var(--accent-tint);
     color: var(--accent-dark);
   }
 
-  .price-side {
+  .price-figures {
     display: flex;
-    align-items: center;
     gap: var(--s3);
+    align-items: baseline;
   }
 
   .price-amount {
     font-family: var(--font-display);
-    font-size: 22px;
+    font-size: 21px;
     color: var(--accent-dark);
     white-space: nowrap;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    line-height: 1.1;
+  }
+  .price-amount-two {
+    opacity: 0.75;
+    font-size: 19px;
   }
   .price-amount small {
     font-family: var(--font-body);
-    font-size: 11px;
+    font-size: 10px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
     opacity: 0.6;
     color: var(--text);
+    margin-block-start: 3px;
+  }
+
+  .price-cta {
+    grid-column: 2;
+    justify-self: end;
   }
 
   .price-note {
@@ -143,13 +207,17 @@ const popularLabel: Record<Lang, string> = {
 
   @media (max-width: 560px) {
     .price-row {
-      align-items: flex-start;
-      flex-direction: column;
-      gap: var(--s2);
+      grid-template-columns: 1fr;
     }
-    .price-side {
-      width: 100%;
-      justify-content: space-between;
+    .price-figures {
+      justify-content: flex-start;
+    }
+    .price-amount {
+      align-items: flex-start;
+    }
+    .price-cta {
+      grid-column: 1;
+      justify-self: start;
     }
   }
 </style>

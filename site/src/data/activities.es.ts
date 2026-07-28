@@ -6,7 +6,7 @@ export const ES: ActivityContent = {
     h1: "Quad en Essaouira — Excursiones guiadas por dunas y playa",
     metaTitle: "Quad Essaouira | Excursiones dunas y playa desde 30 €",
     metaDescription:
-      "Excursiones en quad guiadas en Essaouira: dunas, playa salvaje y bosque de argán. Grupos reducidos, recogida en hotel, sin depósito. Desde 30 € por persona.",
+      "Excursiones en quad guiadas en Essaouira: dunas, playa salvaje y bosque de argán. Grupos reducidos, casco y guía incluidos, sin depósito. Desde 30 € el quad.",
     teaser:
       "Recorre las dunas doradas en un convoy guiado, con salida al atardecer incluida.",
     intro:
@@ -23,7 +23,7 @@ export const ES: ActivityContent = {
       "Guía local certificado, uno por grupo reducido",
       "Casco, gafas y ropa de protección",
       "Explicación de seguridad y vuelta de prueba antes de salir",
-      "Recogida y regreso a tu hotel o riad en Essaouira y Diabat",
+      "Recogida en tu hotel o riad en Essaouira y Diabat, a petición",
       "Parada de té con menta en las rutas largas",
       "Fotos y vídeo de tu salida, enviados el mismo día",
     ],
@@ -50,7 +50,7 @@ export const ES: ActivityContent = {
       },
       {
         q: "¿Cuánto cuesta una excursión en quad en Essaouira?",
-        a: "Desde 30 € por persona una hora, 45 € dos horas y 85 € medio día. Incluye quad, combustible, guía, equipo de seguridad y recogida en el hotel. Sin depósito: pagas el mismo día.",
+        a: "Los precios son por quad, no por persona. Una hora: 30 € en solitario o 45 € entre dos; dos horas 50 €/70 €; tres horas 65 €/90 €; medio día 90 €/110 €; día completo a Sidi Kaouki 110 €/140 € y a Sidi M'barek 140 €/170 €. Incluye quad, combustible, guía y casco. Sin depósito: pagas el mismo día.",
       },
       {
         q: "¿Cuál es la mejor hora para salir?",
@@ -64,9 +64,9 @@ export const ES: ActivityContent = {
   surf: {
     name: "Clases de surf",
     h1: "Clases de surf en Essaouira — Grupos reducidos, todos los niveles",
-    metaTitle: "Clases de surf Essaouira | Tabla incluida, desde 30 €",
+    metaTitle: "Clases de surf Essaouira | Grupos reducidos, todos los niveles",
     metaDescription:
-      "Aprende a surfear en Essaouira con monitores locales que surfean este pico a diario. Tabla y neopreno incluidos, grupos reducidos, todos los niveles. Desde 30 €.",
+      "Aprende a surfear en Essaouira con monitores locales que surfean este pico a diario. Tabla y neopreno incluidos, grupos reducidos, todos los niveles. Escríbenos para precios.",
     teaser:
       "Oleaje atlántico, clases en grupo reducido, todos los niveles desde la primera remada.",
     intro:
@@ -83,7 +83,7 @@ export const ES: ActivityContent = {
       "Monitor local titulado, máximo seis alumnos",
       "Explicación de seguridad: corrientes, canales, prioridades",
       "Traslado a Sidi Kaouki cuando las condiciones allí son mejores",
-      "Recogida en tu hotel de Essaouira",
+      "Recogida en tu hotel de Essaouira, a petición",
       "Fotos de tu sesión",
     ],
     bring: [
@@ -124,9 +124,9 @@ export const ES: ActivityContent = {
   camel: {
     name: "Paseo en camello",
     h1: "Paseo en camello en Essaouira — Playa y atardecer",
-    metaTitle: "Camello Essaouira | Paseos playa y atardecer desde 20 €",
+    metaTitle: "Camello Essaouira | Paseos por la playa y al atardecer",
     metaDescription:
-      "Paseos tranquilos en dromedario por la playa y las dunas de Essaouira, con camelleros que llevan años con los mismos animales. Salidas al atardecer. Desde 20 €.",
+      "Paseos tranquilos en dromedario por la playa y las dunas de Essaouira, con camelleros que llevan años con los mismos animales. Salidas al atardecer. Escríbenos para precios.",
     teaser:
       "Recorre la playa a la hora dorada como cruzaban antaño las caravanas.",
     intro:
@@ -141,7 +141,7 @@ export const ES: ActivityContent = {
       "Camello y camellero experimentado durante todo el paseo",
       "Silla y manta tradicionales",
       "Parada de té con menta en las dunas (atardecer y paseos de 2 h)",
-      "Recogida en tu hotel en Essaouira y Diabat",
+      "Recogida en tu hotel en Essaouira y Diabat, a petición",
       "Fotos durante el paseo",
     ],
     bring: [
@@ -182,9 +182,9 @@ export const ES: ActivityContent = {
   horse: {
     name: "Paseo a caballo",
     h1: "Paseo a caballo en Essaouira — Playa y bosque de argán",
-    metaTitle: "Caballo Essaouira | Playa y bosque desde 30 €",
+    metaTitle: "Caballo Essaouira | Playa y bosque de argán",
     metaDescription:
-      "Monta por la playa o el bosque de argán cerca de Essaouira con guías locales. Caballos según tu nivel, principiantes bienvenidos. Desde 30 € por persona.",
+      "Monta por la playa o el bosque de argán cerca de Essaouira con guías locales. Caballos según tu nivel, principiantes bienvenidos. Escríbenos para precios.",
     teaser:
       "Galopa por la costa o atraviesa el bosque de argán con un guía local.",
     intro:
@@ -200,7 +200,7 @@ export const ES: ActivityContent = {
       "Casco de equitación",
       "Guía local, grupos separados por nivel",
       "Elección entre ruta costera o bosque de argán",
-      "Recogida en tu hotel en Essaouira y Diabat",
+      "Recogida en tu hotel en Essaouira y Diabat, a petición",
       "Fotos de tu paseo",
     ],
     bring: [
@@ -241,9 +241,9 @@ export const ES: ActivityContent = {
   cooking: {
     name: "Clase de cocina marroquí",
     h1: "Clase de cocina marroquí en Essaouira — Mercado, tajine y pan",
-    metaTitle: "Clase de cocina Essaouira | Mercado + tajine 40 €",
+    metaTitle: "Clase de cocina Essaouira | Mercado y tajine",
     metaDescription:
-      "Haz el mercado de Essaouira con tu anfitrión y cocina un tajine completo y pan khobz recién hecho en una cocina local — y cómetelo. 3,5 horas, 40 €.",
+      "Haz el mercado de Essaouira con tu anfitrión y cocina un tajine completo y pan khobz recién hecho en una cocina local — y cómetelo. Unas 3,5 horas. Escríbenos para precios.",
     teaser:
       "Aprende tajine y pan en una cocina local, y cómete lo que has hecho.",
     intro:
@@ -261,7 +261,7 @@ export const ES: ActivityContent = {
       "Ensaladas marroquíes, tajine principal, khobz recién hecho y té con menta",
       "La comida completa que has cocinado, compartida en mesa",
       "Recetas enviadas después",
-      "Recogida en tu hotel de Essaouira",
+      "Recogida en tu hotel de Essaouira, a petición",
     ],
     bring: [
       "Hambre — esto sustituye a una comida",
@@ -300,9 +300,9 @@ export const ES: ActivityContent = {
   yoga: {
     name: "Yoga",
     h1: "Yoga en Essaouira — Sesiones en la playa al amanecer y al atardecer",
-    metaTitle: "Yoga Essaouira | Playa amanecer y atardecer 20 €",
+    metaTitle: "Yoga Essaouira | Playa, amanecer y atardecer",
     metaDescription:
-      "Yoga al amanecer o al atardecer en la playa de Essaouira. Todos los niveles, esterillas incluidas, 60 minutos, 20 €. Grupos pequeños con el Atlántico de fondo.",
+      "Yoga al amanecer o al atardecer en la playa de Essaouira. Todos los niveles, esterillas incluidas, 60 minutos. Grupos pequeños con el Atlántico de fondo.",
     teaser: "Flow al amanecer o al atardecer sobre la arena, para todos los niveles.",
     intro:
       "Flow al amanecer o al atardecer sobre la arena, al ritmo de cada cual, con el sonido del Atlántico en lugar de una lista de reproducción de estudio. Esterillas incluidas.",

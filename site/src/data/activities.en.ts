@@ -6,7 +6,7 @@ export const EN: ActivityContent = {
     h1: "Quad Biking in Essaouira — Guided Dune & Beach Tours",
     metaTitle: "Quad Biking Essaouira | Dune & Beach Tours from €30",
     metaDescription:
-      "Guided quad bike tours in Essaouira: dunes, wild beach and argan forest. Small groups, hotel pickup, no deposit, free cancellation. From €30 per person.",
+      "Guided quad bike tours in Essaouira: dunes, wild beach and argan forest. Small groups, helmet and guide included, no deposit. From €30 per quad.",
     teaser:
       "Rip through golden dunes on a guided quad convoy, sunset run included.",
     intro:
@@ -23,7 +23,7 @@ export const EN: ActivityContent = {
       "Certified local guide, one per small group",
       "Helmet, goggles and protective clothing",
       "Safety briefing and practice loop before departure",
-      "Hotel or riad pickup and drop-off in Essaouira and Diabat",
+      "Hotel or riad pickup in Essaouira and Diabat, on request",
       "Mint tea break on the longer tours",
       "Photos and video from your ride, sent the same day",
     ],
@@ -50,7 +50,7 @@ export const EN: ActivityContent = {
       },
       {
         q: "How much does quad biking in Essaouira cost?",
-        a: "From €30 per person for one hour, €45 for two hours and €85 for a half day. That includes the quad, fuel, guide, safety gear and hotel pickup. No deposit — you pay on the day.",
+        a: "Prices are per quad, not per person. One hour is €30 for a single rider or €45 with two sharing; two hours €50/€70; three hours €65/€90; half day €90/€110; a full day to Sidi Kaouki €110/€140 and to Sidi M'barek €140/€170. That includes the quad, fuel, guide and helmet. No deposit — you pay on the day.",
       },
       {
         q: "What is the best time of day to ride?",
@@ -68,9 +68,9 @@ export const EN: ActivityContent = {
   surf: {
     name: "Surf Lessons",
     h1: "Surf Lessons in Essaouira — Small-Group Coaching, All Levels",
-    metaTitle: "Surf Lessons Essaouira | Board Included, from €30",
+    metaTitle: "Surf Lessons Essaouira | Small Groups, All Levels",
     metaDescription:
-      "Learn to surf in Essaouira with local instructors who ride this break daily. Board and wetsuit included, small groups, all levels. From €30. Book on WhatsApp.",
+      "Learn to surf in Essaouira with local instructors who ride this break daily. Board and wetsuit included, small groups, all levels. Message us for prices and availability.",
     teaser:
       "Atlantic swell, small-group coaching, all levels welcome from first paddle to first wave.",
     intro:
@@ -88,7 +88,7 @@ export const EN: ActivityContent = {
       "Qualified local instructor, six students maximum",
       "Beach safety briefing — rips, currents, etiquette",
       "Transfer to Sidi Kaouki when conditions are better there",
-      "Hotel pickup in Essaouira",
+      "Hotel pickup in Essaouira, on request",
       "Photos from your session",
     ],
     bring: [
@@ -128,9 +128,9 @@ export const EN: ActivityContent = {
   camel: {
     name: "Camel Rides",
     h1: "Camel Rides in Essaouira — Beach & Sunset Treks",
-    metaTitle: "Camel Rides Essaouira | Beach & Sunset Treks from €20",
+    metaTitle: "Camel Rides Essaouira | Beach & Sunset Treks",
     metaDescription:
-      "Gentle camel rides along Essaouira's beach and dunes with handlers who have worked with these animals for years. Sunset departures. From €20. Book direct.",
+      "Gentle camel rides along Essaouira's beach and dunes with handlers who have worked with these animals for years. Sunset departures. Message us for prices and availability.",
     teaser:
       "Ride the beach at golden hour the way caravans once crossed these shores.",
     intro:
@@ -146,7 +146,7 @@ export const EN: ActivityContent = {
       "Camel and experienced handler for the full ride",
       "Traditional saddle and blanket",
       "Mint tea stop on the dunes (sunset and 2-hour rides)",
-      "Hotel pickup in Essaouira and Diabat",
+      "Hotel pickup in Essaouira and Diabat, on request",
       "Photos taken during your ride",
     ],
     bring: [
@@ -182,9 +182,9 @@ export const EN: ActivityContent = {
   horse: {
     name: "Horseback Riding",
     h1: "Horseback Riding in Essaouira — Beach & Argan Forest Trails",
-    metaTitle: "Horse Riding Essaouira | Beach & Forest Trails from €30",
+    metaTitle: "Horse Riding Essaouira | Beach & Argan Forest Trails",
     metaDescription:
-      "Ride the beach or the argan forest near Essaouira with local guides. Horses matched to your experience, beginners welcome. From €30 per person. Book direct.",
+      "Ride the beach or the argan forest near Essaouira with local guides. Horses matched to your experience, beginners welcome. Message us for prices.",
     teaser:
       "Gallop along the coast or through the argan forest with a local guide.",
     intro:
@@ -201,7 +201,7 @@ export const EN: ActivityContent = {
       "Riding helmet",
       "Local guide, groups split by riding ability",
       "Choice of coastal or argan forest route",
-      "Hotel pickup in Essaouira and Diabat",
+      "Hotel pickup in Essaouira and Diabat, on request",
       "Photos from your ride",
     ],
     bring: [
@@ -237,9 +237,9 @@ export const EN: ActivityContent = {
   cooking: {
     name: "Moroccan Cooking Class",
     h1: "Moroccan Cooking Class in Essaouira — Market, Tagine & Bread",
-    metaTitle: "Moroccan Cooking Class Essaouira | Market + Tagine €40",
+    metaTitle: "Moroccan Cooking Class Essaouira | Market + Tagine",
     metaDescription:
-      "Shop Essaouira's market with your host, then cook a full tagine and fresh khobz bread in a local kitchen — and eat it. 3.5 hours, €40. Vegetarian welcome.",
+      "Shop Essaouira's market with your host, then cook a full tagine and fresh khobz bread in a local kitchen — and eat it. Around 3.5 hours. Vegetarian welcome. Message us for prices.",
     teaser: "Learn tagine and bread from a local kitchen, then eat what you made.",
     intro:
       "Shop the market with your host, then cook a full tagine and fresh khobz bread from scratch in a real family kitchen — and eat everything you make, family-style.",
@@ -257,7 +257,7 @@ export const EN: ActivityContent = {
       "Moroccan salads, main tagine, fresh khobz bread and mint tea",
       "The full meal you cooked, eaten family-style",
       "Recipes sent to you afterwards",
-      "Hotel pickup in Essaouira",
+      "Hotel pickup in Essaouira, on request",
     ],
     bring: [
       "An appetite — this replaces a meal",
@@ -300,9 +300,9 @@ export const EN: ActivityContent = {
   yoga: {
     name: "Yoga Sessions",
     h1: "Yoga in Essaouira — Sunrise & Sunset Beach Sessions",
-    metaTitle: "Yoga Essaouira | Beach Sunrise & Sunset Classes €20",
+    metaTitle: "Yoga Essaouira | Beach Sunrise & Sunset Classes",
     metaDescription:
-      "Sunrise or sunset yoga on the beach in Essaouira. All levels, mats provided, 60 minutes, €20. Small classes with the Atlantic instead of a studio playlist.",
+      "Sunrise or sunset yoga on the beach in Essaouira. All levels, mats provided, 60 minutes. Small classes with the Atlantic instead of a studio playlist.",
     teaser: "Sunrise or sunset flow on the sand, open to every level.",
     intro:
       "Sunrise or sunset flow on the sand, paced for every level, with the sound of the Atlantic instead of a studio playlist. Mats provided.",

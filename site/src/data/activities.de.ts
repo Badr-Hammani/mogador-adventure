@@ -6,7 +6,7 @@ export const DE: ActivityContent = {
     h1: "Quad fahren in Essaouira — Geführte Dünen- und Strandtouren",
     metaTitle: "Quad Essaouira | Dünen- & Strandtouren ab 30 €",
     metaDescription:
-      "Geführte Quad-Touren in Essaouira: Dünen, wilder Strand und Arganwald. Kleine Gruppen, Hotelabholung, keine Anzahlung. Ab 30 € pro Person. Jetzt buchen.",
+      "Geführte Quad-Touren in Essaouira: Dünen, wilder Strand und Arganwald. Kleine Gruppen, Helm und Guide inklusive, keine Anzahlung. Ab 30 € pro Quad.",
     teaser:
       "Im geführten Konvoi über goldene Dünen — Sonnenuntergangstour inklusive.",
     intro:
@@ -23,7 +23,7 @@ export const DE: ActivityContent = {
       "Zertifizierter einheimischer Guide, einer pro Kleingruppe",
       "Helm, Brille und Schutzkleidung",
       "Sicherheitsbriefing und Proberunde vor der Abfahrt",
-      "Abholung und Rückfahrt zu deinem Hotel oder Riad in Essaouira und Diabat",
+      "Abholung von deinem Hotel oder Riad in Essaouira und Diabat, auf Anfrage",
       "Minztee-Pause auf den längeren Touren",
       "Fotos und Video deiner Tour, noch am selben Tag",
     ],
@@ -55,7 +55,7 @@ export const DE: ActivityContent = {
       },
       {
         q: "Was kostet eine Quad-Tour in Essaouira?",
-        a: "Ab 30 € pro Person für eine Stunde, 45 € für zwei Stunden und 85 € für einen halben Tag. Enthalten sind Quad, Sprit, Guide, Sicherheitsausrüstung und Hotelabholung. Keine Anzahlung — du zahlst am Tag selbst.",
+        a: "Die Preise gelten pro Quad, nicht pro Person. Eine Stunde: 30 € allein oder 45 € zu zweit; zwei Stunden 50 €/70 €; drei Stunden 65 €/90 €; halber Tag 90 €/110 €; ganzer Tag nach Sidi Kaouki 110 €/140 € und nach Sidi M'barek 140 €/170 €. Enthalten sind Quad, Sprit, Guide und Helm. Keine Anzahlung — du zahlst am Tag selbst.",
       },
       {
         q: "Wann ist die beste Tageszeit?",
@@ -69,9 +69,9 @@ export const DE: ActivityContent = {
   surf: {
     name: "Surfkurs",
     h1: "Surfkurs in Essaouira — Kleingruppen, alle Level",
-    metaTitle: "Surfkurs Essaouira | Board inklusive, ab 30 €",
+    metaTitle: "Surfkurs Essaouira | Kleingruppen, alle Level",
     metaDescription:
-      "Surfen lernen in Essaouira mit einheimischen Lehrern, die diesen Spot täglich surfen. Board und Neopren inklusive, kleine Gruppen, alle Level. Ab 30 €.",
+      "Surfen lernen in Essaouira mit einheimischen Lehrern, die diesen Spot täglich surfen. Board und Neopren inklusive, kleine Gruppen, alle Level. Schreib uns für Preise.",
     teaser:
       "Atlantikswell, Coaching in Kleingruppen, alle Level von der ersten Welle an.",
     intro:
@@ -88,7 +88,7 @@ export const DE: ActivityContent = {
       "Qualifizierter einheimischer Lehrer, maximal sechs Schüler",
       "Sicherheitsbriefing — Strömungen, Kanäle, Vorfahrt",
       "Transfer nach Sidi Kaouki, wenn es dort besser läuft",
-      "Abholung von deinem Hotel in Essaouira",
+      "Abholung von deinem Hotel in Essaouira, auf Anfrage",
       "Fotos deiner Session",
     ],
     bring: [
@@ -124,9 +124,9 @@ export const DE: ActivityContent = {
   camel: {
     name: "Kamelreiten",
     h1: "Kamelreiten in Essaouira — Strand und Sonnenuntergang",
-    metaTitle: "Kamelreiten Essaouira | Strand & Sonnenuntergang ab 20 €",
+    metaTitle: "Kamelreiten Essaouira | Strand und Sonnenuntergang",
     metaDescription:
-      "Ruhige Kamelritte über Strand und Dünen bei Essaouira, mit Treibern, die ihre Tiere seit Jahren kennen. Touren zum Sonnenuntergang. Ab 20 € pro Person.",
+      "Ruhige Kamelritte über Strand und Dünen bei Essaouira, mit Treibern, die ihre Tiere seit Jahren kennen. Touren zum Sonnenuntergang. Schreib uns für Preise.",
     teaser:
       "Reite bei goldenem Licht am Strand — so wie einst die Karawanen.",
     intro:
@@ -141,7 +141,7 @@ export const DE: ActivityContent = {
       "Kamel und erfahrener Treiber für den ganzen Ritt",
       "Traditioneller Sattel und Decke",
       "Minztee-Pause in den Dünen (Sonnenuntergang und 2-Stunden-Ritte)",
-      "Hotelabholung in Essaouira und Diabat",
+      "Hotelabholung in Essaouira und Diabat, auf Anfrage",
       "Fotos während des Ritts",
     ],
     bring: [
@@ -182,9 +182,9 @@ export const DE: ActivityContent = {
   horse: {
     name: "Reiten",
     h1: "Reiten in Essaouira — Strand und Arganwald",
-    metaTitle: "Reiten Essaouira | Strand & Arganwald ab 30 €",
+    metaTitle: "Reiten Essaouira | Strand und Arganwald",
     metaDescription:
-      "Reite am Strand oder durch den Arganwald bei Essaouira mit einheimischen Guides. Pferde passend zu deinem Können, Anfänger willkommen. Ab 30 € pro Person.",
+      "Reite am Strand oder durch den Arganwald bei Essaouira mit einheimischen Guides. Pferde passend zu deinem Können, Anfänger willkommen. Schreib uns für Preise.",
     teaser:
       "Galoppiere an der Küste oder reite durch den Arganwald mit einem einheimischen Guide.",
     intro:
@@ -200,7 +200,7 @@ export const DE: ActivityContent = {
       "Reithelm",
       "Einheimischer Guide, Gruppen nach Können getrennt",
       "Wahl zwischen Küsten- und Arganwaldroute",
-      "Hotelabholung in Essaouira und Diabat",
+      "Hotelabholung in Essaouira und Diabat, auf Anfrage",
       "Fotos von deinem Ritt",
     ],
     bring: [
@@ -241,9 +241,9 @@ export const DE: ActivityContent = {
   cooking: {
     name: "Marokkanischer Kochkurs",
     h1: "Marokkanischer Kochkurs in Essaouira — Markt, Tajine und Brot",
-    metaTitle: "Kochkurs Essaouira | Markt + Tajine 40 €",
+    metaTitle: "Kochkurs Essaouira | Markt und Tajine",
     metaDescription:
-      "Geh mit deinem Gastgeber über Essaouiras Markt und koch dann eine komplette Tajine und frisches Khobz-Brot in einer echten Küche — und iss sie. 3,5 Std., 40 €.",
+      "Geh mit deinem Gastgeber über Essaouiras Markt und koch dann eine komplette Tajine und frisches Khobz-Brot in einer echten Küche — und iss sie. Rund 3,5 Stunden. Schreib uns für Preise.",
     teaser:
       "Lerne Tajine und Brot in einer einheimischen Küche — und iss, was du gekocht hast.",
     intro:
@@ -300,9 +300,9 @@ export const DE: ActivityContent = {
   yoga: {
     name: "Yoga",
     h1: "Yoga in Essaouira — Strandsessions bei Sonnenauf- und -untergang",
-    metaTitle: "Yoga Essaouira | Strand Sonnenauf- & untergang 20 €",
+    metaTitle: "Yoga Essaouira | Strand, Sonnenauf- und -untergang",
     metaDescription:
-      "Yoga bei Sonnenaufgang oder Sonnenuntergang am Strand von Essaouira. Alle Level, Matten gestellt, 60 Minuten, 20 €. Kleine Gruppen mit dem Atlantik im Ohr.",
+      "Yoga bei Sonnenaufgang oder Sonnenuntergang am Strand von Essaouira. Alle Level, Matten gestellt, 60 Minuten. Kleine Gruppen mit dem Atlantik im Ohr.",
     teaser: "Flow bei Sonnenauf- oder -untergang im Sand, offen für jedes Level.",
     intro:
       "Flow bei Sonnenaufgang oder Sonnenuntergang im Sand, im Tempo aller Teilnehmenden, mit dem Atlantik statt einer Studio-Playlist. Matten werden gestellt.",

@@ -90,7 +90,20 @@ const FULL_ONLY_PAGES: readonly PageKey[] = [
   "cancellation",
 ];
 
+/**
+ * Pages switched off entirely.
+ *
+ * The four "packages" (quad+camel, surf+yoga, family day, 3-day adventure)
+ * were products this site invented — they are not on the operator's rate card
+ * and are not sold. Their prices and hour-by-hour itineraries were invented
+ * with them. Rather than advertise things a customer can't actually book, the
+ * pages are disabled; the route table and copy are kept so they can be turned
+ * back on if these ever become real products.
+ */
+const DISABLED_PAGES: readonly PageKey[] = ["packages", "package"];
+
 export function pageExistsIn(key: PageKey, lang: Lang): boolean {
+  if (DISABLED_PAGES.includes(key)) return false;
   if (FULL_ONLY_PAGES.includes(key)) return hasFullContent(lang);
   return true;
 }
