@@ -43,11 +43,11 @@ export const DE: ActivityContent = {
     faqs: [
       {
         q: "Brauche ich einen Führerschein, um in Essaouira Quad zu fahren?",
-        a: "Nein. Unsere Quads sind Automatik und fahren auf Privatgelände und Strand, ein Motorrad- oder Autoführerschein ist nicht erforderlich. Zum selbst Fahren musst du 16 sein; Jüngere fahren als Beifahrer bei einem Guide oder Elternteil mit.",
+        a: "Nein. Unsere Quads sind Automatik und fahren auf Privatgelände und Strand, ein Motorrad- oder Autoführerschein ist nicht erforderlich. Für das eigene Quad gilt ein Mindestalter — nenn uns die Altersangaben deiner Gruppe und wir bestätigen es. Jüngere fahren als Beifahrer bei einem Guide oder Elternteil mit.",
       },
       {
         q: "Was ist das Mindestalter?",
-        a: "16 zum selbst Fahren, 6 als Beifahrer hinter einem Guide oder Elternteil. Für Familien mit kleineren Kindern empfehlen wir eher den Kamelritt oder eine kurze Strandrunde — schreib uns, wir sagen dir ehrlich, was funktioniert.",
+        a: "Schreib uns die Altersangaben deiner Gruppe und wir sagen dir genau, was möglich ist. Jüngere fahren als Beifahrer hinter einem Guide oder Elternteil, und für Familien mit kleinen Kindern ist der Kamelritt oder eine kurze Strandrunde oft die bessere Wahl — das sagen wir dir ehrlich.",
       },
       {
         q: "Ich bin noch nie Quad gefahren. Ist das ein Problem?",
@@ -160,7 +160,7 @@ export const DE: ActivityContent = {
     faqs: [
       {
         q: "Ist das für Kinder geeignet?",
-        a: "Ja. Ab etwa vier Jahren reiten Kinder vor einem Elternteil, ab acht kommen die meisten auf einem eigenen Kamel zurecht, das der Treiber führt. Es ist die familienfreundlichste Aktivität in unserem Programm.",
+        a: "Ja — es ist das Sanfteste in unserem Programm. Nenn uns beim Buchen das Alter deiner Kinder und wir bestätigen, was passt: Jüngere reiten vor einem Elternteil, Ältere kommen meist auf einem eigenen Kamel zurecht, das der Treiber führt. Es ist die familienfreundlichste Aktivität in unserem Programm.",
       },
       {
         q: "Wie werden die Kamele gehalten?",
@@ -250,7 +250,7 @@ export const DE: ActivityContent = {
       "Geh mit deinem Gastgeber über den Markt und koch dann von Grund auf eine komplette Tajine und frisches Khobz in einer echten Familienküche — und iss alles, was du gemacht hast.",
     body: [
       "Das ist keine Vorführung in einer Hotelküche. Es beginnt auf dem Markt in Essaouiras Medina, wo dein Gastgeber tut, was er jede Woche tut: Gemüse kaufen, freundlich um den Preis feilschen, Gewürze aussuchen und erklären, warum das Ras el-Hanout von einem bestimmten Stand die paar Schritte mehr wert ist. Du siehst auch den Fischmarkt — und wenn du lieber eine Fisch-Tajine möchtest, wird sie dort ausgesucht.",
-      "Dann wird gekocht. Hassans Küche ist eine Familienküche, kein Lehrstudio — du sitzt an demselben Tisch, an dem die Familie isst. Du baust eine komplette Tajine von Grund auf: warum das Gemüse kegelförmig geschichtet und nicht verrührt wird, wie wenig Flüssigkeit wirklich hineinkommt und wie der Deckel die Arbeit macht. Daneben machst du Khobz, das runde marokkanische Brot, und lässt es gehen, während die Tajine zieht.",
+      "Dann wird gekocht. Die Küche ist eine Familienküche, kein Lehrstudio — du sitzt an demselben Tisch, an dem die Familie isst. Du baust eine komplette Tajine von Grund auf: warum das Gemüse kegelförmig geschichtet und nicht verrührt wird, wie wenig Flüssigkeit wirklich hineinkommt und wie der Deckel die Arbeit macht. Daneben machst du Khobz, das runde marokkanische Brot, und lässt es gehen, während die Tajine zieht.",
       "Jeder bekommt seine eigene Tajine. Das zählt — in größeren Kursen schaust du am Ende jemand anderem beim Kochen zu, während du eine Zwiebel schneidest. Hier entsteht ein vollständiges Gericht, das du zu Hause wiederholen kannst, und wir schicken dir die Rezepte nach.",
       "Danach wird gegessen: an einem gemeinsamen Tisch, mit Brot statt Besteck, so wie es tatsächlich gemacht wird. Der Kurs dauert etwa dreieinhalb Stunden, und die meisten brauchen danach kein Abendessen mehr. Vegetarisch und vegan sind problemlos, glutenfrei mit Vorlauf.",
     ],

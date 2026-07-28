@@ -38,11 +38,11 @@ export const ES: ActivityContent = {
     faqs: [
       {
         q: "¿Hace falta carnet para conducir un quad en Essaouira?",
-        a: "No. Nuestros quads son automáticos y circulan por terreno privado y playa, así que no se exige carnet de moto ni de coche. Sí hay que tener 16 años para conducir tu propio quad; los menores van de pasajeros con un guía o un padre o madre.",
+        a: "No. Nuestros quads son automáticos y circulan por terreno privado y playa, así que no se exige carnet de moto ni de coche. Hay una edad mínima para conducir tu propio quad: dinos las edades de tu grupo y te la confirmamos. Los más jóvenes van de pasajeros con un guía o un progenitor.",
       },
       {
         q: "¿Cuál es la edad mínima?",
-        a: "16 años para conducir solo y 6 para ir de pasajero detrás de un guía o de un progenitor. Para familias con niños más pequeños solemos recomendar el paseo en camello o una ruta corta de playa — escríbenos y te diremos con franqueza qué va a funcionar.",
+        a: "Escríbenos con las edades de tu grupo y te diremos exactamente qué es posible. Los más pequeños van de pasajeros detrás de un guía o un progenitor, y para familias con niños pequeños el paseo en camello o una ruta corta de playa suele ser mejor opción — te lo diremos con franqueza.",
       },
       {
         q: "Nunca he montado en quad. ¿Es un problema?",
@@ -160,7 +160,7 @@ export const ES: ActivityContent = {
     faqs: [
       {
         q: "¿Es adecuado para niños?",
-        a: "Sí. Desde unos cuatro años pueden ir delante de un adulto, y desde los ocho la mayoría va bien en su propio camello con el camellero llevándolo. Es la actividad más familiar que ofrecemos.",
+        a: "Sí, es lo más tranquilo que hacemos. Dinos las edades de tus hijos al reservar y te confirmamos qué funciona: los más pequeños van delante de un adulto y los mayores suelen ir bien en su propio camello con el camellero llevándolo. Es la actividad más familiar que ofrecemos.",
       },
       {
         q: "¿Cómo se trata a los camellos?",
@@ -250,7 +250,7 @@ export const ES: ActivityContent = {
       "Recorre el mercado con tu anfitrión y cocina desde cero un tajine completo y khobz fresco en una cocina de familia de verdad — y cómetelo todo, al estilo marroquí.",
     body: [
       "Esto no es una demostración en la cocina de un hotel. Empieza en el mercado de la medina de Essaouira, donde tu anfitrión hace lo que hace cada semana: comprar la verdura, regatear con calma, elegir las especias y explicarte por qué el ras el hanout de un puesto concreto merece los pasos de más. También verás la lonja, y si prefieres tajine de pescado en vez de pollo o verduras, es allí donde lo elegimos.",
-      "Luego se cocina. La cocina de Hassan es una cocina de familia, no un estudio: estarás en la misma mesa donde come la familia. Montas un tajine completo desde el principio, entendiendo por qué las verduras se colocan en cono en vez de removerse, cuánto líquido lleva de verdad (mucho menos de lo que dicen casi todas las recetas) y cómo trabaja la tapa. Al lado preparas khobz, el pan redondo marroquí, y lo dejas levar mientras cuece el tajine.",
+      "Luego se cocina. La cocina es una cocina de familia, no un estudio: estarás en la misma mesa donde come la familia. Montas un tajine completo desde el principio, entendiendo por qué las verduras se colocan en cono en vez de removerse, cuánto líquido lleva de verdad (mucho menos de lo que dicen casi todas las recetas) y cómo trabaja la tapa. Al lado preparas khobz, el pan redondo marroquí, y lo dejas levar mientras cuece el tajine.",
       "Cada persona tiene su propio tajine. Eso importa: en clases más grandes acabas mirando cocinar a otro mientras picas una cebolla. Aquí sacas un plato completo que podrías repetir en casa, y te mandamos las recetas después.",
       "Y luego se come, en mesa compartida y con pan en lugar de cubiertos, que es como se hace de verdad. La clase dura unas tres horas y media y casi nadie necesita cenar después. Las versiones vegetarianas y veganas son sencillas, y cocinamos sin gluten avisando.",
     ],

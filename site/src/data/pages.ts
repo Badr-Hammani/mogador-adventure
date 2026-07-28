@@ -397,7 +397,7 @@ const LEGAL: Partial<Record<Lang, Record<LegalKey, LegalCopy>>> = {
           heading: "Safety and suitability",
           body: [
             "You must follow your guide's instructions at all times. Helmets are provided for quad biking and horseback riding and must be worn.",
-            "Quad drivers must be 16 or over; under-16s may ride as passengers. There is a weight limit of approximately 95 kg for horseback riding, for the welfare of the animals.",
+            "Quad drivers must meet our minimum age, which we confirm when you book; younger riders may travel as passengers. There is a weight limit of approximately 95 kg for horseback riding, for the welfare of the animals.",
             "You must tell us in advance about any medical condition, injury or pregnancy that could affect your participation. We may decline to run an activity if we believe it is unsafe for you or others, and in that case you pay nothing.",
             "Anyone under the influence of alcohol or drugs will not be permitted to drive a quad or ride a horse, and no refund is given in that case.",
           ],
@@ -515,7 +515,7 @@ const LEGAL: Partial<Record<Lang, Record<LegalKey, LegalCopy>>> = {
           heading: "Sécurité et aptitude",
           body: [
             "Vous devez suivre les instructions de votre guide à tout moment. Les casques sont fournis pour le quad et l'équitation et leur port est obligatoire.",
-            "Les conducteurs de quad doivent avoir 16 ans ou plus ; les moins de 16 ans peuvent monter en passager. Une limite de poids d'environ 95 kg s'applique à l'équitation, pour le bien-être des animaux.",
+            "Les conducteurs de quad doivent avoir l'âge minimum requis, que nous confirmons au moment de la réservation ; les plus jeunes peuvent monter en passager. Une limite de poids d'environ 95 kg s'applique à l'équitation, pour le bien-être des animaux.",
             "Vous devez nous signaler à l'avance toute condition médicale, blessure ou grossesse pouvant affecter votre participation. Nous pouvons refuser de réaliser une activité si nous l'estimons dangereuse pour vous ou pour autrui ; dans ce cas, vous ne payez rien.",
             "Toute personne sous l'influence de l'alcool ou de stupéfiants ne sera pas autorisée à conduire un quad ni à monter à cheval, sans remboursement.",
           ],

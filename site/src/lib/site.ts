@@ -10,7 +10,9 @@ export const SITE = {
   name: "Mogador Adventures",
   legalName: "Mogador Adventures",
   domain: "https://mogadoradventures.com",
-  founded: "2019",
+  // Founding year removed — "2019" came from the design mockup and the operator
+  // has confirmed it is wrong. Not currently rendered anywhere; add the real
+  // year here if you want it in the About copy or the schema.
 
   phone: "+212 662 169 221",
   phoneE164: "+212662169221",

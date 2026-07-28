@@ -38,11 +38,11 @@ export const EN: ActivityContent = {
     faqs: [
       {
         q: "Do I need a driving licence to ride a quad in Essaouira?",
-        a: "No. Our quads are automatic and ridden on private land and beach, so no motorcycle or car licence is required. You do need to be 16 or over to drive your own quad. Under-16s ride as a passenger with a guide or a parent.",
+        a: "No. Our quads are automatic and ridden on private land and beach, so no motorcycle or car licence is required. There is a minimum age to drive your own quad — tell us the ages in your group and we will confirm it. Younger riders go as a passenger with a guide or a parent.",
       },
       {
         q: "What is the minimum age?",
-        a: "16 to drive solo, 6 to ride as a passenger behind a guide or parent. For families with younger children we usually recommend the camel ride or a shorter beach loop instead — message us and we will tell you honestly what will work.",
+        a: "Message us with the ages in your group and we will tell you exactly what is possible. Younger children ride as a passenger behind a guide or a parent, and for families with small children the camel ride or a shorter beach loop is often the better call — we will say so honestly.",
       },
       {
         q: "I have never ridden a quad before. Is that a problem?",
@@ -160,7 +160,7 @@ export const EN: ActivityContent = {
     faqs: [
       {
         q: "Is it suitable for children?",
-        a: "Yes. Children from about four can ride in front of a parent, and from around eight most are fine on their own camel with the handler leading. It is the most family-friendly activity we run.",
+        a: "Yes — it is the gentlest thing we run. Tell us your children's ages when you book and we will confirm what works: younger ones ride in front of a parent, older ones are usually fine on their own camel with the handler leading. It is the most family-friendly activity we run.",
       },
       {
         q: "How are the camels treated?",
@@ -245,7 +245,7 @@ export const EN: ActivityContent = {
       "Shop the market with your host, then cook a full tagine and fresh khobz bread from scratch in a real family kitchen — and eat everything you make, family-style.",
     body: [
       "This is not a demonstration in a hotel kitchen. It starts at the market inside Essaouira's medina, where your host does what they do every week: buys the vegetables, argues gently about the price, picks out the spices, and explains why the ras el hanout from one particular stall is worth the extra walk. You will see the fish market too, and if you want a fish tagine rather than chicken or vegetable, that is where we choose it.",
-      "Then we cook. Hassan's kitchen is a family kitchen, not a teaching studio — you will be at the same table where the family eats. You make a full tagine from the ground up, learning why the vegetables get stacked in a cone rather than stirred in, how much liquid actually goes in (far less than most recipes claim), and how the lid does the work. Alongside it you make khobz, the round Moroccan bread, from flour and yeast, and prove it while the tagine cooks.",
+      "Then we cook. The kitchen is a family kitchen, not a teaching studio — you will be at the same table where the family eats. You make a full tagine from the ground up, learning why the vegetables get stacked in a cone rather than stirred in, how much liquid actually goes in (far less than most recipes claim), and how the lid does the work. Alongside it you make khobz, the round Moroccan bread, from flour and yeast, and prove it while the tagine cooks.",
       "Everyone gets their own tagine pot. That matters — in bigger classes you end up watching someone else cook while you chop an onion. Here you produce a complete dish you could go home and make again, and we send you the recipes afterwards.",
       "We also make Moroccan salads to start — the small cooked and raw plates that come before the main dish — and finish with mint tea, poured properly from height, which your host will make you practise until it foams.",
       "Then you eat. Around a shared table, with bread instead of cutlery, which is how it is actually done. The class runs about three and a half hours end to end, and most people do not need dinner afterwards. Vegetarian and vegan versions are straightforward, and we cook gluten-free with notice.",

@@ -269,64 +269,19 @@ export interface TeamMember {
   photo: string | null;
 }
 
-export const TEAM: TeamMember[] = [
-  {
-    name: "Youssef",
-    photo: "guide-youssef-quad-sunset-essaouira.jpg",
-    role: {
-      en: "Founder & quad guide",
-      fr: "Fondateur et guide quad",
-      es: "Fundador y guía de quad",
-      de: "Gründer und Quad-Guide",
-      ar: "المؤسس ومرشد الكواد",
-    },
-    bio: {
-      en: "Grew up in Diabat and has been riding the dune belt since he was a teenager. Leads most of the sunset quad tours and knows which line through the sand works on any given day.",
-      fr: "A grandi à Diabat et roule sur le cordon dunaire depuis l'adolescence. Il mène la plupart des sorties quad au coucher du soleil et sait quelle trace tient le sable selon le jour.",
-      es: "Creció en Diabat y lleva recorriendo el cordón de dunas desde adolescente. Guía casi todas las salidas de quad al atardecer y sabe qué trazada aguanta cada día.",
-      de: "Ist in Diabat aufgewachsen und fährt den Dünengürtel seit seiner Jugend. Er führt die meisten Sonnenuntergangstouren und weiß, welche Linie durch den Sand an welchem Tag trägt.",
-      ar: "نشأ في ديابات ويجوب حزام الكثبان منذ مراهقته. يقود معظم جولات الكواد عند الغروب ويعرف أي مسار في الرمل يصلح في كل يوم.",
-    },
-  },
-  {
-    // No portrait supplied yet.
-    name: "Salma",
-    photo: null,
-    role: {
-      en: "Surf instructor",
-      fr: "Monitrice de surf",
-      es: "Monitora de surf",
-      de: "Surflehrerin",
-      ar: "مدرّبة ركوب أمواج",
-    },
-    bio: {
-      en: "Surfs Essaouira's break every day of the year and teaches beginners with more patience than anyone we know. Also runs the sunrise yoga sessions.",
-      fr: "Surfe le spot d'Essaouira tous les jours de l'année et enseigne aux débutants avec une patience rare. Elle anime aussi les séances de yoga au lever du soleil.",
-      es: "Surfea el pico de Essaouira todos los días del año y enseña a principiantes con una paciencia poco común. También lleva las sesiones de yoga al amanecer.",
-      de: "Surft Essaouiras Break an jedem Tag des Jahres und unterrichtet Anfänger mit mehr Geduld als jede andere Person, die wir kennen. Leitet außerdem die Yoga-Sessions bei Sonnenaufgang.",
-      ar: "تركب موج الصويرة كل يوم في السنة وتُعلّم المبتدئين بصبر نادر. تشرف أيضاً على حصص اليوغا عند الشروق.",
-    },
-  },
-  {
-    // No portrait supplied yet.
-    name: "Hassan",
-    photo: null,
-    role: {
-      en: "Cooking host",
-      fr: "Hôte cuisine",
-      es: "Anfitrión de cocina",
-      de: "Koch-Gastgeber",
-      ar: "مضيف الطبخ",
-    },
-    bio: {
-      en: "Opens his family kitchen for the cooking classes and does the market run himself. His mother's tagine recipe is the one you'll be making.",
-      fr: "Ouvre la cuisine familiale pour les cours et fait le marché lui-même. C'est la recette de tajine de sa mère que vous préparerez.",
-      es: "Abre la cocina de su familia para las clases y hace él mismo la compra. La receta de tajine que prepararás es la de su madre.",
-      de: "Öffnet seine Familienküche für die Kochkurse und geht selbst auf den Markt. Das Tajine-Rezept, das du kochst, ist das seiner Mutter.",
-      ar: "يفتح مطبخ عائلته لدروس الطبخ ويتسوّق بنفسه من السوق. وصفة الطاجين التي ستُعدّها هي وصفة والدته.",
-    },
-  },
-];
+/*
+ * EMPTY ON PURPOSE.
+ *
+ * This held three named guides with photos and biographies — Youssef
+ * (founder & quad guide), Salma (surf instructor) and Hassan (cooking host).
+ * The operator has confirmed these are NOT real people: they came from the
+ * design mockup, like the sample testimonials that were removed earlier.
+ *
+ * Presenting invented staff, by name and face, on a page that takes bookings
+ * is not something to ship. The About page hides the team section entirely
+ * while this is empty, so adding real colleagues here brings it straight back.
+ */
+export const TEAM: TeamMember[] = [];
 
 /* ------------------------------------------------------------------ */
 /* Gallery                                                             */

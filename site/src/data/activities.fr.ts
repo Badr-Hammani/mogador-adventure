@@ -43,11 +43,11 @@ export const FR: ActivityContent = {
     faqs: [
       {
         q: "Faut-il un permis pour conduire un quad à Essaouira ?",
-        a: "Non. Nos quads sont automatiques et roulent sur terrain privé et sur la plage : aucun permis moto ou voiture n'est exigé. Il faut avoir 16 ans pour conduire son propre quad. Les moins de 16 ans montent en passager avec un guide ou un parent.",
+        a: "Non. Nos quads sont automatiques et roulent sur terrain privé et sur la plage : aucun permis moto ou voiture n'est exigé. Un âge minimum est requis pour conduire son propre quad — indiquez-nous les âges de votre groupe et nous vous le confirmerons. Les plus jeunes montent en passager avec un guide ou un parent.",
       },
       {
         q: "Quel est l'âge minimum ?",
-        a: "16 ans pour piloter seul, 6 ans en passager derrière un guide ou un parent. Pour les familles avec de jeunes enfants, nous conseillons plutôt la balade à dos de chameau ou une boucle courte sur la plage — écrivez-nous et nous vous dirons franchement ce qui fonctionnera.",
+        a: "Écrivez-nous avec les âges de votre groupe et nous vous dirons exactement ce qui est possible. Les plus jeunes montent en passager derrière un guide ou un parent, et pour les familles avec de petits enfants la balade à dos de chameau ou une boucle courte sur la plage est souvent le meilleur choix — nous vous le dirons franchement.",
       },
       {
         q: "Je n'ai jamais fait de quad. C'est un problème ?",
@@ -175,7 +175,7 @@ export const FR: ActivityContent = {
     faqs: [
       {
         q: "Est-ce adapté aux enfants ?",
-        a: "Oui. Les enfants à partir de quatre ans environ peuvent monter devant un parent, et à partir de huit ans la plupart sont à l'aise seuls sur leur chameau, mené par le chamelier. C'est l'activité la plus familiale que nous proposons.",
+        a: "Oui — c'est ce que nous proposons de plus doux. Indiquez-nous l'âge de vos enfants à la réservation et nous confirmerons : les plus jeunes montent devant un parent, les plus grands sont généralement à l'aise seuls sur leur chameau, mené par le chamelier. C'est l'activité la plus familiale que nous proposons.",
       },
       {
         q: "Comment les chameaux sont-ils traités ?",
@@ -266,7 +266,7 @@ export const FR: ActivityContent = {
       "Faites le marché avec votre hôte, puis préparez de A à Z un tajine complet et du khobz frais dans une vraie cuisine de famille — et mangez tout ce que vous avez cuisiné, à la marocaine.",
     body: [
       "Ce n'est pas une démonstration dans une cuisine d'hôtel. Ça commence au marché, dans la médina d'Essaouira, où votre hôte fait ce qu'il fait chaque semaine : acheter les légumes, négocier gentiment le prix, choisir les épices, et expliquer pourquoi le ras el hanout d'un étal précis vaut les quelques pas de plus. Vous verrez aussi le marché aux poissons, et si vous préférez un tajine de poisson au poulet ou aux légumes, c'est là qu'on le choisit.",
-      "Ensuite, on cuisine. La cuisine de Hassan est une cuisine de famille, pas un studio pédagogique — vous serez à la table où la famille mange. Vous montez un tajine complet depuis le début, en comprenant pourquoi les légumes se dressent en cône au lieu d'être mélangés, quelle quantité de liquide entre réellement dedans (bien moins que ce que prétendent la plupart des recettes), et comment le couvercle fait le travail. À côté, vous préparez le khobz, le pain rond marocain, à partir de farine et de levure, et vous le laissez lever pendant que le tajine cuit.",
+      "Ensuite, on cuisine. La cuisine est une cuisine de famille, pas un studio pédagogique — vous serez à la table où la famille mange. Vous montez un tajine complet depuis le début, en comprenant pourquoi les légumes se dressent en cône au lieu d'être mélangés, quelle quantité de liquide entre réellement dedans (bien moins que ce que prétendent la plupart des recettes), et comment le couvercle fait le travail. À côté, vous préparez le khobz, le pain rond marocain, à partir de farine et de levure, et vous le laissez lever pendant que le tajine cuit.",
       "Chacun a son propre tajine. Ça compte — dans les cours plus grands, on finit par regarder quelqu'un d'autre cuisiner pendant qu'on émince un oignon. Ici, vous produisez un plat complet que vous pourriez refaire chez vous, et nous vous envoyons les recettes ensuite.",
       "Nous faisons aussi les salades marocaines en entrée — ces petites assiettes cuites et crues qui précèdent le plat principal — et nous terminons par le thé à la menthe, versé de haut dans les règles, que votre hôte vous fera recommencer jusqu'à ce qu'il mousse.",
       "Puis vous mangez. Autour d'une table partagée, avec du pain à la place des couverts, comme cela se fait vraiment. Le cours dure environ trois heures et demie du début à la fin, et la plupart des gens n'ont pas besoin de dîner après. Les versions végétariennes et véganes sont simples à faire, et nous cuisinons sans gluten si on nous prévient.",

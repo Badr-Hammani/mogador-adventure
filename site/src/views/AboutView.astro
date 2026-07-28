@@ -93,7 +93,9 @@ const landscapes: { photo: string | null; alt: Record<Lang, string> }[] = [
   }
 </div>
 
-<section class="band-surface section-sm">
+{/* Hidden while TEAM is empty — see the note in data/content.ts. Add real
+    colleagues there and this section reappears with no other change. */}
+<section class="band-surface section-sm" hidden={TEAM.length === 0}>
   <div class="container team">
     <p class="kicker">{s.about_kicker}</p>
     <h2 class="h2-sm">{teamHeading[lang]}</h2>

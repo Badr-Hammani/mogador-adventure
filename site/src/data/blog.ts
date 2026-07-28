@@ -198,7 +198,7 @@ export const POSTS: Post[] = [
           { type: "h2", text: "Two people, one quad" },
           {
             type: "p",
-            text: "Most operators, us included, let two people share a quad at the single-rider price. If you're a couple and only one of you wants to drive, that halves your cost. Only the driver needs to be 16 or over.",
+            text: "Two people can share one quad, and it is priced per machine rather than per head — so sharing is the cheaper way to ride. Our two-hour tour is €50 for one rider or €70 for two, which is €35 each. Only the driver needs to meet the minimum age.",
           },
           { type: "h2", text: "Deposits" },
           {
@@ -254,7 +254,7 @@ export const POSTS: Post[] = [
           { type: "h2", text: "Deux personnes, un quad" },
           {
             type: "p",
-            text: "La plupart des prestataires, nous compris, autorisent deux personnes sur un quad au tarif d'un seul pilote. Si vous êtes en couple et qu'un seul veut conduire, cela divise votre budget par deux. Seul le conducteur doit avoir 16 ans ou plus.",
+            text: "Deux personnes peuvent partager un quad, et le tarif est par machine et non par tête — partager revient donc moins cher. Notre sortie de deux heures coûte 50 € pour un pilote ou 70 € à deux, soit 35 € par personne. Seul le conducteur doit avoir l'âge minimum requis.",
           },
           { type: "h2", text: "Les acomptes" },
           {
@@ -295,14 +295,14 @@ export const POSTS: Post[] = [
           {
             type: "list",
             items: [
-              "16 and over: you can drive your own quad",
-              "Under 16: you ride as a passenger behind a guide or a parent",
-              "From about 6: comfortable as a passenger on shorter routes",
+              "There is a minimum age to drive your own quad — ask us and we will confirm it",
+              "Younger riders go as a passenger behind a guide or a parent",
+              "Tell us the ages in your group when you book and we will say honestly what works",
             ],
           },
           {
             type: "p",
-            text: "We don't bend the 16 rule. It isn't bureaucracy — a 14-year-old on soft sand with a throttle is a genuinely different proposition to a 16-year-old, and the insurance reflects that.",
+            text: "We don't bend the age rule. It isn't bureaucracy — a young teenager on soft sand with a throttle is a genuinely different proposition to an adult, and the insurance reflects that.",
           },
           { type: "h2", text: "Insurance" },
           {
@@ -344,14 +344,14 @@ export const POSTS: Post[] = [
           {
             type: "list",
             items: [
-              "16 ans et plus : vous pouvez conduire votre propre quad",
-              "Moins de 16 ans : passager derrière un guide ou un parent",
-              "À partir de 6 ans environ : à l'aise en passager sur les parcours courts",
+              "Un âge minimum est requis pour conduire son propre quad — demandez-nous et nous vous le confirmerons",
+              "Les plus jeunes montent en passager derrière un guide ou un parent",
+              "Indiquez-nous les âges de votre groupe à la réservation et nous vous dirons franchement ce qui fonctionne",
             ],
           },
           {
             type: "p",
-            text: "Nous ne contournons pas la règle des 16 ans. Ce n'est pas de la bureaucratie : un adolescent de 14 ans sur du sable mou avec une poignée de gaz, ce n'est pas la même chose qu'à 16 ans, et l'assurance en tient compte.",
+            text: "Nous ne contournons pas la règle d'âge. Ce n'est pas de la bureaucratie : un jeune adolescent sur du sable mou avec une poignée de gaz, ce n'est pas la même chose qu'un adulte, et l'assurance en tient compte.",
           },
           { type: "h2", text: "Assurance" },
           {

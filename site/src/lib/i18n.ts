@@ -202,7 +202,7 @@ export const UI: Record<Lang, UIStrings> = {
     trust_pickup_sub: "Available in Essaouira and Diabat — just ask.",
     trust_local: "Local guides",
     trust_local_sub: "Born here. Arabic, French, English spoken.",
-    trust_reply: "We reply within 15 minutes, 8am–10pm",
+    trust_reply: "We reply within 15 minutes, 8am–8pm",
 
     whats_included: "What's included",
     what_to_bring: "What to bring",
@@ -319,7 +319,7 @@ export const UI: Record<Lang, UIStrings> = {
     trust_pickup_sub: "Disponible à Essaouira et à Diabat — demandez-le.",
     trust_local: "Guides locaux",
     trust_local_sub: "Nés ici. Arabe, français, anglais parlés.",
-    trust_reply: "Nous répondons en 15 minutes, de 8h à 22h",
+    trust_reply: "Nous répondons en 15 minutes, de 8h à 20h",
 
     whats_included: "Ce qui est inclus",
     what_to_bring: "À prévoir",
@@ -437,7 +437,7 @@ export const UI: Record<Lang, UIStrings> = {
     trust_pickup_sub: "Disponible en Essaouira y Diabat: solo pídelo.",
     trust_local: "Guías locales",
     trust_local_sub: "Nacidos aquí. Hablamos árabe, francés e inglés.",
-    trust_reply: "Respondemos en 15 minutos, de 8:00 a 22:00",
+    trust_reply: "Respondemos en 15 minutos, de 8:00 a 20:00",
 
     whats_included: "Qué incluye",
     what_to_bring: "Qué llevar",
@@ -554,7 +554,7 @@ export const UI: Record<Lang, UIStrings> = {
     trust_pickup_sub: "In Essaouira und Diabat möglich — einfach fragen.",
     trust_local: "Einheimische Guides",
     trust_local_sub: "Hier geboren. Arabisch, Französisch, Englisch.",
-    trust_reply: "Wir antworten in 15 Minuten, 8–22 Uhr",
+    trust_reply: "Wir antworten in 15 Minuten, 8–20 Uhr",
 
     whats_included: "Inklusive",
     what_to_bring: "Was mitbringen",
@@ -672,7 +672,7 @@ export const UI: Record<Lang, UIStrings> = {
     trust_pickup_sub: "متاح في الصويرة وديابات — اطلبه فقط.",
     trust_local: "مرشدون محليون",
     trust_local_sub: "وُلدوا هنا. العربية والفرنسية والإنجليزية.",
-    trust_reply: "نردّ خلال 15 دقيقة، من 8 صباحاً إلى 10 مساءً",
+    trust_reply: "نردّ خلال 15 دقيقة، من 8 صباحاً إلى 8 مساءً",
 
     whats_included: "ما يشمله السعر",
     what_to_bring: "ما تحتاج إحضاره",
