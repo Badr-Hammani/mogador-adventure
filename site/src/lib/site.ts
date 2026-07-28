@@ -25,9 +25,19 @@ export const SITE = {
     postalCode: "44000",
   },
 
+  /*
+   * Taken from the live Google Business Profile ("Mogador adventures",
+   * category "Location de quad"), NOT the generic centre of Essaouira that was
+   * here before. This is the departure point in Diabat, ~3.5 km south-west of
+   * the medina.
+   *
+   * It must match the GBP exactly: these coordinates feed the LocalBusiness
+   * schema, the geo meta tags and the map on the booking page, and Google
+   * cross-checks them against the profile when ranking the map pack.
+   */
   geo: {
-    lat: 31.5085,
-    lng: -9.7595,
+    lat: 31.4788867,
+    lng: -9.7655976,
   },
 
   /** Areas we actually operate in — used for LocalBusiness areaServed + copy. */

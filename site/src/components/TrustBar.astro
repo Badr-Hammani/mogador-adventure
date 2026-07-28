@@ -30,9 +30,9 @@ const items = [
         <span class="icon-badge icon-badge-sm">
           <Icon name={item.icon} size={17} stroke={2.4} />
         </span>
-        <div>
+        <div class="trust-copy">
           <strong>{item.title}</strong>
-          {!compact && <span>{item.sub}</span>}
+          {!compact && <span class="trust-sub">{item.sub}</span>}
         </div>
       </div>
     ))
@@ -58,7 +58,16 @@ const items = [
     font-weight: 700;
   }
 
-  .trust-item span {
+  /*
+   * Target the subtitle by class, never by element.
+   *
+   * This was `.trust-item span`, which also matched <span class="icon-badge">
+   * — the icon's own container. It overrode the badge's `display: flex`, so
+   * the icon dropped to the badge's top-left corner instead of centring, and
+   * inherited opacity .7 on top. Visible in every language on every page that
+   * uses this component.
+   */
+  .trust-sub {
     display: block;
     font-size: 13px;
     opacity: 0.7;

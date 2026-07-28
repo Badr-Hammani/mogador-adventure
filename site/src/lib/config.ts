@@ -45,14 +45,21 @@ export const CONFIG = {
   web3formsKey: "",
 
   /**
-   * Your Google Business Profile review link, e.g.
-   * "https://g.page/r/XXXXXXXX/review". Used on the reviews page and in the
-   * post-tour follow-up QR code.
+   * Your Google Business Profile review link.
+   *
+   * Get the official one from the GBP dashboard: "Ask for reviews" → it gives
+   * a short https://g.page/r/…/review link. That's the only form guaranteed to
+   * open the review box directly, so it's worth the two clicks — this link
+   * goes on the QR card guides hand out after every tour.
    */
   googleReviewUrl: "",
 
-  /** Public Google Maps place URL for the "get directions" link. */
-  googleMapsUrl: "",
+  /**
+   * Public Google Maps place URL. Built from the profile's CID, which is the
+   * stable identifier — place URLs containing a name and @lat,lng break if the
+   * listing is ever renamed or moved.
+   */
+  googleMapsUrl: "https://maps.google.com/?cid=12071693882875441050",
 } as const;
 
 export const hasAnalytics = () => CONFIG.ga4Id.length > 0;

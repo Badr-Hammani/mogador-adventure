@@ -524,7 +524,9 @@ button {
   background: rgba(255, 242, 235, 0.75);
 }
 
-.photo-pending span {
+/* Class, not `.photo-pending span` — that also matched the icon badge span
+   and faded it to 65%. Same bug class as the trust bar. */
+.photo-pending .pending-label {
   font-size: 12px;
   font-weight: 600;
   opacity: 0.65;

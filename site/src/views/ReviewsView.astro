@@ -91,7 +91,7 @@ const c = copy[lang];
           <blockquote>{text.quote}</blockquote>
           <figcaption>
             <strong>{item.name}</strong>
-            <span>{text.origin}</span>
+            <span class="review-origin">{text.origin}</span>
             <span class="tag review-tag">{activity.name}</span>
           </figcaption>
         </figure>
@@ -173,7 +173,7 @@ const c = copy[lang];
     display: block;
     font-size: 13px;
   }
-  .review figcaption span {
+  .review-origin {
     font-size: 12px;
     opacity: 0.6;
   }

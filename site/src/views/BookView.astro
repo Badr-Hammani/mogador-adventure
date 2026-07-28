@@ -201,13 +201,21 @@ const mapSrc = `https://www.openstreetmap.org/export/embed.html?bbox=${SITE.geo.
         </a>
       </li>
       <li>
-        <div class="contact-row">
+        {/* Links straight to the Google Business Profile when configured —
+            both a convenience and a signal, since visits and direction
+            requests from the site feed back into local ranking. */}
+        <a
+          href={CONFIG.googleMapsUrl || undefined}
+          target={CONFIG.googleMapsUrl ? "_blank" : undefined}
+          rel={CONFIG.googleMapsUrl ? "noopener" : undefined}
+          class="contact-row"
+        >
           <span class="icon-badge icon-badge-sm"><Icon name="pin" size={17} /></span>
           <span>
             <strong>{SITE.address.locality}, {SITE.address.countryName}</strong>
             <small>{SITE.areaServed.slice(0, 4).join(" · ")}</small>
           </span>
-        </div>
+        </a>
       </li>
     </ul>
 
