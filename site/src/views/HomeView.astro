@@ -16,6 +16,7 @@ import CTABand from "../components/CTABand.astro";
 import Photo from "../components/Photo.astro";
 import TrustBar from "../components/TrustBar.astro";
 import Icon from "../components/Icon.astro";
+import GoogleRating from "../components/GoogleRating.astro";
 
 interface Props {
   lang: Lang;
@@ -67,10 +68,13 @@ const packages = showPackages ? ORDERED_PACKAGES.slice(0, 3) : [];
         {s.cta_activities}
       </a>
     </div>
-    <p class="hero-note">
-      <Icon name="check" size={14} stroke={2.6} />
-      {s.trust_reply}
-    </p>
+    <div class="hero-meta">
+      <GoogleRating lang={lang} tone="light" />
+      <p class="hero-note">
+        <Icon name="check" size={14} stroke={2.6} />
+        {s.trust_reply}
+      </p>
+    </div>
   </div>
 </section>
 
@@ -273,13 +277,20 @@ const packages = showPackages ? ORDERED_PACKAGES.slice(0, 3) : [];
     flex-wrap: wrap;
   }
 
+  .hero-meta {
+    display: flex;
+    align-items: center;
+    gap: var(--s3);
+    flex-wrap: wrap;
+    margin-block-start: var(--s4);
+  }
+
   .hero-note {
     display: flex;
     align-items: center;
     gap: 7px;
     font-size: 13px;
     opacity: 0.85;
-    margin-block-start: var(--s4);
   }
 
   .trust-section {

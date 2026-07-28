@@ -43,8 +43,22 @@ All optional. Leave one empty and that feature simply isn't rendered.
 | `ga4Id` | Injects Google Analytics + WhatsApp-click conversion tracking. Empty = no analytics script at all, so no cookie banner needed. | analytics.google.com |
 | `googleSiteVerification` | Search Console meta-tag verification. Prefer DNS verification if you can. | search.google.com/search-console |
 | `web3formsKey` | Emails you a copy of every booking enquiry so abandoned ones aren't lost. | web3forms.com (free) |
-| `googleReviewUrl` | The "leave a review" button on `/reviews/`. | Your Google Business Profile |
-| `googleMapsUrl` | Directions link. | Your Google Business Profile |
+| `googleReviewUrl` | The "leave a review" button on `/reviews/`. **Still empty.** | GBP dashboard → "Ask for reviews" → gives a `g.page/r/…/review` short link |
+| `googleMapsUrl` | Directions link + the rating badge's target. **Set.** | Built from the profile CID `12071693882875441050` |
+| `googleRating` / `googleReviewCount` | The rating badge in the hero and on `/reviews/`. **Set to 5.0 / 3.** | Must be kept in sync with the live profile — it's shown as a factual claim next to a link that proves it. Set the count to 0 to hide the badge. |
+
+### The Google Business Profile
+
+The listing is **"Mogador adventures"**, category *Location de quad*, at
+`31.4788867, -9.7655976` (Diabat). Those coordinates are in `lib/site.ts` and
+feed the LocalBusiness schema, the geo meta tags and the booking-page map —
+they must match the profile, because Google cross-checks them when ranking the
+map pack.
+
+Reviews are transcribed into `TESTIMONIALS` in `data/content.ts`. They are
+**real**, and replaced the three sample testimonials that shipped with the
+design prototype. Add new ones there as they arrive, and update
+`googleReviewCount` to match.
 
 ### 3. `src/lib/schema.ts` — `REVIEW_STATS`
 

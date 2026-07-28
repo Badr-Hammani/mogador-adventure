@@ -60,6 +60,21 @@ export const CONFIG = {
    * listing is ever renamed or moved.
    */
   googleMapsUrl: "https://maps.google.com/?cid=12071693882875441050",
+
+  /**
+   * Rating shown on the Google Business Profile. KEEP IN SYNC with the profile
+   * — it is displayed to visitors as a factual claim, next to a link they can
+   * click to check it.
+   *
+   * Displayed visually only. It is deliberately NOT emitted as schema.org
+   * aggregateRating: Google's structured-data policy forbids marking up
+   * ratings your own site didn't collect, and importing them from your own GBP
+   * risks a manual action. See REVIEW_STATS in lib/schema.ts.
+   *
+   * Set googleReviewCount to 0 to hide the badge everywhere.
+   */
+  googleRating: 5.0,
+  googleReviewCount: 3,
 } as const;
 
 export const hasAnalytics = () => CONFIG.ga4Id.length > 0;

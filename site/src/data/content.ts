@@ -18,62 +18,59 @@ export interface Testimonial {
   activity: string;
 }
 
+/*
+ * REAL reviews, transcribed from the Google Business Profile
+ * (maps.google.com/?cid=12071693882875441050) on 28 July 2026.
+ *
+ * These replace the three sample testimonials that came with the design
+ * prototype — "Lena K., Berlin", "Marco R., Milan", "Amara O., Lagos". Those
+ * were placeholder copy invented for a mockup, and presenting invented
+ * customers as real ones on a page that takes bookings is not something to
+ * ship. Two real reviews beat three convincing fictional ones.
+ *
+ * The originals are in English; the other languages are translations, which is
+ * exactly what Google itself shows. Keep the English verbatim.
+ *
+ * When new reviews come in, add them here — and update REVIEW_COUNT/RATING in
+ * lib/config.ts to match the profile.
+ */
 export const TESTIMONIALS: Testimonial[] = [
   {
-    name: "Lena K.",
+    name: "Abdessamad Ichtoutel",
     rating: 5,
     activity: "quad",
     quote: {
-      en: "Our guide knew every dune and every wave. Best day of the whole trip.",
-      fr: "Notre guide connaissait chaque dune et chaque vague. La meilleure journée de tout le séjour.",
-      es: "Nuestro guía se conocía cada duna y cada ola. El mejor día de todo el viaje.",
-      de: "Unser Guide kannte jede Düne und jede Welle. Der beste Tag der ganzen Reise.",
-      ar: "كان مرشدنا يعرف كل كثيب وكل موجة. أفضل يوم في الرحلة كلها.",
+      en: "What an amazing experience with Mogador Adventures — the service was amazing and the quads are brand new. Highly recommend this place!",
+      fr: "Une expérience incroyable avec Mogador Adventures — le service était excellent et les quads sont flambant neufs. Je recommande vivement !",
+      es: "Una experiencia increíble con Mogador Adventures: el servicio fue excelente y los quads están totalmente nuevos. ¡Muy recomendable!",
+      de: "Ein unglaubliches Erlebnis mit Mogador Adventures — der Service war hervorragend und die Quads sind nagelneu. Absolute Empfehlung!",
+      ar: "تجربة رائعة مع Mogador Adventures — الخدمة ممتازة والدراجات جديدة تماماً. أنصح بهذا المكان بشدة!",
     },
     origin: {
-      en: "Berlin, Germany",
-      fr: "Berlin, Allemagne",
-      es: "Berlín, Alemania",
-      de: "Berlin, Deutschland",
-      ar: "برلين، ألمانيا",
+      en: "Google review · Local Guide",
+      fr: "Avis Google · Local Guide",
+      es: "Reseña de Google · Local Guide",
+      de: "Google-Bewertung · Local Guide",
+      ar: "تقييم على غوغل · مرشد محلي",
     },
   },
   {
-    name: "Marco R.",
+    name: "Soukaina",
     rating: 5,
     activity: "quad",
     quote: {
-      en: "Booked through Instagram DM and it was seamless — quad biking then a home-cooked tagine.",
-      fr: "Réservé par message Instagram, tout s'est fait sans accroc — quad puis tajine fait maison.",
-      es: "Reservé por mensaje de Instagram y fue todo rodado: quad y luego un tajine casero.",
-      de: "Per Instagram-DM gebucht, lief völlig reibungslos — Quad-Tour und danach eine selbstgekochte Tajine.",
-      ar: "حجزت عبر رسالة إنستغرام وكان كل شيء سلساً — جولة كواد ثم طاجين منزلي.",
+      en: "Me and my son had a phenomenal quad biking experience with Mogador Adventures. The team was professional, friendly and attentive, making sure we had an amazing time from start to finish.",
+      fr: "Mon fils et moi avons vécu une expérience de quad phénoménale avec Mogador Adventures. L'équipe était professionnelle, sympathique et attentive, veillant à ce que nous passions un excellent moment du début à la fin.",
+      es: "Mi hijo y yo vivimos una experiencia de quad fenomenal con Mogador Adventures. El equipo fue profesional, amable y atento, y se aseguró de que lo pasáramos genial de principio a fin.",
+      de: "Mein Sohn und ich hatten ein phänomenales Quad-Erlebnis mit Mogador Adventures. Das Team war professionell, freundlich und aufmerksam und hat dafür gesorgt, dass wir von Anfang bis Ende eine großartige Zeit hatten.",
+      ar: "أنا وابني عشنا تجربة كواد رائعة مع Mogador Adventures. كان الفريق محترفاً ولطيفاً ومهتماً، وحرص على أن نقضي وقتاً ممتازاً من البداية إلى النهاية.",
     },
     origin: {
-      en: "Milan, Italy",
-      fr: "Milan, Italie",
-      es: "Milán, Italia",
-      de: "Mailand, Italien",
-      ar: "ميلانو، إيطاليا",
-    },
-  },
-  {
-    name: "Amara O.",
-    rating: 5,
-    activity: "surf",
-    quote: {
-      en: "Surf lesson in the morning, sunset yoga after. Felt like locals, not tourists.",
-      fr: "Cours de surf le matin, yoga au coucher du soleil ensuite. On s'est sentis d'ici, pas touristes.",
-      es: "Clase de surf por la mañana y yoga al atardecer. Nos sentimos locales, no turistas.",
-      de: "Morgens Surfstunde, danach Yoga zum Sonnenuntergang. Man fühlte sich wie ein Einheimischer.",
-      ar: "درس سيرف صباحاً ويوغا عند الغروب بعده. شعرنا أننا من أهل المكان لا سيّاح.",
-    },
-    origin: {
-      en: "Lagos, Nigeria",
-      fr: "Lagos, Nigeria",
-      es: "Lagos, Nigeria",
-      de: "Lagos, Nigeria",
-      ar: "لاغوس، نيجيريا",
+      en: "Google review",
+      fr: "Avis Google",
+      es: "Reseña de Google",
+      de: "Google-Bewertung",
+      ar: "تقييم على غوغل",
     },
   },
 ];

@@ -8,6 +8,7 @@ import type { ActivityKey } from "../lib/routes";
 import PageHeader from "../components/PageHeader.astro";
 import CTABand from "../components/CTABand.astro";
 import Icon from "../components/Icon.astro";
+import GoogleRating from "../components/GoogleRating.astro";
 
 interface Props {
   lang: Lang;
@@ -73,7 +74,11 @@ const c = copy[lang];
     title={c.h1}
     intro={c.intro}
     centered
-  />
+  >
+    <div class="rating-wrap">
+      <GoogleRating lang={lang} />
+    </div>
+  </PageHeader>
 </div>
 
 <div class="container reviews-grid">
@@ -131,6 +136,10 @@ const c = copy[lang];
 <CTABand lang={lang} />
 
 <style>
+  .rating-wrap {
+    margin-block-start: var(--s4);
+  }
+
   .reviews-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));

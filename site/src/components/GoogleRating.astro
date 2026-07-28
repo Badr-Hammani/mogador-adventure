@@ -1,0 +1,99 @@
+---
+/**
+ * The Google rating, shown as a clickable badge.
+ *
+ * Visual only — never schema.org aggregateRating. Google forbids marking up
+ * ratings your site didn't collect, so this states the fact and links straight
+ * to the profile where anyone can verify it. That link doubles as a local-SEO
+ * signal, since profile visits feed back into map-pack ranking.
+ *
+ * Renders nothing when no reviews are configured, so the site never shows an
+ * empty or zero rating.
+ */
+import { CONFIG } from "../lib/config";
+import type { Lang } from "../lib/i18n";
+import Icon from "./Icon.astro";
+
+interface Props {
+  lang: Lang;
+  /** "light" for use over a dark photo hero. */
+  tone?: "default" | "light";
+  class?: string;
+}
+
+const { lang, tone = "default", class: className = "" } = Astro.props;
+
+const label: Record<Lang, (n: number) => string> = {
+  en: (n) => `${n} Google review${n === 1 ? "" : "s"}`,
+  fr: (n) => `${n} avis Google`,
+  es: (n) => `${n} reseña${n === 1 ? "" : "s"} en Google`,
+  de: (n) => `${n} Google-Bewertung${n === 1 ? "" : "en"}`,
+  ar: (n) => `${n} تقييمات على غوغل`,
+};
+
+const show = CONFIG.googleReviewCount > 0;
+const rating = CONFIG.googleRating.toFixed(1);
+const href = CONFIG.googleMapsUrl || undefined;
+const Tag = href ? "a" : "div";
+---
+
+{
+  show && (
+    <Tag
+      class:list={["g-rating", tone, className]}
+      href={href}
+      target={href ? "_blank" : undefined}
+      rel={href ? "noopener" : undefined}
+    >
+      <span class="g-stars" aria-hidden="true">
+        {Array.from({ length: 5 }).map(() => <Icon name="star" size={13} />)}
+      </span>
+      <span class="g-value">{rating}</span>
+      <span class="g-count">{label[lang](CONFIG.googleReviewCount)}</span>
+    </Tag>
+  )
+}
+
+<style>
+  .g-rating {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 13px;
+    padding: 6px 13px;
+    border-radius: var(--r-pill);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--text);
+    white-space: nowrap;
+  }
+  .g-rating:hover {
+    background: var(--accent-tint);
+  }
+
+  .g-stars {
+    display: inline-flex;
+    gap: 1px;
+    color: #f5a623;
+  }
+
+  .g-value {
+    font-family: var(--font-display);
+    font-size: 14px;
+  }
+
+  .g-count {
+    opacity: 0.7;
+  }
+
+  /* Over the photo hero. */
+  .light {
+    background: rgba(249, 244, 237, 0.16);
+    border-color: rgba(249, 244, 237, 0.28);
+    color: var(--dark-text);
+    backdrop-filter: blur(4px);
+  }
+  .light:hover {
+    background: rgba(249, 244, 237, 0.26);
+  }
+</style>
