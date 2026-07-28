@@ -166,29 +166,43 @@ reciprocal hreflang emitted only for languages where a page genuinely exists.
 
 ## Deploying
 
-The site is a plain static folder — `dist/` can go on any host.
+The same commit deploys to two hosts, which is why `site` and `base` are
+derived rather than hardcoded (see the comment at the top of
+`astro.config.mjs`). Get those wrong and the build still succeeds while every
+link and asset 404s.
 
-### Cloudflare Pages (recommended: free, fast, global)
+| Host | Serves at | How `site`/`base` are set |
+|---|---|---|
+| **Vercel** (primary) | domain root | `VERCEL_PROJECT_PRODUCTION_URL`, `base: "/"` |
+| **GitHub Pages** | `/mogador-adventure/` | `--site`/`--base` flags in `.github/workflows/deploy.yml` |
 
-```bash
-npx wrangler pages deploy dist --project-name mogador-adventures
-```
+### Vercel
 
-Or connect the Git repo at dash.cloudflare.com → Workers & Pages:
-build command `npm run build`, output directory `dist`.
+**The Root Directory must be `site`** — Project Settings → Build and
+Deployment → Root Directory. The Astro project lives in a subfolder; leave this
+empty and Vercel finds no `package.json`, "succeeds" in about 3 seconds, and
+serves a 404 for every URL. That is the single most likely thing to be wrong.
 
-### Netlify
+`vercel.json` supplies the security and cache headers. Note that
+`public/_headers` is Cloudflare/Netlify-only and does nothing on either
+current host — on GitHub Pages that means HTML sits in cache for 10 minutes
+with no way to override it.
 
-`netlify.toml` is already configured. Connect the repo, or:
+Deployment Protection is off, so the site is publicly viewable. Turning it on
+(Settings → Deployment Protection) makes every URL redirect to a Vercel login.
 
-```bash
-npx netlify deploy --prod --dir dist
-```
+### GitHub Pages
+
+Pushes to `main` trigger `.github/workflows/deploy.yml`. Pages source must be
+**GitHub Actions**, not "Deploy from a branch".
 
 ### After the domain is live
 
-1. Confirm `site` in `astro.config.mjs` matches the real domain exactly —
-   it builds every canonical, hreflang and sitemap URL.
-2. Pick www or non-www and 301 the other. Forever.
-3. Submit `https://yourdomain.com/sitemap.xml` in Google Search Console.
-4. Validate a few page types at search.google.com/test/rich-results.
+1. Point the domain at **one** host and retire the other. Two public copies of
+   the same site is a duplicate-content problem — harmless only while both are
+   `noindex`.
+2. Set `PUBLIC_SITE_URL` in the Vercel project's environment variables.
+3. Flip `indexable: true` in `src/lib/config.ts`.
+4. Pick www or non-www and 301 the other. Forever.
+5. Submit `https://yourdomain.com/sitemap.xml` in Google Search Console.
+6. Validate a few page types at search.google.com/test/rich-results.
