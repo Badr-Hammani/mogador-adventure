@@ -54,12 +54,15 @@ export const CONFIG = {
   /**
    * Your Google Business Profile review link.
    *
-   * Get the official one from the GBP dashboard: "Ask for reviews" → it gives
-   * a short https://g.page/r/…/review link. That's the only form guaranteed to
-   * open the review box directly, so it's worth the two clicks — this link
-   * goes on the QR card guides hand out after every tour.
+   * The official link from the GBP dashboard ("Demander des avis"). This is the
+   * form that opens the review box directly rather than dropping people on the
+   * profile to find it themselves — put this on the QR card guides hand out
+   * after every tour.
+   *
+   * It resolves to search.google.com/local/writereview?placeid=ChIJZfP0wnyb
+   * rQ0Rmu8LvqBFh6c — the same place ID pinned in scripts/fetch-google-reviews.mjs.
    */
-  googleReviewUrl: "",
+  googleReviewUrl: "https://g.page/r/CZrvC76gRYenEBM/review",
 
   /**
    * Public Google Maps place URL. Built from the profile's CID, which is the

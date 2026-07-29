@@ -20,7 +20,9 @@ export interface Testimonial {
 
 /*
  * REAL reviews, transcribed from the Google Business Profile
- * (maps.google.com/?cid=12071693882875441050) on 28 July 2026.
+ * (maps.google.com/?cid=12071693882875441050). Last checked 29 July 2026, when
+ * the profile stood at 5.0 from 4 reviews — the fourth is a bare 5-star rating
+ * with no text, so there is nothing to transcribe from it.
  *
  * These replace the three sample testimonials that came with the design
  * prototype — "Lena K., Berlin", "Marco R., Milan", "Amara O., Lagos". Those
@@ -39,6 +41,34 @@ export interface Testimonial {
  * latestReviews in data/google-reviews.json as a prompt to transcribe them.
  */
 export const TESTIMONIALS: Testimonial[] = [
+  {
+    /*
+     * The most useful review on the profile, and the reason it leads: it is the
+     * only one that answers the objections a stranger actually has before
+     * booking — is it worth the money, is it safe, will I be looked after, how
+     * do I get there. It also names the photographer and the hostel pickup,
+     * which are the two things this operator does that the competition does
+     * not. Quoted in full and verbatim; trimming a real customer's words to
+     * make the card tidier is not a trade worth making.
+     */
+    name: "Salma Alhsni",
+    rating: 5,
+    activity: "quad",
+    quote: {
+      en: "I rented an ATV for one hour and the experience was great! The prices are better than other places and so is the service! They send a professional photographer out with you, thank you to both my guide and photographer for being awesome. They also picked me up from my hostel and dropped me off at a location I requested. They cared about my safety and comfort and were very kind. They also have a variety of activities to choose from. Highly recommend the views were great and the ATVs they have are so much fun.",
+      fr: "J'ai loué un quad pour une heure et l'expérience était géniale ! Les prix sont meilleurs qu'ailleurs, et le service aussi ! Ils envoient un photographe professionnel avec vous — merci à mon guide et à mon photographe, tous les deux au top. Ils sont aussi venus me chercher à mon auberge et m'ont déposée là où je le souhaitais. Ils ont veillé à ma sécurité et à mon confort, et ils ont été très gentils. Ils proposent aussi tout un choix d'activités. Je recommande vivement : les vues étaient superbes et leurs quads sont vraiment amusants.",
+      es: "Alquilé un quad durante una hora ¡y la experiencia fue genial! Los precios son mejores que en otros sitios, ¡y el servicio también! Envían a un fotógrafo profesional contigo; gracias a mi guía y a mi fotógrafo, los dos estupendos. También me recogieron en el hostal y me dejaron donde pedí. Se preocuparon por mi seguridad y mi comodidad, y fueron muy amables. Además tienen muchas actividades para elegir. Muy recomendable: las vistas eran preciosas y sus quads son divertidísimos.",
+      de: "Ich habe ein Quad für eine Stunde gemietet und das Erlebnis war großartig! Die Preise sind besser als anderswo — und der Service auch! Sie schicken einen professionellen Fotografen mit, vielen Dank an meinen Guide und meinen Fotografen, beide klasse. Sie haben mich außerdem an meinem Hostel abgeholt und dort abgesetzt, wo ich es wollte. Sie haben auf meine Sicherheit und mein Wohlbefinden geachtet und waren sehr freundlich. Es gibt auch eine große Auswahl an Aktivitäten. Absolute Empfehlung: die Aussichten waren toll und ihre Quads machen richtig Spaß.",
+      ar: "كريت كواد لمدة ساعة وكانت التجربة رائعة! الأسعار أحسن من أماكن أخرى، والخدمة كذلك! كيرسلو معاك مصور محترف، شكراً للمرشد وللمصور، بجوج كانوا ممتازين. زيادة على ذلك جاو خداوني من دار الشباب وردوني للمكان اللي طلبت. اهتموا بسلامتي وراحتي وكانوا لطفاء بزاف. عندهم أيضاً تشكيلة كبيرة من الأنشطة. ننصح بهم بشدة: المناظر كانت خلابة والكوادات ديالهم ممتعة بزاف.",
+    },
+    origin: {
+      en: "Google review",
+      fr: "Avis Google",
+      es: "Reseña de Google",
+      de: "Google-Bewertung",
+      ar: "تقييم على غوغل",
+    },
+  },
   {
     name: "Abdessamad Ichtoutel",
     rating: 5,

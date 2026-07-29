@@ -33,11 +33,16 @@ const OUT = resolve(HERE, "../src/data/google-reviews.json");
 const API_KEY = process.env.GOOGLE_PLACES_API_KEY?.trim();
 
 /**
- * Pin this once you know it — it saves a lookup call per build and removes any
- * chance of the search resolving to a different business with a similar name.
- * The script prints the ID it resolved so you can copy it in.
+ * Pinned, so no lookup call is made and there is no chance of a search
+ * resolving to one of the several other Essaouira businesses with "Mogador" in
+ * the name. Read off the review link in the GBP dashboard, which resolves to
+ * search.google.com/local/writereview?placeid=<this>.
+ *
+ * Not a secret — it is in the public review link on the QR card. The env var
+ * only exists so the listing can be re-pointed without a code change.
  */
-const PLACE_ID = process.env.GOOGLE_PLACE_ID?.trim();
+const PLACE_ID =
+  process.env.GOOGLE_PLACE_ID?.trim() || "ChIJZfP0wnybrQ0Rmu8LvqBFh6c";
 
 /** Used only to resolve the place ID when GOOGLE_PLACE_ID isn't set. */
 const SEARCH_QUERY = "Mogador adventures, Diabat, Essaouira, Morocco";
