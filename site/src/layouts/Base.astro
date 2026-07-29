@@ -120,7 +120,17 @@ const xDefault = alternates.find((a) => a.lang === DEFAULT_LANG) ?? alternates[0
     <meta name="geo.position" content={`${SITE.geo.lat};${SITE.geo.lng}`} />
     <meta name="ICBM" content={`${SITE.geo.lat}, ${SITE.geo.lng}`} />
 
+    {/*
+      SVG first for browsers that support it — it stays crisp at every size and
+      on hi-dpi. The 32/16 PNGs are the fallback for older browsers, which
+      ignore the SVG entirely and would otherwise show a blank page icon.
+
+      apple-touch-icon was referenced here before it existed and returned 404,
+      so adding the site to an iPhone home screen produced a blank tile.
+    */}
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
+    <link rel="icon" href="/favicon-16.png" sizes="16x16" type="image/png" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="sitemap" href="/sitemap.xml" />
 

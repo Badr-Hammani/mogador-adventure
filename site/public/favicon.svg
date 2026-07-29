@@ -1,5 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <rect width="64" height="64" rx="14" fill="#c67139"/>
-  <path d="M6 44c5-9 11-14 17-14s9 5 14 5 9-4 13-9c3-4 5-7 8-9v27H6z" fill="#f5ead8" opacity="0.92"/>
-  <circle cx="45" cy="18" r="7" fill="#f5ead8"/>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Mogador Adventures"><rect width="64" height="64" rx="14" fill="#c67139"/><g fill="#fdf6ec"><circle cx="32" cy="32" r="10.5"/><path d="M30.12 18.63L32.00 5.00L33.88 18.63ZM37.06 19.48L45.50 8.62L40.31 21.36ZM42.64 23.69L55.38 18.50L44.52 26.94ZM45.37 30.12L59.00 32.00L45.37 33.88ZM44.52 37.06L55.38 45.50L42.64 40.31ZM40.31 42.64L45.50 55.38L37.06 44.52ZM33.88 45.37L32.00 59.00L30.12 45.37ZM26.94 44.52L18.50 55.38L23.69 42.64ZM21.36 40.31L8.62 45.50L19.48 37.06ZM18.63 33.88L5.00 32.00L18.63 30.12ZM19.48 26.94L8.62 18.50L21.36 23.69ZM23.69 21.36L18.50 8.62L26.94 19.48Z"/></g></svg>
