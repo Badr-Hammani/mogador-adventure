@@ -80,9 +80,9 @@ export const POSTS: Post[] = [
           {
             type: "list",
             items: [
-              "July and August, when even the late afternoon can be hot — an 08:00 start is cool and quiet",
+              "July and August, when even the late afternoon can be hot — a 10:00 start is the coolest ride we run",
               "If you're pairing the ride with something else and want your evening free",
-              "If you want the dunes genuinely empty — nobody else is out at eight in the morning",
+              "If you want the dunes genuinely quiet — the crowds build through the afternoon, not the morning",
               "Windy days: Essaouira's wind builds through the afternoon, and while wind doesn't affect quads much, it does affect how much sand ends up in your face",
             ],
           },
@@ -129,9 +129,9 @@ export const POSTS: Post[] = [
           {
             type: "list",
             items: [
-              "En juillet et août, quand même la fin d'après-midi peut être chaude — un départ à 8h est frais et calme",
+              "En juillet et août, quand même la fin d'après-midi peut être chaude — un départ à 10h est la sortie la plus fraîche que nous proposons",
               "Si vous enchaînez avec autre chose et voulez garder votre soirée libre",
-              "Si vous voulez les dunes vraiment désertes — personne d'autre n'est dehors à huit heures du matin",
+              "Si vous voulez les dunes vraiment tranquilles — l'affluence monte l'après-midi, pas le matin",
               "Les jours de vent : le vent d'Essaouira monte au fil de l'après-midi, et s'il gêne peu les quads, il détermine la quantité de sable que vous prendrez au visage",
             ],
           },

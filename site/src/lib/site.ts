@@ -63,7 +63,7 @@ export const SITE = {
 
   /** Opening hours — LocalBusiness schema + GBP must agree. */
   hours: {
-    opens: "08:00",
+    opens: "10:00",
     closes: "20:00",
     days: [
       "Monday",
