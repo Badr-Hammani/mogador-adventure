@@ -2,32 +2,24 @@
 import { defineConfig } from "astro/config";
 
 /**
- * Mogador Adventures — static site.
+ * Mogador Adventures — static site. Live at https://mogadoradventure.com.
  *
- * ── Why site/base are computed rather than hardcoded ─────────────────────────
- * The same commit is deployed to two hosts, which need different values:
+ * ── Why `site` is computed rather than hardcoded ─────────────────────────────
+ * It builds every canonical URL, hreflang tag and sitemap entry, so getting it
+ * wrong doesn't fail the build — it silently ships a site that tells Google its
+ * real address is somewhere that doesn't exist.
  *
- *   Vercel          served at the domain root        base "/"
- *   GitHub Pages    served at /mogador-adventure/    base "/mogador-adventure/"
- *
- * `site` and `base` build every canonical URL, hreflang tag, sitemap entry and
- * internal link, so getting them wrong doesn't fail the build — it silently
- * ships a site where every link 404s.
- *
- * Vercel exposes the deployment URL as an env var, so it configures itself.
- * The GitHub Actions workflow passes `--site` and `--base` on the command line,
- * which override whatever is here.
- *
- * WHEN mogadoradventure.com IS LIVE: point the domain at Vercel, set
- * PUBLIC_SITE_URL in the Vercel project settings, and flip `indexable: true`
- * in src/lib/config.ts.
+ * The three-step fallback below means the right thing happens everywhere:
+ * production reads the env var, preview deployments describe themselves, and a
+ * bare `npm run build` on a laptop still produces the real domain.
  */
 
-// Set this in Vercel → Settings → Environment Variables once the real domain
-// is attached. It wins over the auto-generated deployment URL.
+// Set in Vercel → Settings → Environment Variables (Production).
+// Wins over the auto-generated deployment URL.
 const explicitSite = process.env.PUBLIC_SITE_URL;
 
-// Vercel provides the stable production domain, and a per-deployment URL.
+// Preview deployments have no PUBLIC_SITE_URL, so they fall back to describing
+// themselves rather than claiming to be production.
 const vercelHost =
   process.env.VERCEL_PROJECT_PRODUCTION_URL || process.env.VERCEL_URL;
 

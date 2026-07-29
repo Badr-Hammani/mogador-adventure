@@ -15,24 +15,27 @@ npm run preview  # serve the built site locally
 
 Three files, and nothing else in the codebase needs touching.
 
-### 1. `src/data/pricing.ts` — **confirm every price**
+### 1. `src/data/pricing.ts` — prices
 
-The prices are benchmarked against what Essaouira competitors publicly charge
-in July 2026. **They are a starting point, not your rate card.** Every price on
-the site — page copy, price tables, and the `Offer` structured data Google reads
-to show a price in search results — comes from this one file.
+Transcribed from the operator's own printed rate card (July 2026). Every price
+on the site — page copy, price tables, and the `Offer` structured data Google
+reads to show a price in search results — comes from this one file.
 
-Current values (EUR, per person):
+**Quad prices are per quad, not per person.** One machine with one rider, or
+one machine carrying two:
 
-| Activity | Prices |
-|---|---|
-| Quad | 1h €30 · 2h €45 · 3h €65 · 4h €85 |
-| Surf | group €30 · private €55 · 3-day €80 |
-| Camel | 1h €20 · 2h €35 · sunset €25 |
-| Horse | 1h €30 · 2h €50 |
-| Cooking | €40 |
-| Yoga | €20 · 5-pack €85 |
-| Packages | quad+camel €60 · surf+yoga €45 · family €40 · 3-day €195 |
+| Quad tour | 1 rider | 2 riders |
+|---|---|---|
+| 1 hour | €30 | €45 |
+| 2 hours | €50 | €70 |
+| 3 hours | €65 | €90 |
+| Half day | €90 | €110 |
+| Full day — Sidi Kaouki | €110 | €140 |
+| Full day — Sidi M'Barek | €140 | €170 |
+
+Camel, horseback, surf, yoga and cooking have **no published prices** — their
+arrays are empty and the UI says "price on request". Don't invent figures; add
+the real ones when the operator sends them.
 
 ### 2. `src/lib/config.ts` — accounts and keys
 
@@ -166,15 +169,21 @@ reciprocal hreflang emitted only for languages where a page genuinely exists.
 
 ## Deploying
 
-The same commit deploys to two hosts, which is why `site` and `base` are
-derived rather than hardcoded (see the comment at the top of
-`astro.config.mjs`). Get those wrong and the build still succeeds while every
-link and asset 404s.
+**Live at https://mogadoradventure.com** — Vercel, deployed from `main` on
+every push. GitHub Pages has been retired; there is exactly one public copy.
 
-| Host | Serves at | How `site`/`base` are set |
-|---|---|---|
-| **Vercel** (primary) | domain root | `VERCEL_PROJECT_PRODUCTION_URL`, `base: "/"` |
-| **GitHub Pages** | `/mogador-adventure/` | `--site`/`--base` flags in `.github/workflows/deploy.yml` |
+`site` is still derived rather than hardcoded (see the comment at the top of
+`astro.config.mjs`) because it builds every canonical URL, hreflang tag and
+sitemap entry. Get it wrong and the build still succeeds while every one of
+those points somewhere that doesn't exist.
+
+| Hostname | What it does |
+|---|---|
+| `mogadoradventure.com` | Canonical. Everything points here. |
+| `www.mogadoradventure.com` | 308 → apex |
+| `mogador-adventure.vercel.app` | Vercel's own URL. Still serves, but self-canonicalises to the apex. |
+
+DNS lives at Namecheap: `A @ → 216.198.79.1` and `CNAME www → cname.vercel-dns.com.`
 
 ### Vercel
 
@@ -183,26 +192,18 @@ Deployment → Root Directory. The Astro project lives in a subfolder; leave thi
 empty and Vercel finds no `package.json`, "succeeds" in about 3 seconds, and
 serves a 404 for every URL. That is the single most likely thing to be wrong.
 
-`vercel.json` supplies the security and cache headers. Note that
-`public/_headers` is Cloudflare/Netlify-only and does nothing on either
-current host — on GitHub Pages that means HTML sits in cache for 10 minutes
-with no way to override it.
+`PUBLIC_SITE_URL` is set to `https://mogadoradventure.com` (Production only),
+which is what `site` resolves to. `vercel.json` supplies the security and
+cache headers. Note that `public/_headers` is Cloudflare/Netlify-only and does
+nothing here.
 
 Deployment Protection is off, so the site is publicly viewable. Turning it on
 (Settings → Deployment Protection) makes every URL redirect to a Vercel login.
 
-### GitHub Pages
+### Still to do
 
-Pushes to `main` trigger `.github/workflows/deploy.yml`. Pages source must be
-**GitHub Actions**, not "Deploy from a branch".
-
-### After the domain is live
-
-1. Point the domain at **one** host and retire the other. Two public copies of
-   the same site is a duplicate-content problem — harmless only while both are
-   `noindex`.
-2. Set `PUBLIC_SITE_URL` in the Vercel project's environment variables.
-3. Flip `indexable: true` in `src/lib/config.ts`.
-4. Pick www or non-www and 301 the other. Forever.
-5. Submit `https://yourdomain.com/sitemap.xml` in Google Search Console.
-6. Validate a few page types at search.google.com/test/rich-results.
+1. Submit `https://mogadoradventure.com/sitemap.xml` in Google Search Console
+   (verify by DNS TXT at Namecheap, or paste the token into
+   `googleSiteVerification`).
+2. Validate a few page types at search.google.com/test/rich-results.
+3. Fill in `web3formsKey` and `googleReviewUrl` — see the table above.

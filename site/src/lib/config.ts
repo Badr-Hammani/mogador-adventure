@@ -11,16 +11,21 @@ export const CONFIG = {
    * 🚦 THE SWITCH THAT LETS GOOGLE IN.
    *
    * false → every page emits `noindex, nofollow` and robots.txt disallows
-   *         everything. Correct while the site lives on a temporary
-   *         *.pages.dev URL: without it, Google indexes the throwaway domain,
-   *         and later you have two competing copies plus canonical tags
-   *         pointing at a domain that didn't exist yet.
+   *         everything. That was correct while the only public URL was the
+   *         throwaway *.vercel.app one: index that and you end up with two
+   *         competing copies, plus canonical tags pointing at a domain that
+   *         didn't exist yet.
    *
-   * Flip to true ONLY once mogadoradventure.com is registered, DNS points at
-   * Cloudflare Pages, and `site` in astro.config.mjs matches it exactly.
-   * Then rebuild, redeploy, and submit the sitemap in Search Console.
+   * Now true. The preconditions are all met:
+   *   • mogadoradventure.com is registered and its A record points at Vercel
+   *   • www 308-redirects to the apex, so there is one canonical hostname
+   *   • PUBLIC_SITE_URL is set in the Vercel project, so `site` in
+   *     astro.config.mjs matches the live domain exactly
+   *
+   * Turning this back to false pulls the site out of Google. Don't, unless
+   * you are deliberately de-indexing.
    */
-  indexable: false,
+  indexable: true,
 
   /**
    * Google Analytics 4 measurement ID, e.g. "G-XXXXXXXXXX".
