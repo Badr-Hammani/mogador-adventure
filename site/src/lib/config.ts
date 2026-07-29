@@ -36,10 +36,21 @@ export const CONFIG = {
   ga4Id: "",
 
   /**
-   * Google Search Console HTML-tag verification token.
-   * Only the token, not the whole meta tag. Prefer DNS verification if you can.
+   * Google Search Console HTML-tag verification token (the content attribute
+   * only, not the whole meta tag).
+   *
+   * This verifies the URL-prefix property https://mogadoradventure.com/ under
+   * mogador.adventures@gmail.com. A DNS-verified *domain* property would be
+   * better — it covers www, http and every subdomain in one — but that needs a
+   * TXT record at Namecheap, and that account was logged out. The TXT value is
+   * the same token as this one if you want to add it later:
+   *
+   *   TXT  @  google-site-verification=z5A-QCOmhdIt3x5V0sAksJ6nPpJaE5h_mRsLvHSVvm4
+   *
+   * DO NOT REMOVE once verified — Google re-checks periodically and silently
+   * drops the property (and all its data) if the tag disappears.
    */
-  googleSiteVerification: "",
+  googleSiteVerification: "z5A-QCOmhdIt3x5V0sAksJ6nPpJaE5h_mRsLvHSVvm4",
 
   /**
    * Booking-form backend. Get a free access key at https://web3forms.com —
