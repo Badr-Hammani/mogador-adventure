@@ -19,6 +19,16 @@ const exploreKeys: PageKey[] = [
   "essaouiraActivities",
   "about",
   "gallery",
+  /*
+   * "reviews" belongs here and its absence was a real bug, not a styling
+   * choice. Without a link from the footer, /reviews/ and /fr/avis/ were
+   * reachable only from each other via the language switcher — so a crawler
+   * starting at the homepage could not get to them at all. They were in the
+   * sitemap, which is a hint, not a path; Google strongly prefers pages it can
+   * actually walk to, and the reviews page is where the social proof and the
+   * "leave a review" button live.
+   */
+  "reviews",
   "blog",
   "faq",
   "book",
@@ -39,6 +49,16 @@ const exploreLabels: Record<string, string> = {
             : "Things to do in Essaouira",
   about: s.nav_about,
   gallery: s.nav_gallery,
+  reviews:
+    lang === "fr"
+      ? "Avis clients"
+      : lang === "es"
+        ? "Opiniones"
+        : lang === "de"
+          ? "Bewertungen"
+          : lang === "ar"
+            ? "آراء العملاء"
+            : "Reviews",
   blog: s.nav_blog,
   faq: s.nav_faq,
   book: s.nav_contact,
