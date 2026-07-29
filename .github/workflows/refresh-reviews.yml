@@ -1,0 +1,45 @@
+# Rebuilds the site once a day so the Google rating badge stays current.
+#
+# The site is static: the rating is baked into the HTML at build time by
+# site/scripts/fetch-google-reviews.mjs. Without something triggering a build,
+# that number is frozen at whenever the last commit was pushed — which is the
+# whole problem this is here to solve.
+#
+# This does not build anything itself. It pokes a Vercel Deploy Hook and lets
+# Vercel do the build, so there is exactly one build pipeline to reason about.
+#
+# ── Setup (one time) ─────────────────────────────────────────────────────────
+#   1. Vercel → Project → Settings → Git → Deploy Hooks → Create Hook
+#      Name "daily-reviews", branch "main". Copy the URL.
+#   2. GitHub → repo → Settings → Secrets and variables → Actions → New secret
+#      Name: VERCEL_DEPLOY_HOOK      Value: the URL from step 1
+#
+# Treat that URL as a password: anyone holding it can trigger deploys.
+
+name: Refresh Google reviews
+
+on:
+  schedule:
+    # 04:15 UTC daily — outside Morocco's business hours, and deliberately not
+    # on the hour, when GitHub's scheduler is most congested and most likely to
+    # drop the run.
+    - cron: "15 4 * * *"
+  # Lets you refresh on demand from the Actions tab without waiting a day.
+  workflow_dispatch:
+
+jobs:
+  redeploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Vercel deploy
+        env:
+          HOOK: ${{ secrets.VERCEL_DEPLOY_HOOK }}
+        run: |
+          if [ -z "$HOOK" ]; then
+            echo "VERCEL_DEPLOY_HOOK is not set — see the setup notes in this file."
+            exit 1
+          fi
+          # --fail so an HTTP error is a red run rather than a silent no-op:
+          # a rebuild that quietly stopped happening is the failure mode that
+          # would leave a stale rating on the site for months.
+          curl --fail --silent --show-error -X POST "$HOOK"

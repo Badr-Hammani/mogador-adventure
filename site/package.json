@@ -6,6 +6,8 @@
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
+    "reviews": "node scripts/fetch-google-reviews.mjs",
+    "prebuild": "node scripts/fetch-google-reviews.mjs",
     "build": "astro build",
     "preview": "astro preview",
     "check": "astro check"

@@ -31,8 +31,12 @@ export interface Testimonial {
  * The originals are in English; the other languages are translations, which is
  * exactly what Google itself shows. Keep the English verbatim.
  *
- * When new reviews come in, add them here — and update REVIEW_COUNT/RATING in
- * lib/config.ts to match the profile.
+ * When new reviews come in, add them here. The rating and the review COUNT
+ * look after themselves — scripts/fetch-google-reviews.mjs refreshes both from
+ * the Places API before every build. Only the quotes are manual, because they
+ * are hand-translated into five languages and hand-picked, which is worth more
+ * than freshness for three paragraphs of copy. New arrivals show up in
+ * latestReviews in data/google-reviews.json as a prompt to transcribe them.
  */
 export const TESTIMONIALS: Testimonial[] = [
   {

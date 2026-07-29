@@ -48,7 +48,8 @@ All optional. Leave one empty and that feature simply isn't rendered.
 | `web3formsKey` | Emails you a copy of every booking enquiry so abandoned ones aren't lost. | web3forms.com (free) |
 | `googleReviewUrl` | The "leave a review" button on `/reviews/`. **Still empty.** | GBP dashboard → "Ask for reviews" → gives a `g.page/r/…/review` short link |
 | `googleMapsUrl` | Directions link + the rating badge's target. **Set.** | Built from the profile CID `12071693882875441050` |
-| `googleRating` / `googleReviewCount` | The rating badge in the hero and on `/reviews/`. **Set to 5.0 / 3.** | Must be kept in sync with the live profile — it's shown as a factual claim next to a link that proves it. Set the count to 0 to hide the badge. |
+| `googleRating` / `googleReviewCount` | The rating badge in the hero and on `/reviews/`. | **Not edited here** — fetched automatically, see below. |
+| `GOOGLE_PLACES_API_KEY` (Vercel env var) | Switches on the automatic rating refresh. | See below. |
 
 ### The Google Business Profile
 
@@ -57,6 +58,52 @@ The listing is **"Mogador adventures"**, category *Location de quad*, at
 feed the LocalBusiness schema, the geo meta tags and the booking-page map —
 they must match the profile, because Google cross-checks them when ranking the
 map pack.
+
+### The rating badge updates itself
+
+The number next to the stars sits beside a link to the Google profile, so a
+visitor is one click from catching it if it's stale. It is therefore not
+hand-maintained:
+
+```
+scripts/fetch-google-reviews.mjs   runs before every build (npm prebuild hook)
+  → src/data/google-reviews.json   committed, the last known-good number
+    → CONFIG.googleRating / googleReviewCount
+```
+
+**Switching it on** — one environment variable:
+
+1. console.cloud.google.com → new project → enable **Places API (New)**.
+   It requires a billing account on the project. One call per build, so a daily
+   rebuild is ~30 calls/month; check the current free monthly allowance on
+   Google's pricing page, but that volume has always sat well inside it.
+2. Create an API key, restrict it to the Places API.
+3. Vercel → Settings → Environment Variables → `GOOGLE_PLACES_API_KEY`.
+
+Without the key the script prints "skipped" and the build uses the committed
+JSON. It is written so that no failure path — missing key, network error,
+malformed response, an implausible rating — can fail a build or blank the
+badge. Losing a whole deploy over a rating badge would be a bad trade.
+
+The build log tells you which happened:
+
+```
+[google-reviews] 4.9 from 47 reviews (was 5 from 3)
+[google-reviews] skipped — GOOGLE_PLACES_API_KEY is not set
+```
+
+**Keeping it fresh.** A static site only rebuilds when something pushes, so
+`.github/workflows/refresh-reviews.yml` pokes a Vercel Deploy Hook once a day.
+Setup notes are in that file. Without it the number is still correct — just
+only as of the last deploy.
+
+**The review *text* is deliberately still manual.** The API returns up to five
+reviews of Google's choosing, in one language. The testimonials on the site are
+hand-picked and hand-translated into five languages, which is worth more than
+freshness for three paragraphs of copy. New reviews land in `latestReviews` in
+the JSON as a prompt to transcribe the good ones.
+
+### Testimonials
 
 Reviews are transcribed into `TESTIMONIALS` in `data/content.ts`. They are
 **real**, and replaced the three sample testimonials that shipped with the

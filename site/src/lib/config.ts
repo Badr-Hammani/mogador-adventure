@@ -6,6 +6,8 @@
  * accounts exist and be wired up afterwards without a code change elsewhere.
  */
 
+import GOOGLE_REVIEWS from "../data/google-reviews.json";
+
 export const CONFIG = {
   /**
    * 🚦 THE SWITCH THAT LETS GOOGLE IN.
@@ -67,19 +69,26 @@ export const CONFIG = {
   googleMapsUrl: "https://maps.google.com/?cid=12071693882875441050",
 
   /**
-   * Rating shown on the Google Business Profile. KEEP IN SYNC with the profile
-   * — it is displayed to visitors as a factual claim, next to a link they can
-   * click to check it.
+   * Rating shown on the Google Business Profile.
+   *
+   * NOT hand-maintained. Both values come from google-reviews.json, which
+   * scripts/fetch-google-reviews.mjs refreshes from the Places API before every
+   * build — see that file for how to switch it on. Editing them here does
+   * nothing.
+   *
+   * They have to track the profile automatically because the badge sits next to
+   * a link to that profile: a visitor is one click away from catching a stale
+   * number, on the page where they decide whether to trust you with a booking.
    *
    * Displayed visually only. It is deliberately NOT emitted as schema.org
    * aggregateRating: Google's structured-data policy forbids marking up
    * ratings your own site didn't collect, and importing them from your own GBP
    * risks a manual action. See REVIEW_STATS in lib/schema.ts.
    *
-   * Set googleReviewCount to 0 to hide the badge everywhere.
+   * The badge hides itself everywhere when the count is 0.
    */
-  googleRating: 5.0,
-  googleReviewCount: 3,
+  googleRating: GOOGLE_REVIEWS.rating,
+  googleReviewCount: GOOGLE_REVIEWS.reviewCount,
 } as const;
 
 export const hasAnalytics = () => CONFIG.ga4Id.length > 0;
