@@ -14,6 +14,7 @@ import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import WhatsAppFab from "../components/WhatsAppFab.astro";
 import Analytics from "../components/Analytics.astro";
+import VercelAnalytics from "@vercel/analytics/astro";
 
 interface Props {
   lang: Lang;
@@ -139,6 +140,15 @@ const xDefault = alternates.find((a) => a.lang === DEFAULT_LANG) ?? alternates[0
     <script type="application/ld+json" is:inline set:html={jsonLd} />
 
     <Analytics />
+
+    {/*
+      Vercel Web Analytics — separate from the GA4 component above and always
+      on, not gated behind hasAnalytics(). It's first-party and cookieless (no
+      per-visitor ID, nothing to consent to), and it only collects data when
+      served from Vercel's own infrastructure, so there's no config to fill in
+      and nothing to leak into a build run anywhere else.
+    */}
+    <VercelAnalytics />
   </head>
 
   <body>
