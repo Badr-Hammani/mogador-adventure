@@ -53,14 +53,18 @@ export const CONFIG = {
   googleSiteVerification: "z5A-QCOmhdIt3x5V0sAksJ6nPpJaE5h_mRsLvHSVvm4",
 
   /**
-   * Booking-form backend. Get a free access key at https://web3forms.com —
-   * submissions are emailed to you and can be forwarded to a Google Sheet.
+   * Booking-form backend. Web3Forms account is mogador.adventures@gmail.com,
+   * form "Mogador Adventures — Booking form". Submissions email straight to
+   * that inbox — that's what stops an abandoned enquiry from vanishing
+   * without trace, since previously the only record of it existed in the
+   * visitor's own WhatsApp/email draft if they never pressed send.
    *
-   * Empty = the form still works and still builds the WhatsApp/email message,
-   * it just doesn't also POST a copy anywhere. Filling this in is what stops
-   * abandoned enquiries from vanishing without trace.
+   * This is Web3Forms' access key, not a secret — their own dashboard labels
+   * it "a public key, safe in client-side code" (it authorises where
+   * submissions get delivered, not who can read them), so it is fine
+   * committed here same as googleSiteVerification above.
    */
-  web3formsKey: "",
+  web3formsKey: "1bb1b8c7-9e82-41b2-9e7c-3f8694e64f83",
 
   /**
    * Your Google Business Profile review link.
