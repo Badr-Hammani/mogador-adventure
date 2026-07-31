@@ -59,6 +59,14 @@ const mapLabel: Record<Lang, string> = {
   ar: "أين نحن",
 };
 
+const openInMaps: Record<Lang, string> = {
+  en: "Open in Google Maps",
+  fr: "Ouvrir dans Google Maps",
+  es: "Abrir en Google Maps",
+  de: "In Google Maps öffnen",
+  ar: "افتح في خرائط غوغل",
+};
+
 const successMsg: Record<Lang, string> = {
   en: "Thanks — we've got your details and we'll reply on WhatsApp shortly.",
   fr: "Merci — nous avons vos informations et nous vous répondons sur WhatsApp très vite.",
@@ -79,7 +87,16 @@ const config = {
   success: successMsg[lang],
 };
 
-const mapSrc = `https://www.openstreetmap.org/export/embed.html?bbox=${SITE.geo.lng - 0.05}%2C${SITE.geo.lat - 0.03}%2C${SITE.geo.lng + 0.05}%2C${SITE.geo.lat + 0.03}&layer=mapnik&marker=${SITE.geo.lat}%2C${SITE.geo.lng}`;
+/*
+ * Google Maps, not a generic map — this is Google's key-less embed format
+ * (`output=embed`). It matters here because Diabat has no street Google can
+ * geocode from an address string, so a `q=place_id:...` query — which reads
+ * as a text search rather than a coordinate — falls back to a whole-world
+ * view instead of zooming in. Querying by the same lat/lng pinned in
+ * site.ts (taken from the GBP listing itself) is what actually lands the
+ * embed on our pin at the right zoom.
+ */
+const mapSrc = `https://maps.google.com/maps?q=${SITE.geo.lat},${SITE.geo.lng}&z=15&output=embed`;
 ---
 
 <div class="container">
@@ -220,12 +237,40 @@ const mapSrc = `https://www.openstreetmap.org/export/embed.html?bbox=${SITE.geo.
     </ul>
 
     <h3 class="map-heading">{mapLabel[lang]}</h3>
-    <iframe
-      class="map"
-      src={mapSrc}
-      title={`${SITE.name} — ${SITE.address.locality}`}
-      loading="lazy"
-      referrerpolicy="no-referrer-when-downgrade"></iframe>
+    <div class="map-wrap">
+      <iframe
+        class="map"
+        src={mapSrc}
+        title={`${SITE.name} — ${SITE.address.locality}`}
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"></iframe>
+      {
+        /*
+         * The embed above is keyed to a bare lat/lng (see mapSrc comment) so
+         * it actually zooms in on load — a place-ID query looks like it
+         * should be the "real" listing but Google's key-less embed treats it
+         * as a text search and falls back to a whole-world view instead.
+         * That means the pin inside the iframe is anonymous, not the GBP
+         * listing itself. This transparent overlay covers the whole card so
+         * a click goes straight to the real "Mogador Adventures" listing —
+         * name, 5.0 rating, hours, photos — instead of just an unlabeled dot.
+         */
+        CONFIG.googleMapsUrl && (
+          <a
+            class="map-overlay-link"
+            href={CONFIG.googleMapsUrl}
+            target="_blank"
+            rel="noopener"
+            aria-label={`${openInMaps[lang]} — ${SITE.name}`}
+          >
+            <span class="map-overlay-badge">
+              <Icon name="pin" size={14} />
+              {openInMaps[lang]}
+            </span>
+          </a>
+        )
+      }
+    </div>
 
     <div class="trust-card">
       <TrustBar lang={lang} compact />
@@ -452,12 +497,42 @@ const mapSrc = `https://www.openstreetmap.org/export/embed.html?bbox=${SITE.geo.
     margin-block-end: var(--s2);
   }
 
+  .map-wrap {
+    position: relative;
+    border-radius: var(--r-card);
+    overflow: hidden;
+  }
+
   .map {
     width: 100%;
     height: 220px;
     border: 0;
-    border-radius: var(--r-card);
+    display: block;
     background: var(--surface-elevated);
+  }
+
+  .map-overlay-link {
+    position: absolute;
+    inset: 0;
+  }
+
+  .map-overlay-badge {
+    position: absolute;
+    right: var(--s2);
+    bottom: var(--s2);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--dark);
+    color: var(--dark-text);
+    font-size: 12px;
+    font-weight: 600;
+    padding: 7px 12px;
+    border-radius: var(--r-pill);
+    box-shadow: var(--shadow-card);
+  }
+  .map-overlay-link:hover .map-overlay-badge {
+    background: var(--accent-dark);
   }
 
   .trust-card {

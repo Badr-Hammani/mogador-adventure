@@ -66,6 +66,24 @@ const copy: Record<Lang, { h1: string; intro: string; askHeading: string; askBod
 };
 
 const c = copy[lang];
+
+/*
+ * Avatars are generated initials, not the reviewer's real Google profile
+ * photo. Pulling a stranger's photo off their public Maps profile onto a
+ * commercial booking site is a step the reviewer never agreed to, even
+ * though the photo is technically public — so this mirrors Google's own
+ * fallback avatar (a coloured circle with an initial) instead. Deterministic
+ * per name, so a given reviewer always gets the same colour.
+ */
+const AVATAR_PALETTE = ["#c67139", "#7a8a5e", "#8c491a", "#56633f", "#b2622d", "#3d472b"];
+function avatarFor(name: string) {
+  let hash = 0;
+  for (const ch of name) hash = (hash * 31 + ch.charCodeAt(0)) >>> 0;
+  return {
+    initial: name.trim().charAt(0).toUpperCase(),
+    color: AVATAR_PALETTE[hash % AVATAR_PALETTE.length],
+  };
+}
 ---
 
 <div class="container">
@@ -86,6 +104,7 @@ const c = copy[lang];
     TESTIMONIALS.map((item) => {
       const text = testimonialText(item, lang);
       const activity = activityCopy(item.activity as ActivityKey, lang);
+      const avatar = avatarFor(item.name);
       return (
         <figure class="review">
           <div class="stars" aria-label={`${item.rating} / 5`}>
@@ -95,9 +114,14 @@ const c = copy[lang];
           </div>
           <blockquote>{text.quote}</blockquote>
           <figcaption>
-            <strong>{item.name}</strong>
-            <span class="review-origin">{text.origin}</span>
-            <span class="tag review-tag">{activity.name}</span>
+            <span class="review-avatar" style={`background:${avatar.color}`} aria-hidden="true">
+              {avatar.initial}
+            </span>
+            <span class="review-who">
+              <strong>{item.name}</strong>
+              <span class="review-origin">{text.origin}</span>
+              <span class="tag review-tag">{activity.name}</span>
+            </span>
           </figcaption>
         </figure>
       );
@@ -176,6 +200,29 @@ const c = copy[lang];
   }
   .review blockquote::after {
     content: close-quote;
+  }
+
+  .review figcaption {
+    display: flex;
+    align-items: center;
+    gap: var(--s2);
+  }
+
+  .review-avatar {
+    flex: none;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-display);
+    font-size: 15px;
+    color: var(--dark-text);
+  }
+
+  .review-who {
+    min-width: 0;
   }
 
   .review figcaption strong {

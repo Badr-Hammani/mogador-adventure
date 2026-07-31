@@ -20,9 +20,12 @@ export interface Testimonial {
 
 /*
  * REAL reviews, transcribed from the Google Business Profile
- * (maps.google.com/?cid=12071693882875441050). Last checked 29 July 2026, when
- * the profile stood at 5.0 from 4 reviews — the fourth is a bare 5-star rating
- * with no text, so there is nothing to transcribe from it.
+ * (maps.google.com/?cid=12071693882875441050). Last checked 31 July 2026, when
+ * the profile stood at 5.0 from 8 reviews. Two of those eight aren't here:
+ * one is a bare 5-star rating with no text (nothing to transcribe), and
+ * Soukaina's is a near-duplicate of the entry already below (same review, she
+ * just posted it under a second display name — "Soukaina Shares" — with two
+ * extra sentences; not worth a second card).
  *
  * These replace the three sample testimonials that came with the design
  * prototype — "Lena K., Berlin", "Marco R., Milan", "Amara O., Lagos". Those
@@ -98,6 +101,87 @@ export const TESTIMONIALS: Testimonial[] = [
       es: "Mi hijo y yo vivimos una experiencia de quad fenomenal con Mogador Adventures. El equipo fue profesional, amable y atento, y se aseguró de que lo pasáramos genial de principio a fin.",
       de: "Mein Sohn und ich hatten ein phänomenales Quad-Erlebnis mit Mogador Adventures. Das Team war professionell, freundlich und aufmerksam und hat dafür gesorgt, dass wir von Anfang bis Ende eine großartige Zeit hatten.",
       ar: "أنا وابني عشنا تجربة كواد رائعة مع Mogador Adventures. كان الفريق محترفاً ولطيفاً ومهتماً، وحرص على أن نقضي وقتاً ممتازاً من البداية إلى النهاية.",
+    },
+    origin: {
+      en: "Google review",
+      fr: "Avis Google",
+      es: "Reseña de Google",
+      de: "Google-Bewertung",
+      ar: "تقييم على غوغل",
+    },
+  },
+  {
+    name: "essa sports",
+    rating: 5,
+    activity: "quad",
+    quote: {
+      en: "One epic Activities in Essaouira i highly recommande it ❤️❤️❤️",
+      fr: "Une activité épique à Essaouira, je la recommande vivement ❤️❤️❤️",
+      es: "Una actividad épica en Essaouira, la recomiendo muchísimo ❤️❤️❤️",
+      de: "Eine legendäre Aktivität in Essaouira, ich empfehle sie sehr ❤️❤️❤️",
+      ar: "نشاط ملحمي في الصويرة، أنصح به بشدة ❤️❤️❤️",
+    },
+    origin: {
+      en: "Google review",
+      fr: "Avis Google",
+      es: "Reseña de Google",
+      de: "Google-Bewertung",
+      ar: "تقييم على غوغل",
+    },
+  },
+  {
+    name: "Anas Bouak",
+    rating: 5,
+    activity: "quad",
+    quote: {
+      en: "One of my favourite agencies in Essaouira.",
+      fr: "L'une de mes agences préférées à Essaouira.",
+      es: "Una de mis agencias favoritas en Essaouira.",
+      de: "Eine meiner Lieblingsagenturen in Essaouira.",
+      ar: "واحدة من وكالاتي المفضلة في الصويرة.",
+    },
+    origin: {
+      en: "Google review",
+      fr: "Avis Google",
+      es: "Reseña de Google",
+      de: "Google-Bewertung",
+      ar: "تقييم على غوغل",
+    },
+  },
+  {
+    name: "Sara Belhou",
+    rating: 5,
+    activity: "quad",
+    quote: {
+      en: "Amazing energy, an incredible team. Highly recommend if you're looking for something unique.",
+      fr: "Une énergie incroyable, une équipe formidable. Je recommande vivement si vous cherchez quelque chose d'unique.",
+      es: "Energía increíble, un equipo excepcional. Muy recomendable si buscas algo único.",
+      de: "Unglaubliche Energie, ein großartiges Team. Sehr zu empfehlen, wenn du etwas Besonderes suchst.",
+      ar: "طاقة رائعة وفريق مذهل. أنصح به بشدة إن كنت تبحث عن شيء مميز.",
+    },
+    origin: {
+      en: "Google review",
+      fr: "Avis Google",
+      es: "Reseña de Google",
+      de: "Google-Bewertung",
+      ar: "تقييم على غوغل",
+    },
+  },
+  {
+    /*
+     * The only new arrival with real length to it — written in Spanish, so
+     * that's the verbatim language here rather than English (see the module
+     * comment: keep the ORIGINAL language verbatim, translate the rest).
+     */
+    name: "Dalila Chanbat",
+    rating: 5,
+    activity: "quad",
+    quote: {
+      en: "We just did the dune tour with Mogador Adventures and it was spectacular. The facilities are really well kept and organised. The vehicles are in perfect condition, which gives you a lot of confidence and makes the ride a blast. But without a doubt, the best part of the experience is the team. The guys are super friendly, warm and attentive the whole time to make sure you enjoy it to the fullest and want for nothing. Absolutely top-notch service!",
+      fr: "Nous venons de faire le tour des dunes avec Mogador Adventures et c'était spectaculaire. Les installations sont impeccables, très soignées et bien organisées. Les véhicules sont en parfait état, ce qui donne beaucoup de sécurité et rend la balade grisante. Mais sans aucun doute, le meilleur de l'expérience, c'est l'équipe. Les gars sont super sympas, chaleureux et attentifs à chaque instant pour que vous profitiez au maximum et ne manquiez de rien. Un service parfait !",
+      es: "Acabamos de hacer el tour por las dunas con Mogador Adventures y ha sido espectacular. Las instalaciones están súper bien, muy cuidadas y organizadas. Los vehículos están en perfectas condiciones, lo que te da muchísima seguridad y hace que la ruta sea una pasada. Pero sin duda, lo mejor de la experiencia es el equipo. Los chicos son súper amables, cercanos y están súper atentos en todo momento para asegurarse de que disfrutes al máximo y no te falte de nada. ¡Un trato de 10!",
+      de: "Wir haben gerade die Dünentour mit Mogador Adventures gemacht und es war spektakulär. Die Ausstattung ist top gepflegt und organisiert. Die Fahrzeuge sind in einwandfreiem Zustand, was viel Sicherheit gibt und die Fahrt zu einem Erlebnis macht. Aber das Beste an der Erfahrung ist zweifellos das Team. Die Jungs sind super freundlich, herzlich und die ganze Zeit aufmerksam, damit du es in vollen Zügen genießst und dir nichts fehlt. Absolut erstklassiger Service!",
+      ar: "قمنا للتو بجولة الكثبان مع Mogador Adventures وكانت رائعة. المرافق في حالة ممتازة، معتنى بها ومنظمة جداً. المركبات في حالة ممتازة، ما يمنحك أماناً كبيراً ويجعل الجولة مثيرة. لكن بلا شك، أفضل ما في التجربة هو الفريق. الشباب لطفاء جداً، ودودون ومهتمون طوال الوقت للتأكد من أنك تستمتع إلى أقصى حد ولا ينقصك شيء. خدمة ممتازة بامتياز!",
     },
     origin: {
       en: "Google review",
