@@ -376,7 +376,9 @@ const packages = showPackages ? ORDERED_PACKAGES.slice(0, 3) : [];
   .stars {
     display: flex;
     gap: 2px;
-    color: var(--accent);
+    /* Icon fill needs 3:1 against the card background; the pure logo
+       --accent only clears ~2.3:1 on --surface-elevated. */
+    color: var(--accent-hover);
   }
   .testimonial blockquote {
     margin: 0;

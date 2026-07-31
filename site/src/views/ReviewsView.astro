@@ -75,7 +75,15 @@ const c = copy[lang];
  * fallback avatar (a coloured circle with an initial) instead. Deterministic
  * per name, so a given reviewer always gets the same colour.
  */
-const AVATAR_PALETTE = ["#c67139", "#7a8a5e", "#8c491a", "#56633f", "#b2622d", "#3d472b"];
+/*
+ * All six are dark enough for the white initial on top to clear 4.5:1 —
+ * the vivid --accent/--sage tokens themselves are too light for that (as
+ * low as 3.41:1), which is exactly the trap the CSS custom properties fell
+ * into before the color-contrast fixes. Hardcoded rather than var()'d
+ * because these need to stay legible regardless of what the design tokens
+ * do later.
+ */
+const AVATAR_PALETTE = ["#894b06", "#56633f", "#9d5606", "#3d472b", "#201e1d", "#6b3d20"];
 function avatarFor(name: string) {
   let hash = 0;
   for (const ch of name) hash = (hash * 31 + ch.charCodeAt(0)) >>> 0;
@@ -185,7 +193,9 @@ function avatarFor(name: string) {
   .stars {
     display: flex;
     gap: 2px;
-    color: var(--accent);
+    /* Icon fill needs 3:1 against the card background; the pure logo
+       --accent only clears ~2.3:1 on --surface-elevated. */
+    color: var(--accent-hover);
   }
 
   .review blockquote {

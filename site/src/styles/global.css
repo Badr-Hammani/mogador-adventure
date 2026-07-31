@@ -12,10 +12,23 @@
   /* Colour */
   --bg: #f5ead8;
   --text: #201e1d;
-  --accent: #c67139;
-  --accent-hover: #b2622d;
-  --accent-dark: #8c491a;
-  --accent-tint: #fff2eb;
+  /*
+   * Sampled directly from the real logo file (pixel-averaged across the
+   * "MOGADOR" wordmark and sun mark: R243-245 G130-135 B8-10) rather than
+   * eyeballed — the old #c67139 was a muted, desaturated guess from an
+   * earlier pass and didn't actually match. --accent is the true logo
+   * orange; --accent-hover and --accent-dark are the same hue at lower
+   * lightness, not different colors, because the pure logo orange only
+   * clears 2.1-2.5:1 against the site's cream backgrounds — nowhere near
+   * the 3:1 a border/icon needs or the 4.5:1 text needs. Use --accent for
+   * large fills/backgrounds; use --accent-hover for borders, icons and
+   * outlines on light surfaces; use --accent-dark for any text or
+   * text-on-accent-background pairing.
+   */
+  --accent: #f5860a;
+  --accent-hover: #9d5606;
+  --accent-dark: #894b06;
+  --accent-tint: #fef4e9;
   --sage: #7a8a5e;
   --sage-dark: #56633f;
   --sage-tint: #f0fae1;
@@ -318,7 +331,9 @@ button {
 }
 
 .btn-outline {
-  border: 1.5px solid var(--accent);
+  /* A border needs 3:1 against its surroundings (WCAG non-text contrast);
+     the pure logo --accent only clears ~2:1 on this site's cream tones. */
+  border: 1.5px solid var(--accent-hover);
   color: var(--accent-dark);
   background: transparent;
 }
@@ -600,7 +615,8 @@ button {
 .input:focus,
 .select:focus,
 .textarea:focus {
-  outline: 2px solid var(--accent);
+  /* Same non-text-contrast reasoning as .btn-outline above. */
+  outline: 2px solid var(--accent-hover);
   outline-offset: 1px;
 }
 
