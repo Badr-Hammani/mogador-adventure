@@ -107,7 +107,7 @@ function avatarFor(name: string) {
       const avatar = avatarFor(item.name);
       return (
         <figure class="review">
-          <div class="stars" aria-label={`${item.rating} / 5`}>
+          <div class="stars" role="img" aria-label={`${item.rating} / 5`}>
             {Array.from({ length: item.rating }).map(() => (
               <Icon name="star" size={15} />
             ))}
@@ -231,7 +231,8 @@ function avatarFor(name: string) {
   }
   .review-origin {
     font-size: 12px;
-    opacity: 0.6;
+    /* 0.6 rendered at 4.24:1 on --surface-elevated, just under the 4.5:1 minimum. */
+    opacity: 0.65;
   }
   .review-tag {
     display: inline-block;

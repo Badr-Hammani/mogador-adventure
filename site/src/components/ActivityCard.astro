@@ -31,7 +31,7 @@ const href = pathFor("activity", lang, { activity });
     {
       price > 0 && (
         <span class="card-price">
-          {s.from_price} <strong>{money(price)}</strong>
+          <span class="card-price-label">{s.from_price}</span> <strong>{money(price)}</strong>
         </span>
       )
     }
@@ -85,12 +85,22 @@ const href = pathFor("activity", lang, { activity });
 
   .card-price {
     font-size: 13px;
+  }
+  /*
+   * The muting used to be `opacity: 0.75` on .card-price itself, with
+   * `strong` trying to opt back out via `opacity: 1`. That doesn't work —
+   * opacity composites the whole subtree, so a child's opacity:1 is relative
+   * to its already-dimmed parent, not to full strength. It rendered
+   * --accent-dark at an effective ~3.2:1 contrast instead of its real
+   * 5.09:1. Scoping the dimming to just the label text fixes both the look
+   * and the contrast.
+   */
+  .card-price-label {
     opacity: 0.75;
   }
   .card-price strong {
     font-family: var(--font-display);
     font-size: 16px;
-    opacity: 1;
     color: var(--accent-dark);
   }
 </style>

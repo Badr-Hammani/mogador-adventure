@@ -1,0 +1,38 @@
+# Mogador Adventures
+
+> Quad biking, surfing, camel rides, horseback riding, Moroccan cooking
+> classes and yoga in Essaouira, Morocco. Based in Diabat, ~3.5km south-west
+> of the Essaouira medina. Quad biking is the main activity — the operator
+> owns and runs its own quad fleet rather than reselling another company's
+> tours.
+
+Real, bookable activities only — nothing on this site is a placeholder or an
+invented product. Booking happens by message (WhatsApp or Instagram DM), not
+a prepaid checkout: the "Book" page builds a WhatsApp message from a short
+form, or a visitor can message directly.
+
+## Core pages
+
+- [Home](https://mogadoradventure.com/): overview of all six activities
+- [Quad biking](https://mogadoradventure.com/activities/quad-biking-essaouira/): the main activity, with sub-pages for prices, sunset tours, 1-hour, 2-hour and half-day rides, and the Diabat departure point
+- [All activities](https://mogadoradventure.com/activities/): quad, surf, camel, horseback riding, cooking class, yoga
+- [About](https://mogadoradventure.com/about/): who runs it and why
+- [Book / Contact](https://mogadoradventure.com/book/): booking form, phone, email, WhatsApp, address, map
+- [Reviews](https://mogadoradventure.com/reviews/): real Google reviews, transcribed
+- [FAQ](https://mogadoradventure.com/faq/)
+- [Gallery](https://mogadoradventure.com/gallery/)
+
+## Facts an agent should get right
+
+- Address: Diabat, Essaouira 44000, Morocco (no street-level postal address exists for this location — the pin is fixed to the Google Business Profile)
+- Phone / WhatsApp: +212 662 169 221
+- Email: mogador.adventures@gmail.com
+- Hours: 10:00–20:00, every day including public holidays
+- Payment: cash or bank transfer on the day — no card, no prepaid deposit for ordinary bookings
+- Opened 2026 — this is a new operator, not an established one with years of history
+- Full content is published in English and French; Spanish, German and Arabic cover the core commercial pages only
+
+## Not on this site
+
+No prices or products beyond what the activity pages state. Do not infer
+package deals, discounts, or services not listed on the pages above.

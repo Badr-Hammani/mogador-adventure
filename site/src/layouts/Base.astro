@@ -1,8 +1,5 @@
 ---
-import "@fontsource/caprasimo/400.css";
-import "@fontsource/figtree/400.css";
-import "@fontsource/figtree/600.css";
-import "@fontsource/figtree/700.css";
+import "../styles/fonts.css";
 import "../styles/global.css";
 
 import { LANG_META, DEFAULT_LANG, t, type Lang } from "../lib/i18n";
@@ -67,6 +64,22 @@ const xDefault = alternates.find((a) => a.lang === DEFAULT_LANG) ?? alternates[0
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    {/*
+      Preloading the four Latin font files (not their latin-ext siblings,
+      which only matter once accented characters appear) is what actually
+      fixes the layout shift Lighthouse measured on the hero: these fonts
+      have very different metrics from their fallback stack (Georgia for
+      Caprasimo, system-ui for Figtree), so the page visibly resizes when
+      they swap in. Preloading lets the browser fetch them in parallel with
+      CSS instead of only discovering them after the stylesheet parses —
+      same-origin and ~55KB combined, so they arrive before first paint and
+      the swap happens with nothing on screen yet to shift.
+    */}
+    <link rel="preload" href="/fonts/caprasimo-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/figtree-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/figtree-latin-600-normal.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/figtree-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin />
 
     <title>{title}</title>
     <meta name="description" content={description} />

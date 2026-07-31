@@ -189,7 +189,9 @@ button {
   inset-inline-start: -9999px;
   top: 0;
   z-index: 100;
-  background: var(--accent);
+  /* --accent is 3.03:1 against --bg text, under the 4.5:1 minimum for text —
+     see the .btn-primary comment below for the full explanation. */
+  background: var(--accent-dark);
   color: var(--bg);
   padding: var(--s2) var(--s4);
   border-radius: 0 0 var(--r-tag) 0;
@@ -218,13 +220,16 @@ button {
   font-size: 12px;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--accent);
+  /* --accent fails WCAG contrast at this size (3.03:1 on --bg); --accent-dark
+     passes at 5.72:1 while staying the same hue. */
+  color: var(--accent-dark);
   margin: 0 0 var(--s1);
   font-weight: 600;
 }
 
 .kicker-sage {
-  color: var(--sage);
+  /* Same reasoning as .kicker above: --sage is 2.78:1 on --surface, --sage-dark is 4.82:1. */
+  color: var(--sage-dark);
 }
 
 .h1-hero {
@@ -296,7 +301,16 @@ button {
 }
 
 .btn-primary {
-  background: var(--accent);
+  /*
+   * --accent (#c67139) on --bg (#f5ead8) text is 3.03:1 — Lighthouse flagged
+   * this exact pairing on the CTA band, and it's the same background/text
+   * combination used for every primary button site-wide, not just there.
+   * --accent-dark clears the 4.5:1 text minimum at 5.72:1 while staying the
+   * same hue. Hover goes the other way (lighter, --accent-hover) rather than
+   * darker still, since darkening further from an already-dark base reads as
+   * "disabled" rather than "hovered".
+   */
+  background: var(--accent-dark);
   color: var(--bg);
 }
 .btn-primary:hover {
@@ -603,7 +617,9 @@ button {
 /* ------------------------------------------------------------------ */
 
 .cta-band {
-  background: var(--accent);
+  /* --accent fails contrast for every text/button combo on this band (down
+     to 2.48:1 for .cta-note); --accent-dark clears 4.5:1 for all of them. */
+  background: var(--accent-dark);
   color: var(--bg);
   text-align: center;
   padding-block: var(--s9);

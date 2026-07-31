@@ -82,7 +82,15 @@ const wa = waLink(
       is crawlable and middle-click/open-in-new-tab behave normally.
     */}
     <details class="lang-switch" data-lang-switch>
-      <summary aria-label={s.lang_label}>
+      {
+        /*
+         * aria-label must contain the visible text for voice-control users
+         * ("click EN" only works if "EN" is actually part of the accessible
+         * name) — a plain aria-label="Language" with "EN" only in a child
+         * span discards the visible label entirely.
+         */
+      }
+      <summary aria-label={`${lang.toUpperCase()} — ${s.lang_label}`}>
         <Flag code={lang} size={18} />
         <span class="lang-code">{lang.toUpperCase()}</span>
         <span class="lang-chevron" aria-hidden="true">
@@ -269,7 +277,9 @@ const wa = waLink(
   .header-cta {
     display: none;
     align-items: center;
-    background: var(--accent);
+    /* --accent on --bg text is 3.03:1, under the 4.5:1 minimum — see the
+       .btn-primary comment in global.css for the full explanation. */
+    background: var(--accent-dark);
     color: var(--bg);
     font-family: var(--font-display);
     font-size: 13px;
