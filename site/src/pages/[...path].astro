@@ -44,6 +44,7 @@ import BlogPostView from "../views/BlogPostView.astro";
 import DiscoverView from "../views/DiscoverView.astro";
 import ReviewsView from "../views/ReviewsView.astro";
 import LegalView from "../views/LegalView.astro";
+import CardView from "../views/CardView.astro";
 
 export const getStaticPaths = (() => {
   return allPages().map((entry) => ({
@@ -246,6 +247,13 @@ switch (key) {
     break;
   }
 
+  case "card": {
+    title = `${SITE.name} — ${s.hero_badge}`;
+    description = s.footer_tagline;
+    ogImage = photoUrl("quad-rider-joy-beach-essaouira.jpg", site) ?? ogImage;
+    break;
+  }
+
   case "blog": {
     title = `${s.blog_title} | ${SITE.name}`;
     description = s.blog_sub;
@@ -322,6 +330,7 @@ const blogPost =
   ogType={ogType}
   schemaNodes={schemaNodes}
   simpleFooter={simpleFooter}
+  bare={key === "card"}
 >
   {crumbs.length > 1 && <Breadcrumbs crumbs={crumbs} />}
 
@@ -337,6 +346,7 @@ const blogPost =
   {key === "faq" && <FaqView lang={lang} />}
   {key === "book" && <BookView lang={lang} />}
   {key === "reviews" && <ReviewsView lang={lang} />}
+  {key === "card" && <CardView lang={lang} alternates={alternates} />}
   {key === "blog" && <BlogHubView lang={lang} />}
   {
     key === "blogPost" && blogPost && (

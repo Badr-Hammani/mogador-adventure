@@ -125,6 +125,7 @@ export function allPages(): PageEntry[] {
     ),
     ...simple("essaouiraActivities", 0.8, "monthly"),
     ...simple("book", 0.9, "monthly"),
+    ...simple("card", 0.5, "monthly"),
     ...simple("about", 0.6, "monthly"),
     ...simple("gallery", 0.6, "monthly"),
     ...simple("faq", 0.7, "monthly"),

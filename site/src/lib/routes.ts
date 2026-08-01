@@ -67,6 +67,7 @@ export type PageKey =
   | "reviews"
   | "blog"
   | "blogPost"
+  | "card"
   | "privacy"
   | "terms"
   | "cancellation";
@@ -178,6 +179,21 @@ export const SEGMENTS: Record<string, SegMap> = {
     es: "actividades-essaouira",
     de: "aktivitaeten-essaouira",
     ar: "anshitat-essaouira",
+  },
+  /*
+   * The QR-code / signage landing page. Deliberately available in all five
+   * languages (not gated behind FULL_LANGS like packages/blog/reviews) — a
+   * sign in the medina gets scanned by whoever's walking past, and the
+   * whole point is not repeating the competitor's mistake of a French-only
+   * card. One physical QR code points at the English version; a language
+   * switcher on the card itself reaches the other four.
+   */
+  card: {
+    en: "card",
+    fr: "carte",
+    es: "tarjeta",
+    de: "karte",
+    ar: "bitaqa",
   },
   privacy: {
     en: "privacy",

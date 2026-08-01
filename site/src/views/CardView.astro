@@ -1,0 +1,388 @@
+---
+/**
+ * The QR-code landing card — what a "Scan me" sign in the medina points at.
+ *
+ * Built after checking a direct competitor's version of this exact page
+ * (yassminequad.com/yassmine-quad-card.html). Theirs got the fundamentals
+ * right: one static page, WhatsApp first, socials in one row. It also had
+ * three real gaps this version closes:
+ *   1. No trust signal on the card itself — you had to click through to
+ *      Google to find out if they were any good. This one shows the real
+ *      rating badge (GoogleRating) before the fold.
+ *   2. No price anchor — this one leads with "From €30".
+ *   3. French only, no switcher — a sign in the medina gets scanned by
+ *      whoever's walking past. This ships in all five site languages with
+ *      a switcher on the card itself.
+ *
+ * Deliberately NOT using a stock/illustrated hero — a real photo of a real
+ * guest is exactly the "real guides, real fleet" differentiator the rest of
+ * the site's brand voice already leans on (see mogador-brand-voice memory).
+ */
+import { t, type Lang } from "../lib/i18n";
+import { pathFor, ACTIVITY_KEYS, type ActivityKey } from "../lib/routes";
+import { SITE, waLink, money } from "../lib/site";
+import { CONFIG } from "../lib/config";
+import { ACTIVITY_META, activityCopy } from "../data/activities";
+import { fromPrice } from "../data/pricing";
+import Photo from "../components/Photo.astro";
+import Icon from "../components/Icon.astro";
+import Flag from "../components/Flag.astro";
+import GoogleRating from "../components/GoogleRating.astro";
+
+interface Props {
+  lang: Lang;
+  alternates: { lang: Lang; path: string }[];
+}
+
+const { lang, alternates } = Astro.props;
+const s = t(lang);
+
+const greetings: Record<Lang, string> = {
+  en: "Hi Mogador Adventures! I'd like to book an adventure.",
+  fr: "Bonjour Mogador Adventures ! Je souhaite réserver une aventure.",
+  es: "¡Hola Mogador Adventures! Me gustaría reservar una aventura.",
+  de: "Hallo Mogador Adventures! Ich möchte gern ein Abenteuer buchen.",
+  ar: "مرحباً Mogador Adventures! أودّ حجز مغامرة.",
+};
+
+const quadPrice = fromPrice("quad");
+const wa = waLink(greetings[lang]);
+const activitiesHref = pathFor("activities", lang);
+
+const activities = ACTIVITY_KEYS.map((key: ActivityKey) => ({
+  key,
+  name: activityCopy(key, lang).name,
+  icon: ACTIVITY_META[key].icon,
+  href: pathFor("activity", lang, { activity: key }),
+}));
+---
+
+<div class="card-page">
+  <nav class="lang-row" aria-label={s.lang_label}>
+    {
+      alternates.map((alt) => (
+        <a
+          href={alt.path}
+          class:list={["lang-pill", { current: alt.lang === lang }]}
+          aria-current={alt.lang === lang ? "true" : undefined}
+        >
+          <Flag code={alt.lang} size={16} />
+        </a>
+      ))
+    }
+  </nav>
+
+  <main class="card">
+    <div class="card-photo">
+      <Photo
+        src="quad-rider-joy-beach-essaouira-45.jpg"
+        alt={activityCopy("quad", lang).name}
+        ratio="4-5"
+        eager
+        sizes="(max-width: 480px) 100vw, 420px"
+        class="hero-photo"
+      />
+    </div>
+
+    <div class="card-body">
+      <h1 class="card-name">{SITE.name}</h1>
+      <p class="card-badge">
+        <Icon name="pin" size={13} />
+        {s.hero_badge}
+      </p>
+
+      <div class="card-rating">
+        <GoogleRating lang={lang} />
+      </div>
+
+      <p class="card-tagline">{s.footer_tagline}</p>
+
+      <ul class="pills">
+        {
+          activities.map((a, i) => (
+            <li>
+              <a href={a.href} class:list={["pill", { "pill-lead": i === 0 }]}>
+                <Icon name={a.icon} size={14} />
+                {a.name}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+
+      <p class="card-price">
+        {s.from_price} <strong>{money(quadPrice)}</strong>
+        <span class="card-price-note">
+          — {activityCopy("quad", lang).name}
+        </span>
+      </p>
+
+      <div class="card-actions">
+        <a href={wa} target="_blank" rel="noopener" class="btn-wa">
+          <Icon name="whatsapp" size={19} stroke={2} />
+          {s.cta_whatsapp}
+        </a>
+        <a href={activitiesHref} class="btn-outline-card">
+          {s.cta_activities}
+        </a>
+      </div>
+
+      <p class="card-trust">
+        <Icon name="check" size={14} stroke={2.6} />
+        {s.trust_reply}
+      </p>
+
+      <div class="card-socials">
+        <span class="socials-label">{s.footer_follow}</span>
+        <div class="socials-row">
+          <a href={SITE.social.instagram} target="_blank" rel="noopener" aria-label="Instagram">
+            <Icon name="instagram" size={18} stroke={2} />
+          </a>
+          <a href={SITE.social.tiktok} target="_blank" rel="noopener" aria-label="TikTok">
+            <Icon name="tiktok" size={18} stroke={2} />
+          </a>
+          {
+            CONFIG.googleMapsUrl && (
+              <a href={CONFIG.googleMapsUrl} target="_blank" rel="noopener" aria-label="Google">
+                <Icon name="star" size={18} stroke={2} />
+              </a>
+            )
+          }
+        </div>
+      </div>
+
+      <a href={`tel:${SITE.phoneE164}`} class="card-phone">
+        {SITE.phone}
+      </a>
+    </div>
+  </main>
+</div>
+
+<style>
+  .card-page {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--s3);
+    padding: var(--s4) var(--gutter) var(--s7);
+    background: var(--bg);
+  }
+
+  .lang-row {
+    display: flex;
+    gap: 6px;
+  }
+
+  .lang-pill {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 1.5px solid transparent;
+    opacity: 0.55;
+  }
+  .lang-pill.current {
+    border-color: var(--accent-hover);
+    opacity: 1;
+  }
+  .lang-pill :global(.flag) {
+    width: 20px;
+    height: 20px;
+  }
+
+  .card {
+    width: 100%;
+    max-width: 420px;
+    background: var(--surface-elevated);
+    border-radius: var(--r-card);
+    box-shadow: var(--shadow-panel);
+    overflow: hidden;
+  }
+
+  .card-photo {
+    position: relative;
+  }
+  .card-photo :global(.photo-frame) {
+    border-radius: 0;
+    margin: 0;
+  }
+
+  .card-body {
+    padding: var(--s5);
+    text-align: center;
+  }
+
+  .card-name {
+    font-family: var(--font-display);
+    font-size: 26px;
+    margin: 0;
+  }
+
+  .card-badge {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    font-size: 13px;
+    opacity: 0.65;
+    margin: 4px 0 var(--s3);
+  }
+
+  .card-rating {
+    display: flex;
+    justify-content: center;
+    margin-block-end: var(--s3);
+  }
+
+  .card-tagline {
+    font-size: 14px;
+    line-height: 1.6;
+    opacity: 0.85;
+    margin: 0 0 var(--s4);
+  }
+
+  .pills {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 6px;
+    margin: 0 0 var(--s4);
+    padding: 0;
+  }
+
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 6px 12px;
+    border-radius: var(--r-pill);
+    background: var(--surface);
+    color: var(--text);
+    border: 1px solid var(--border);
+  }
+  /*
+   * Not .lead — global.css already owns that class name for lede
+   * paragraphs (opacity: .85), unscoped, so it silently applied on top of
+   * this too and washed the contrast out to 4.24:1. Cost real time to
+   * chase down: getComputedStyle showed the intended colors, but the
+   * actual painted opacity was coming from a rule this file never touches.
+   */
+  .pill-lead {
+    background: var(--accent-dark);
+    color: var(--bg);
+    border-color: transparent;
+  }
+
+  .card-price {
+    font-size: 15px;
+    margin: 0 0 var(--s4);
+  }
+  .card-price strong {
+    font-family: var(--font-display);
+    font-size: 19px;
+    color: var(--accent-dark);
+  }
+  .card-price-note {
+    opacity: 0.65;
+    font-size: 13px;
+  }
+
+  .card-actions {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s2);
+    margin-block-end: var(--s3);
+  }
+
+  .btn-wa {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    /*
+     * The real WhatsApp green (#25d366) with white text is only 1.98:1 —
+     * fails badly. This is the same hue and saturation, just darkened to
+     * 4.58:1, so it still reads unmistakably as "this opens WhatsApp."
+     * Hover goes the other way, to the actual brand green — same
+     * brightens-on-hover pattern used for the site's orange buttons.
+     */
+    background: #188741;
+    color: #fff;
+    font-family: var(--font-display);
+    font-size: 16px;
+    padding: 15px;
+    border-radius: var(--r-pill);
+    transition: background-color 0.15s ease;
+  }
+  .btn-wa:hover {
+    background: #25d366;
+  }
+
+  .btn-outline-card {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1.5px solid var(--accent-hover);
+    color: var(--accent-dark);
+    font-weight: 700;
+    font-size: 14px;
+    padding: 13px;
+    border-radius: var(--r-pill);
+    transition: background-color 0.15s ease;
+  }
+  .btn-outline-card:hover {
+    background: var(--accent-tint);
+  }
+
+  .card-trust {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    font-size: 12px;
+    opacity: 0.7;
+    margin: 0 0 var(--s4);
+  }
+  .card-trust :global(svg) {
+    color: var(--accent-dark);
+    flex-shrink: 0;
+  }
+
+  .card-socials {
+    border-top: 1px solid var(--border-light);
+    padding-block-start: var(--s4);
+    margin-block-end: var(--s3);
+  }
+
+  .socials-label {
+    display: block;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    /* 0.5 rendered at 3.17:1 on --surface-elevated, under the 4.5:1 minimum. */
+    opacity: 0.65;
+    margin-block-end: var(--s2);
+  }
+
+  .socials-row {
+    display: flex;
+    justify-content: center;
+    gap: var(--s3);
+    color: var(--text);
+  }
+  .socials-row a:hover {
+    color: var(--accent-dark);
+  }
+
+  .card-phone {
+    display: block;
+    font-size: 13px;
+    opacity: 0.65;
+  }
+</style>

@@ -29,6 +29,14 @@ interface Props {
   schemaNodes?: (Record<string, unknown> | null | undefined)[];
   simpleFooter?: boolean;
   noindex?: boolean;
+  /**
+   * Skips Header, Footer and the WhatsApp FAB entirely — for single-purpose
+   * landing pages (the QR-code card) that need to be as fast and
+   * distraction-free as a physical business card, not a page inside the
+   * site's normal navigation. Everything else (fonts, analytics, schema,
+   * meta tags) still applies.
+   */
+  bare?: boolean;
 }
 
 const {
@@ -43,6 +51,7 @@ const {
   schemaNodes = [],
   simpleFooter = false,
   noindex = false,
+  bare = false,
 } = Astro.props;
 
 const meta = LANG_META[lang];
@@ -167,14 +176,14 @@ const xDefault = alternates.find((a) => a.lang === DEFAULT_LANG) ?? alternates[0
   <body>
     <a href="#main" class="skip-link">{s.skip_to_content}</a>
 
-    <Header lang={lang} current={current} alternates={alternates} />
+    {!bare && <Header lang={lang} current={current} alternates={alternates} />}
 
     <main id="main">
       <slot />
     </main>
 
-    <Footer lang={lang} simple={simpleFooter} />
-    <WhatsAppFab lang={lang} />
+    {!bare && <Footer lang={lang} simple={simpleFooter} />}
+    {!bare && <WhatsAppFab lang={lang} />}
   </body>
 </html>
 
